@@ -15,6 +15,7 @@
 - [주제 선정 과정](https://github.com/RayJun-M/KH_Final-Project/tree/main/Document/Plan-Subject)
 - [프로젝트 기획 과정](https://github.com/RayJun-M/KH_Final-Project/tree/main/Document/Project-Proposal)
 - [UI 디자인 설계](https://github.com/RayJun-M/KH_Final-Project/tree/main/Document/UI-Design)
+- [문제 해결 과정](https://github.com/RayJun-M/KH_Final-Project/tree/main/Document/Problem-Solving)
 <br>
 
 ### ⚙ 사용 기술 · 개발 환경
@@ -62,7 +63,7 @@
 	</tr>
 	<tr height="30">
 		<td style="background-color: rgb(30, 160, 130); font-weight: bold;">프론트엔드</td>
-		<td colspan="3">프로토타이핑 (메인 화면)</td>
+		<td colspan="3">프로토타이핑 (메인)</td>
 	</tr>
 </table>
 <br>
@@ -98,7 +99,7 @@
 <table border="1" align="center" style="text-align: center; border-collapse: collapse; font-size:13px;">
 	<tr height="30">
 		<td width="150" style="background-color: rgb(30, 160, 130); font-weight: bold;">프론트엔드</td>
-		<td width="250">프로토타이핑 (회원 서비스)</td>
+		<td width="250">프로토타이핑 (회원)</td>
 	</tr>
 </table>
 <br>
@@ -107,7 +108,7 @@
 <table border="1" align="center" style="text-align: center; border-collapse: collapse; font-size:13px;">
 	<tr height="30">
 		<td width="150" style="background-color: rgb(30, 160, 130); font-weight: bold;">프론트엔드</td>
-		<td width="250">프로토타이핑 (콘텐츠 서비스)</td>
+		<td width="250">프로토타이핑 (콘텐츠)</td>
 	</tr>
 </table>
 <br>
@@ -120,6 +121,6 @@
 	</tr>
 	<tr height="30">
 		<td style="background-color: rgb(30, 160, 130); font-weight: bold;">프론트엔드</td>
-		<td>프로토타이핑 (커뮤니티 서비스)</td>
+		<td>프로토타이핑 (커뮤니티)</td>
 	</tr>
 </table>

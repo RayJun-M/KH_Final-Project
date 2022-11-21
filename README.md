@@ -42,6 +42,10 @@
 		<td style="font-weight: bold;">UI 프로토타이핑</td>
 		<td colspan="2">Kakao Oven</td>
 	</tr>
+	<tr height="40">
+		<td style="font-weight: bold;">웹 사이트 로고 제작</td>
+		<td colspan="2">Piskel</td>
+	</tr>
 </table>
 <br>
 
@@ -63,7 +67,8 @@
 	</tr>
 	<tr height="30">
 		<td style="background-color: rgb(30, 160, 130); font-weight: bold;">프론트엔드</td>
-		<td colspan="3">프로토타이핑 (메인)</td>
+		<td>프로토타이핑 (메인)</td>
+		<td colspan="2">웹 사이트 로고 제작</td>
 	</tr>
 </table>
 <br>

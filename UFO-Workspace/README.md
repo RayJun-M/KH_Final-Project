@@ -1,7 +1,7 @@
 # 🛸 <span style="color: #64ffda;">프로젝트 구현</span> 🛸
 <br>
 
-#### 👩🏻‍💻 Spring Project 생성 및 환경 설정
+### 👩🏻‍💻 Spring Project 생성 및 환경 설정
 1. 워크스페이스 폴더 생성 (UFO-Workspace)
 2. 개발 환경 : 화면 설정
 3. 개발 환경 : 인코딩 설정 (UTF-8)
@@ -17,7 +17,7 @@
 13. lib 폴더 생성 + 라이브러리 파일 추가 (.jar)
 <br>
 
-##### 추가 라이브러리 (Maven)
+#### 📂 추가 라이브러리 (Maven)
 1. DB 관련 라이브러리
 	1. ojdbc6 라이브러리 (11.2.0.4) : DB 접속에 필요한 Oracle JDBC Driver
 	2. Spring JDBC 라이브러리 (5.3.23) : Spring에서 JDBC 사용할 수 있게 설정
@@ -26,7 +26,7 @@
 	5. Commons DBCP 라이브러리 (1.4) : Connection 객체 재활용 가능한 Connection Pool
 <br>
 
-##### 추가 라이브러리 (.jar)
+#### 📁 추가 라이브러리 (.jar)
 1. JSTL 1.0 지원 라이브러리
 	1. Apache Standard Taglib 1.0 Compatibility (1.2.5)
 	2. Apache Standard Taglib Implementation (1.2.5)

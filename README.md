@@ -100,8 +100,18 @@
 		<td colspan="2">웹 사이트 로고 제작</td>
 	</tr>
 	<tr height="30">
-		<td style="background-color: rgb(30, 160, 130); font-weight: bold;">백엔드</td>
-		<td colspan="3">Spring Project 생성 및 환경 설정</td>
+		<td rowspan="3" style="background-color: rgb(30, 160, 130); font-weight: bold;">백엔드</td>
+		<td>Spring Project 생성<br>및 환경 설정</td>
+		<td>콘텐츠 조회 · 검색<br>· 필터 · 정렬 · 시청 · 찜</td>
+		<td>콘텐츠 회차/시리즈<br>조회 · 필터 · 정렬</td>
+	</tr>
+	<tr height="30">
+		<td>마이 페이지 :<br>시청 내역 조회 · 삭제</td>
+		<td>마이 페이지 :<br>콘텐츠 찜 목록 조회 · 삭제</td>
+		<td>고객센터 :<br>1:1 문의 챗봇</td>
+	</tr>
+	<tr height="30">
+		<td colspan="3">관리자 : 콘텐츠 조회 · 검색 · 필터 · 정렬 · 등록 · 수정 · 삭제</td>
 	</tr>
 </table>
 <br>
@@ -110,16 +120,21 @@
 <table border="1" align="center" style="text-align: center; border-collapse: collapse; font-size:13px;">
 	<tr height="30">
 		<td width="150" style="background-color: rgb(30, 160, 130); font-weight: bold;">문서</td>
-		<td width="250">회의 내용 기록</td>
-		<td width="250">GitHub 사용법 자료 제작</td>
+		<td>회의 내용 기록</td>
+		<td colspan="2">GitHub 사용법 자료 제작</td>
 	</tr>
 	<tr height="30">
 		<td style="background-color: rgb(30, 160, 130); font-weight: bold;">프론트엔드</td>
-		<td colspan="2">프로토타이핑 (고객센터)</td>
+		<td colspan="3">프로토타이핑 (고객센터)</td>
 	</tr>
 	<tr height="30">
-		<td style="background-color: rgb(30, 160, 130); font-weight: bold;">백엔드</td>
-		<td colspan="2">Spring Project 생성 및 환경 설정</td>
+		<td rowspan="2" style="background-color: rgb(30, 160, 130); font-weight: bold;">백엔드</td>
+		<td width="250">Spring Project 생성<br>및 환경 설정</td>
+		<td width="250">별점/코멘트 조회 · 등록<br>· 수정 · 삭제 · 신고</td>
+		<td width="250">마이 페이지 :<br>내 별점/코멘트 조회 · 삭제</td>
+	</tr>
+	<tr height="30">
+		<td colspan="3">관리자 : 별점/코멘트 조회 · 검색 · 신고 내역 조회 · 삭제</td>
 	</tr>
 </table>
 <br>
@@ -128,11 +143,20 @@
 <table border="1" align="center" style="text-align: center; border-collapse: collapse; font-size:13px;">
 	<tr height="30">
 		<td width="150" style="background-color: rgb(30, 160, 130); font-weight: bold;">문서</td>
-		<td width="250">GitHub 사용법 자료 제작</td>
+		<td colspan="3">GitHub 사용법 자료 제작</td>
 	</tr>
 	<tr height="30">
 		<td style="background-color: rgb(30, 160, 130); font-weight: bold;">프론트엔드</td>
-		<td>프로토타이핑 (관리자)</td>
+		<td colspan="3">프로토타이핑 (관리자)</td>
+	</tr>
+	<tr height="30">
+		<td rowspan="2" style="background-color: rgb(30, 160, 130); font-weight: bold;">백엔드</td>
+		<td width="250">한 달 이용권 결제</td>
+		<td width="250">월간 이용권 결제</td>
+		<td width="250">마이 페이지 :<br>이용권 내역 조회 · 해지</td>
+	</tr>
+	<tr height="30">
+		<td colspan="3">관리자 : 이용권 결제 내역 조회 · 검색 · 필터 · 해지</td>
 	</tr>
 </table>
 <br>
@@ -141,7 +165,17 @@
 <table border="1" align="center" style="text-align: center; border-collapse: collapse; font-size:13px;">
 	<tr height="30">
 		<td width="150" style="background-color: rgb(30, 160, 130); font-weight: bold;">프론트엔드</td>
-		<td width="250">프로토타이핑 (회원)</td>
+		<td colspan="3">프로토타이핑 (회원)</td>
+	</tr>
+	<tr height="30">
+		<td rowspan="2" width="150" style="background-color: rgb(30, 160, 130); font-weight: bold;">백엔드</td>
+		<td width="250">일반 로그인 ·<br>카카오 간편 로그인</td>
+		<td width="250">일반 회원가입 ·<br>카카오 간편 가입</td>
+		<td width="250">비밀번호 재설정</td>
+	</tr>
+	<tr height="30">
+		<td>고객센터 :<br>FAQ 조회 · 공지사항 조회</td>
+		<td colspan="2">관리자 :<br>공지사항 조회 · 작성 · 수정 · 삭제</td>
 	</tr>
 </table>
 <br>
@@ -150,7 +184,16 @@
 <table border="1" align="center" style="text-align: center; border-collapse: collapse; font-size:13px;">
 	<tr height="30">
 		<td width="150" style="background-color: rgb(30, 160, 130); font-weight: bold;">프론트엔드</td>
-		<td width="250">프로토타이핑 (콘텐츠)</td>
+		<td colspan="3">프로토타이핑 (콘텐츠)</td>
+	</tr>
+	<tr height="30">
+		<td rowspan="2" width="150" style="background-color: rgb(30, 160, 130); font-weight: bold;">백엔드</td>
+		<td colspan="3">마이 페이지 : 내 정보 조회 · 수정 · 탈퇴</td>
+	</tr>
+	<tr height="30">
+		<td width="250">관리자 :<br>회원 조회 · 검색 ·<br>비밀번호 초기화 · 탈퇴 처리</td>
+		<td width="250">관리자 :<br>매출 통계 조회 · 필터</td>
+		<td width="250">관리자 :<br>조회수 통계 조회 · 필터</td>
 	</tr>
 </table>
 <br>
@@ -159,10 +202,23 @@
 <table border="1" align="center" style="text-align: center; border-collapse: collapse; font-size:13px;">
 	<tr height="30">
 		<td width="150" style="background-color: rgb(30, 160, 130); font-weight: bold;">문서</td>
-		<td width="250">회의 내용 기록</td>
+		<td colspan="2">회의 내용 기록</td>
 	</tr>
 	<tr height="30">
 		<td style="background-color: rgb(30, 160, 130); font-weight: bold;">프론트엔드</td>
-		<td>프로토타이핑 (커뮤니티)</td>
+		<td colspan="2">프로토타이핑 (커뮤니티)</td>
+	</tr>
+	<tr height="30">
+		<td rowspan="3" style="background-color: rgb(30, 160, 130); font-weight: bold;">백엔드</td>
+		<td width="375">커뮤니티 글 조회 · 검색 ·<br>작성 · 수정 · 삭제 · 신고</td>
+		<td width="375">커뮤니티 댓글 조회 · 작성 ·<br>수정 · 삭제 · 신고</td>
+	</tr>
+	<tr height="30">
+		<td width="375">마이 페이지 :<br>내 커뮤니티 글 조회 · 삭제</td>
+		<td width="375">마이 페이지 :<br>내 커뮤니티 댓글 조회 · 삭제</td>
+	</tr>
+	<tr height="30">
+		<td width="375">관리자 :<br>커뮤니티 글 조회 · 검색 ·<br>신고 내역 조회 · 삭제</td>
+		<td width="375">관리자 :<br>커뮤니티 댓글 조회 · 검색 ·<br>신고 내역 조회 · 삭제</td>
 	</tr>
 </table>

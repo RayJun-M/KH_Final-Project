@@ -96,10 +96,13 @@
 		<td>전체 기능 설계</td>
 	</tr>
 	<tr height="30">
-		<td style="background-color: rgb(30, 160, 130); font-weight: bold;">프론트엔드</td>
+		<td rowspan="2" style="background-color: rgb(30, 160, 130); font-weight: bold;">프론트엔드</td>
 		<td>프로토타이핑 (메인)</td>
 		<td>웹 사이트 로고 제작</td>
 		<td>프로토타이핑 통합</td>
+	</tr>
+	<tr height="30">
+		<td colspan="3">화면 구현 (메인 · 콘텐츠)</td>
 	</tr>
 	<tr height="30">
 		<td rowspan="3" style="background-color: rgb(30, 160, 130); font-weight: bold;">백엔드</td>
@@ -127,7 +130,8 @@
 	</tr>
 	<tr height="30">
 		<td style="background-color: rgb(30, 160, 130); font-weight: bold;">프론트엔드</td>
-		<td colspan="3">프로토타이핑 (고객센터)</td>
+		<td>프로토타이핑 (고객센터)</td>
+		<td colspan="2">화면 구현 (별점/코멘트)</td>
 	</tr>
 	<tr height="30">
 		<td rowspan="2" style="background-color: rgb(30, 160, 130); font-weight: bold;">백엔드</td>
@@ -149,8 +153,9 @@
 	</tr>
 	<tr height="30">
 		<td style="background-color: rgb(30, 160, 130); font-weight: bold;">프론트엔드</td>
-		<td colspan="2">프로토타이핑 (관리자)</td>
+		<td>프로토타이핑 (관리자)</td>
 		<td>프로토타이핑 통합</td>
+		<td>화면 구현 (이용권)</td>
 	</tr>
 	<tr height="30">
 		<td rowspan="2" style="background-color: rgb(30, 160, 130); font-weight: bold;">백엔드</td>
@@ -168,7 +173,8 @@
 <table border="1" align="center" style="text-align: center; border-collapse: collapse; font-size:13px;">
 	<tr height="30">
 		<td width="150" style="background-color: rgb(30, 160, 130); font-weight: bold;">프론트엔드</td>
-		<td colspan="3">프로토타이핑 (회원)</td>
+		<td>프로토타이핑 (회원)</td>
+		<td colspan="2">화면 구현 (회원 · 고객센터)</td>
 	</tr>
 	<tr height="30">
 		<td rowspan="2" width="150" style="background-color: rgb(30, 160, 130); font-weight: bold;">백엔드</td>
@@ -187,7 +193,8 @@
 <table border="1" align="center" style="text-align: center; border-collapse: collapse; font-size:13px;">
 	<tr height="30">
 		<td width="150" style="background-color: rgb(30, 160, 130); font-weight: bold;">프론트엔드</td>
-		<td colspan="3">프로토타이핑 (콘텐츠)</td>
+		<td>프로토타이핑 (콘텐츠)</td>
+		<td colspan="2">화면 구현 (회원 · 통계)</td>
 	</tr>
 	<tr height="30">
 		<td rowspan="2" width="150" style="background-color: rgb(30, 160, 130); font-weight: bold;">백엔드</td>
@@ -209,7 +216,8 @@
 	</tr>
 	<tr height="30">
 		<td style="background-color: rgb(30, 160, 130); font-weight: bold;">프론트엔드</td>
-		<td colspan="2">프로토타이핑 (커뮤니티)</td>
+		<td>프로토타이핑 (커뮤니티)</td>
+		<td>화면 구현 (커뮤니티)</td>
 	</tr>
 	<tr height="30">
 		<td rowspan="3" style="background-color: rgb(30, 160, 130); font-weight: bold;">백엔드</td>

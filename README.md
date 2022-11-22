@@ -8,6 +8,7 @@
 - [GitHub 저장소](https://github.com/RayJun-M/KH_Final-Project.git)
 - [Trello Board](https://trello.com/b/WMTTQiF6/khfinal-project)
 - [Project-Workspace](https://github.com/RayJun-M/KH_Final-Project/tree/main/UFO-Workspace)
+- [UI 프로토타이핑](https://ovenapp.io/view/0w7jVwby328M9kdaNnJrDIVXxCrl3xVx/t505O)
 <br><br><br>
 
 ### 📝 문서 링크
@@ -97,7 +98,8 @@
 	<tr height="30">
 		<td style="background-color: rgb(30, 160, 130); font-weight: bold;">프론트엔드</td>
 		<td>프로토타이핑 (메인)</td>
-		<td colspan="2">웹 사이트 로고 제작</td>
+		<td>웹 사이트 로고 제작</td>
+		<td>프로토타이핑 통합</td>
 	</tr>
 	<tr height="30">
 		<td rowspan="3" style="background-color: rgb(30, 160, 130); font-weight: bold;">백엔드</td>
@@ -147,7 +149,8 @@
 	</tr>
 	<tr height="30">
 		<td style="background-color: rgb(30, 160, 130); font-weight: bold;">프론트엔드</td>
-		<td colspan="3">프로토타이핑 (관리자)</td>
+		<td colspan="2">프로토타이핑 (관리자)</td>
+		<td>프로토타이핑 통합</td>
 	</tr>
 	<tr height="30">
 		<td rowspan="2" style="background-color: rgb(30, 160, 130); font-weight: bold;">백엔드</td>

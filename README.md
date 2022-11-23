@@ -9,6 +9,7 @@
 - [Trello Board](https://trello.com/b/WMTTQiF6/khfinal-project)
 - [Project-Workspace](https://github.com/RayJun-M/KH_Final-Project/tree/main/UFO-Workspace)
 - [UI 프로토타이핑](https://ovenapp.io/view/0w7jVwby328M9kdaNnJrDIVXxCrl3xVx/t505O)
+- [ERD](https://www.erdcloud.com/d/kshBDSPy39NiJG7wb)
 <br><br><br>
 
 ### 📝 문서 링크
@@ -77,6 +78,10 @@
 		<td colspan="3">StarUML</td>
 	</tr>
 	<tr height="40">
+		<td style="font-weight: bold;">ERD</td>
+		<td colspan="3">ERDCloud</td>
+	</tr>
+	<tr height="40">
 		<td style="font-weight: bold;">웹 사이트 로고 제작</td>
 		<td colspan="3">Piskel</td>
 	</tr>
@@ -100,7 +105,11 @@
 		<td>전체 기능 설계</td>
 	</tr>
 	<tr height="30">
-		<td colspan="3">유스케이스 다이어그램 작성</td>
+		<td colspan="3">유스케이스 다이어그램</td>
+	</tr>
+	<tr height="30">
+		<td style="background-color: rgb(30, 160, 130); font-weight: bold;">DB</td>
+		<td colspan="3">ERD 작성</td>
 	</tr>
 	<tr height="30">
 		<td rowspan="2" style="background-color: rgb(30, 160, 130); font-weight: bold;">프론트엔드</td>
@@ -134,7 +143,11 @@
 		<td width="150" style="background-color: rgb(30, 160, 130); font-weight: bold;">문서</td>
 		<td width="250">회의 내용 기록</td>
 		<td width="250">GitHub 사용법 자료 제작</td>
-		<td width="250">유스케이스 다이어그램 작성</td>
+		<td width="250">유스케이스 다이어그램</td>
+	</tr>
+	<tr height="30">
+		<td style="background-color: rgb(30, 160, 130); font-weight: bold;">DB</td>
+		<td colspan="3">ERD 작성</td>
 	</tr>
 	<tr height="30">
 		<td style="background-color: rgb(30, 160, 130); font-weight: bold;">프론트엔드</td>
@@ -160,6 +173,10 @@
 		<td colspan="3">GitHub 사용법 자료 제작</td>
 	</tr>
 	<tr height="30">
+		<td style="background-color: rgb(30, 160, 130); font-weight: bold;">DB</td>
+		<td colspan="3">ERD 작성</td>
+	</tr>
+	<tr height="30">
 		<td style="background-color: rgb(30, 160, 130); font-weight: bold;">프론트엔드</td>
 		<td>프로토타이핑 (관리자)</td>
 		<td>프로토타이핑 통합</td>
@@ -180,7 +197,11 @@
 - **[신동민](https://github.com/dongmin38/KH_Final-Project.git)**
 <table border="1" align="center" style="text-align: center; border-collapse: collapse; font-size:13px;">
 	<tr height="30">
-		<td width="150" style="background-color: rgb(30, 160, 130); font-weight: bold;">프론트엔드</td>
+		<td width="150" style="background-color: rgb(30, 160, 130); font-weight: bold;">DB</td>
+		<td colspan="3">ERD 작성</td>
+	</tr>
+	<tr height="30">
+		<td style="background-color: rgb(30, 160, 130); font-weight: bold;">프론트엔드</td>
 		<td>프로토타이핑 (회원)</td>
 		<td colspan="2">화면 구현 (회원 · 고객센터)</td>
 	</tr>
@@ -201,7 +222,11 @@
 <table border="1" align="center" style="text-align: center; border-collapse: collapse; font-size:13px;">
 	<tr height="30">
 		<td width="150" style="background-color: rgb(30, 160, 130); font-weight: bold;">문서</td>
-		<td colspan="3">유스케이스 다이어그램 작성</td>
+		<td colspan="3">유스케이스 다이어그램</td>
+	</tr>
+	<tr height="30">
+		<td style="background-color: rgb(30, 160, 130); font-weight: bold;">DB</td>
+		<td colspan="3">ERD 작성</td>
 	</tr>
 	<tr height="30">
 		<td width="150" style="background-color: rgb(30, 160, 130); font-weight: bold;">프론트엔드</td>
@@ -225,6 +250,10 @@
 	<tr height="30">
 		<td width="150" style="background-color: rgb(30, 160, 130); font-weight: bold;">문서</td>
 		<td colspan="2">회의 내용 기록</td>
+	</tr>
+	<tr height="30">
+		<td style="background-color: rgb(30, 160, 130); font-weight: bold;">DB</td>
+		<td colspan="3">ERD 작성</td>
 	</tr>
 	<tr height="30">
 		<td style="background-color: rgb(30, 160, 130); font-weight: bold;">프론트엔드</td>

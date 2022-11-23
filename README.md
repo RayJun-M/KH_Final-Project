@@ -73,6 +73,10 @@
 		<td colspan="3">Kakao Oven</td>
 	</tr>
 	<tr height="40">
+		<td style="font-weight: bold;">UML 다이어그램</td>
+		<td colspan="3">StarUML</td>
+	</tr>
+	<tr height="40">
 		<td style="font-weight: bold;">웹 사이트 로고 제작</td>
 		<td colspan="3">Piskel</td>
 	</tr>
@@ -90,10 +94,13 @@
 		<td width="250">Trello 워크스페이스 관리</td>
 	</tr>
 	<tr height="30">
-		<td style="background-color: rgb(30, 160, 130); font-weight: bold;">문서</td>
+		<td rowspan="2" style="background-color: rgb(30, 160, 130); font-weight: bold;">문서</td>
 		<td>회의록 작성</td>
 		<td>유사 사이트 분석</td>
 		<td>전체 기능 설계</td>
+	</tr>
+	<tr height="30">
+		<td colspan="3">유스케이스 다이어그램 작성</td>
 	</tr>
 	<tr height="30">
 		<td rowspan="2" style="background-color: rgb(30, 160, 130); font-weight: bold;">프론트엔드</td>
@@ -125,8 +132,9 @@
 <table border="1" align="center" style="text-align: center; border-collapse: collapse; font-size:13px;">
 	<tr height="30">
 		<td width="150" style="background-color: rgb(30, 160, 130); font-weight: bold;">문서</td>
-		<td>회의 내용 기록</td>
-		<td colspan="2">GitHub 사용법 자료 제작</td>
+		<td width="250">회의 내용 기록</td>
+		<td width="250">GitHub 사용법 자료 제작</td>
+		<td width="250">유스케이스 다이어그램 작성</td>
 	</tr>
 	<tr height="30">
 		<td style="background-color: rgb(30, 160, 130); font-weight: bold;">프론트엔드</td>
@@ -135,9 +143,9 @@
 	</tr>
 	<tr height="30">
 		<td rowspan="2" style="background-color: rgb(30, 160, 130); font-weight: bold;">백엔드</td>
-		<td width="250">Spring Project 생성<br>및 환경 설정</td>
-		<td width="250">별점/코멘트 조회 · 등록<br>· 수정 · 삭제 · 신고</td>
-		<td width="250">마이 페이지 :<br>내 별점/코멘트 조회 · 삭제</td>
+		<td>Spring Project 생성<br>및 환경 설정</td>
+		<td>별점/코멘트 조회 · 등록<br>· 수정 · 삭제 · 신고</td>
+		<td>마이 페이지 :<br>내 별점/코멘트 조회 · 삭제</td>
 	</tr>
 	<tr height="30">
 		<td colspan="3">관리자 : 별점/코멘트 조회 · 검색 · 신고 내역 조회 · 삭제</td>
@@ -191,6 +199,10 @@
 
 - **[장희연](https://github.com/hyne993/KH_Final-Project.git)**
 <table border="1" align="center" style="text-align: center; border-collapse: collapse; font-size:13px;">
+	<tr height="30">
+		<td width="150" style="background-color: rgb(30, 160, 130); font-weight: bold;">문서</td>
+		<td colspan="3">유스케이스 다이어그램 작성</td>
+	</tr>
 	<tr height="30">
 		<td width="150" style="background-color: rgb(30, 160, 130); font-weight: bold;">프론트엔드</td>
 		<td>프로토타이핑 (콘텐츠)</td>

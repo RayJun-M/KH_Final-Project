@@ -7,6 +7,7 @@
 - [2022-11-18 (금) : 전체 기능 설계](https://github.com/RayJun-M/KH_Final-Project/blob/main/Document/Project-Proposal/Functional-Design.png)
 - [2022-11-22 (화) : 전체 기능 설계 확정](https://github.com/RayJun-M/KH_Final-Project/blob/main/Document/Project-Proposal/Functional-Design_Feedback.png)
 - [2022-11-22 (화) : 기능 구현 업무 분담](https://github.com/RayJun-M/KH_Final-Project/blob/main/Document/Project-Proposal/Function-Implementation_Role.png)
+- [2022-11-23 (수) : 유스케이스 다이어그램](https://github.com/RayJun-M/KH_Final-Project/blob/main/Document/Project-Proposal/Use-Case-Diagram.jpg)
 <br><br>
 
 ### 프로젝트 기획
@@ -78,3 +79,4 @@
 	- 신동민 : 회원 · 고객센터
 	- 장희연 : 회원 · 통계
 	- 황혜진 : 커뮤니티
+10. 유스케이스 다이어그램 작성

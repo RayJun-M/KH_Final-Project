@@ -109,7 +109,8 @@
 	</tr>
 	<tr height="30">
 		<td style="background-color: rgb(30, 160, 130); font-weight: bold;">DB</td>
-		<td colspan="3">ERD 작성</td>
+		<td>ERD 작성</td>
+		<td colspan="2">DB 테이블 기술서 작성</td>
 	</tr>
 	<tr height="30">
 		<td rowspan="2" style="background-color: rgb(30, 160, 130); font-weight: bold;">프론트엔드</td>

@@ -39,8 +39,13 @@
 		<td width="200">MyBatis 3.5.11</td>
 	</tr>
 	<tr height="40">
+		<td style="font-weight: bold;">DBMS</td>
+		<td colspan="3">Oracle Database 11g Express Edition</td>
+	</tr>
+	<tr height="40">
 		<td style="font-weight: bold;">언어</td>
-		<td colspan="3">Java SE 1.8</td>
+		<td>Java SE 1.8</td>
+		<td colspan="2">SQL</td>
 	</tr>
 	<tr height="40">
 		<td style="font-weight: bold;" rowspan="2">기술</td>
@@ -54,7 +59,8 @@
 	</tr>
 	<tr height="40">
 		<td style="font-weight: bold;">개발 환경</td>
-		<td colspan="3">Spring Tool Suite 3.9.13</td>
+		<td>Spring Tool Suite<br>3.9.13</td>
+		<td colspan="2">Oracle SQL Developer<br>21.2.1.204</td>
 	</tr>
 	<tr height="40">
 		<td style="font-weight: bold;">공용 연락망</td>
@@ -110,7 +116,8 @@
 	<tr height="30">
 		<td style="background-color: rgb(30, 160, 130); font-weight: bold;">DB</td>
 		<td>ERD 작성</td>
-		<td colspan="2">DB 테이블 기술서 작성</td>
+		<td>DB 테이블 기술서 작성</td>
+		<td>DB 생성 SQL문 작성</td>
 	</tr>
 	<tr height="30">
 		<td rowspan="2" style="background-color: rgb(30, 160, 130); font-weight: bold;">프론트엔드</td>
@@ -148,7 +155,8 @@
 	</tr>
 	<tr height="30">
 		<td style="background-color: rgb(30, 160, 130); font-weight: bold;">DB</td>
-		<td colspan="3">ERD 작성</td>
+		<td>ERD 작성</td>
+		<td colspan="2">DB 생성 SQL문 작성</td>
 	</tr>
 	<tr height="30">
 		<td style="background-color: rgb(30, 160, 130); font-weight: bold;">프론트엔드</td>
@@ -199,7 +207,8 @@
 <table border="1" align="center" style="text-align: center; border-collapse: collapse; font-size:13px;">
 	<tr height="30">
 		<td width="150" style="background-color: rgb(30, 160, 130); font-weight: bold;">DB</td>
-		<td colspan="3">ERD 작성</td>
+		<td>ERD 작성</td>
+		<td colspan="2">DB 생성 SQL문 작성</td>
 	</tr>
 	<tr height="30">
 		<td style="background-color: rgb(30, 160, 130); font-weight: bold;">프론트엔드</td>

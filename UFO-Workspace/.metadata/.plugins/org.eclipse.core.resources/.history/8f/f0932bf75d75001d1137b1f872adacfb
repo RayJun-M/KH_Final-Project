@@ -1,0 +1,5 @@
+package com.urfavoriteott.ufo.cs.model.service;
+
+public class NoticeServiceImpl {
+
+}

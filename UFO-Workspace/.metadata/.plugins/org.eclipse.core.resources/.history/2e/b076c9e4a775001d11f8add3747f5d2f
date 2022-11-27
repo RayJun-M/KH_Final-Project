@@ -1,0 +1,13 @@
+package com.urfavoriteott.ufo.contents.model.vo;
+
+public class Payment {
+
+    private int payNo;
+    private int payOrderNo;
+    private String userNo;
+    private int payment;
+    private Date payDate;
+    private Date payEndDate;
+    private String payStatus;
+    private String payUrl;
+}

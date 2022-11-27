@@ -1,0 +1,5 @@
+package com.urfavoriteott.ufo.common.model.vo;
+
+public class PageInfo {
+
+}

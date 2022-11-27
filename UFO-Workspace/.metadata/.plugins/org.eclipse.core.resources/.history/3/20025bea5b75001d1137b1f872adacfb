@@ -1,0 +1,5 @@
+package com.urfavoriteott.ufo.admin.model.dao;
+
+public class AdminDao {
+
+}

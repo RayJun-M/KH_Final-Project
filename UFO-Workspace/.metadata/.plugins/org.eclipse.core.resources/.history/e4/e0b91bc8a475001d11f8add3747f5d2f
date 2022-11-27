@@ -1,0 +1,20 @@
+package com.urfavoriteott.ufo.community.model.vo;
+
+import java.sql.Date;
+
+import lombok.NoArgsConstructor;
+
+@NoArgsConstructor
+
+public class Community {
+
+    private int comNo;
+    private String movieId;
+    private String tvId;
+    private String userNo;
+    private String comTitle;
+    private String comContent;
+    private Date comRegisterDate;
+    private int comHit;
+    private String comStatus;
+}

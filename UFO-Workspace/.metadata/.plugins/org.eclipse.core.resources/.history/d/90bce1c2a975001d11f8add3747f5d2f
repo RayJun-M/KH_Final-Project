@@ -1,0 +1,8 @@
+package com.urfavoriteott.ufo.member.model.vo;
+
+public class Dib {
+
+    private int userNo;
+    private int movieId;
+    private int tvId;
+}

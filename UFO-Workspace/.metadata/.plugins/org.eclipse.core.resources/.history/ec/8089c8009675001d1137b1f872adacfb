@@ -1,0 +1,6 @@
+package com.urfavoriteott.ufo.contents.model.dao;
+
+@Repository
+public class ReviewDao {
+
+}

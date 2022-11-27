@@ -1,0 +1,11 @@
+package com.urfavoriteott.ufo.community.model.vo;
+
+public class CommunityReply {
+
+    private int comRplNo;
+    private String comNo;
+    private String userNo;
+    private String comRplContent;
+    private Date comRplRegisterDate;
+    private String comRplStatus;
+}

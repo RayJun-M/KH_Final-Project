@@ -1,0 +1,18 @@
+package com.urfavoriteott.ufo.contents.model.vo;
+
+public class Episode {
+
+    private int episodeId;
+    private int tvId;
+    private int seasonNumber;
+    private int episodeNumber;
+    private String name;
+    private String overview;
+    private int runTime;
+    private Date airDate;
+    private String stillPath;
+    private String videoKey;
+    private Date RegisterDate;
+    private String episodeStatus;
+    private Date deleteDate;
+}

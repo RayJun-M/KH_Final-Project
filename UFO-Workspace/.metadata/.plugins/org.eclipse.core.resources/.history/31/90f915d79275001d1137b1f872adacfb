@@ -1,0 +1,5 @@
+package com.urfavoriteott.ufo.admin.model.service;
+
+public class AdminServiceImpl implements AdminService {
+
+}

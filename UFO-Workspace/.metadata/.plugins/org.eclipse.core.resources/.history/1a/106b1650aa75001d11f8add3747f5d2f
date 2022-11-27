@@ -1,0 +1,11 @@
+package com.urfavoriteott.ufo.member.model.vo;
+
+public class Record {
+
+    private int recordNo;
+    private int userNo;
+    private int movieId;
+    private int episodeId;
+    private int recordTime;
+    private String recordStatus;
+}

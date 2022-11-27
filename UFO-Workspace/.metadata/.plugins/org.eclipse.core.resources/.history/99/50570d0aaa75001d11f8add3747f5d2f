@@ -1,0 +1,12 @@
+package com.urfavoriteott.ufo.member.model.vo;
+
+public class Member {
+
+    private int userNo;
+    private String userId;
+    private String userPwd;
+    private String userNickname;
+    private int userProfile;
+    private Date userEnrollDate;
+    private String userStatus;
+}

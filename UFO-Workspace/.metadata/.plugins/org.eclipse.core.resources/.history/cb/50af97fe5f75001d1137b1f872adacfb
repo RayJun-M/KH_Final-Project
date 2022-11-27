@@ -1,0 +1,5 @@
+package com.urfavoriteott.ufo.community.model.vo;
+
+public class CommunityReply {
+
+}

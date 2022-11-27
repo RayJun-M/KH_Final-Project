@@ -1,0 +1,6 @@
+package com.urfavoriteott.ufo.member.model.dao;
+
+@Repository
+public class MemberDao {
+
+}

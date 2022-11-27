@@ -1,6 +1,4 @@
-package com.urfavoriteott.ufo.member.model.vo;
-
-import java.sql.Date;
+package com.urfavoriteott.ufo.contents.model.vo;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -13,12 +11,9 @@ import lombok.ToString;
 @Setter
 @Getter
 @ToString
-public class Record {
+public class Dib {
 
-    private int recordNo;
     private int userNo;
     private int movieId;
-    private int episodeId;
-    private int recordTime;
-    private String recordStatus;
+    private int tvId;
 }

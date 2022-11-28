@@ -1,0 +1,30 @@
+@charset "UTF-8";
+
+.content_container {
+    margin-left : 8%;
+    margin-right : 8%;
+}.content_container a {
+    text-decoration: none;
+    color: var(--headerBtnColor);
+}
+
+/* 관리자 프로필 효과 */
+#admin_profile {
+    margin-top: 2%;
+    margin-bottom: 2%;
+}
+#admin_profile .nickname { color: var(--headerMenuLinkColor);}
+#admin_profile img { border-radius: 4px; }
+
+/* 관리탭 효과 */
+#admin_mypage_navi>div {
+    display: inline-block;
+    width: 14%;
+    margin-top: 25px;
+    font-size: 20px;
+    padding: 10px;
+    text-align: center;
+}
+#admin_mypage_navi { border-bottom: 1px solid var(--headerBtnColor); }
+#admin_mypage_navi a:hover { color: var(--headerMenuLinkColor); }
+#admin_mypage_navi div.active { border-bottom: 1px solid var(--ufoColor); }

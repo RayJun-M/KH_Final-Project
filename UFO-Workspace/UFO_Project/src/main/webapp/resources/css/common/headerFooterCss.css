@@ -1,29 +1,37 @@
 @charset "UTF-8";
 
+/* -------------------- 공통 설정 -------------------- */
+/* 표시 유형 */
+#header_container, #header-mainmenu_container, #header-search_container, .header-myprofile_li,
+#footer-link_container { display: flex; }
+.header-mainmenu_link, .header-submenu_link,
+#header-search_swiper .swiper-button-prev, #header-search_swiper .swiper-button-next,
+#footer-link_container>a {
+    /* 투명도 */
+    opacity: 0.6;
+    /* 속성 변화 속도 */
+    transition: opacity .1s;
+}
+/* 텍스트 색상 */
+.header-mainmenu_link, .header-submenu_link, #header-search_input, #header-myinfo-name_txt,
+#footer-link_container>a { color: var(--headerMenuLinkColor); }
+#header-search_container button, #header-color-mode_btn, #footer-copyright_container { color: var(--headerBtnColor); }
+/* 텍스트 라인 */
+.header-mainmenu_link, .header-submenu_link, #footer-link_container>a { text-decoration: none; }
+
+
+
 /* -------------------- 헤더 영역 -------------------- */
 
 /* ========== 공통 설정 ========== */
-/* 표시 유형 */
-#header_container, #header-mainmenu_container, #header-search_container,
-.header-myprofile_li { display: flex; }
 #header-submenu-cs_container, #header-search_input, #header-search-esc_btn, #header-search-result_container,
-#header-color-mode_cb, #header-submenu-login_container,
-#header-profile_container, .header-submenu-profile_container { display: none; }
+#header-color-mode_cb, #header-submenu-login_container, .header-submenu-profile_container { display: none; }
 /* 위치 */
 #header_container, #header-search-result_container { position: fixed; }
 #header_container, #header_container *:not(#header-search-result_container) { z-index: 9 !important; }
 #header-search-result_container, #header-search-result_container * { z-index: 8; }
 /* 내부 여백 */
 #header-search_container button, #header-color-mode_btn, .header-myprofile_ul { padding: 0; }
-/* 텍스트 색상 */
-.header-mainmenu_link, .header-submenu_link, #header-search_input, #header-myinfo-name_txt { color: var(--headerMenuLinkColor); }
-.header-mainmenu_link, .header-submenu_link,
-#header-search_swiper .swiper-button-prev, #header-search_swiper .swiper-button-next {
-    /* 투명도 */
-    opacity: 0.6;
-    /* 속성 변화 속도 */
-    transition: opacity .1s;
-}
 
 
 /* ========== Button + Input 설정 ========== */
@@ -63,8 +71,6 @@
 /* ========== 로고 영역 설정 ========== */
 /* 세로 크기 */
 #header-logo_link, #header-logo_container { height: 100%; }
-/* 외부 여백 */
-#header-logo_link { margin-left: 4rem; }
 #header-logo_container {
     /* 가로 크기 */
     width: 7rem;
@@ -84,8 +90,6 @@
 #header-mainmenu-login_container,
 #header-submenu-cs_container, #header-submenu-login_container,
 .header-submenu-profile_container { position: absolute; }
-/* 텍스트 라인 */
-.header-mainmenu_link, .header-submenu_link { text-decoration: none; }
 
 /* ~~~~~ 메인 + 서브 메뉴 호버 ~~~~~ */
 /* 투명도 */
@@ -100,6 +104,8 @@
     margin-left: 2.3rem;
     /* 텍스트 크기 */
     font-size: 1.3rem;
+    /* 텍스트 굵기 */
+    font-weight: bold;
 }
 .header-mainmenu_txt {
     /* 외부 여백 */
@@ -154,7 +160,7 @@
     /* 외부 여백 */
     margin-left: 15rem;
     /* 최소 가로 크기 */
-    min-width: 36rem;
+    min-width: 34rem;
 }
 /* 속성 변화 속도 */
 .empty_container, #header-search_input { transition: width .2s ease-out; }
@@ -176,7 +182,7 @@
     /* 아래쪽 테두리 */
     border-bottom: 2px solid var(--headerBtnColor);
     /* 텍스트 크기 */
-    font-size: 1.4rem;
+    font-size: 1.2rem;
     /* 텍스트 간격 */
     letter-spacing: 2px;
 }
@@ -203,7 +209,7 @@
 }
 #header-search-result-content_container {
     /* 세로 크기 */
-    height: 53rem;
+    height: 55rem;
     /* 테두리 그림자 */
     box-shadow: 0px 6px 10px 0px rgb(0, 0, 0, .6);
 }
@@ -224,8 +230,21 @@
     display: inline;
     width: auto;
 }
-/* 가로 크기 */
-#header-search_swiper img { width: 12rem; }
+#header-search_swiper img {
+    /* 가로 세로 크기 */
+    width: 10rem;
+    height: 15rem;
+    /* 테두리 둥글게 */
+    border-radius: 5px;
+}
+#header-search_swiper p {
+    /* 텍스트 색상 */
+    color: var(--headerMenuLinkColor);
+    /* 텍스트 굵기 */
+    font-weight: bold;
+}
+/* 텍스트 크기 */
+#header-search_swiper .empty { font-size: 3rem; }
 /* 위치 */
 #header-search_swiper .swiper-pagination { bottom: 0rem; }
 #header-search_swiper .swiper-pagination span {
@@ -246,7 +265,7 @@
 #header-search_swiper .swiper-button-prev:hover, #header-search_swiper .swiper-button-next:hover { opacity: 1; }
 
 
-/* ========== 다크/라이트 모드 선택 영역 설정 ========== */
+/* ========== 다크 · 라이트 모드 선택 영역 설정 ========== */
 /* 외부 여백 */
 #header-color-mode_container { margin-left: 1rem; }
 #header-color-mode_btn {
@@ -259,7 +278,7 @@
 /* ========== 로그인 메인 + 서브 메뉴 영역 설정 ========== */
 /* 위치 */
 #header-mainmenu-login_container, #header-submenu-login_container,
-.header-submenu-profile_container { right: 5rem; }
+.header-submenu-profile_container { right: 4.5rem; }
 /* 내부 여백 */
 #header-mainmenu-login_txt { padding-bottom: 2rem; }
 #header-profile_container {
@@ -267,10 +286,10 @@
     padding-bottom: 0.5rem;
 }
 /* 테두리 둥글게 */
-#header-profile_container img, .header-submenu-profile_container img { border-radius: 2px; }
+#header-profile_container img, .header-submenu-profile_container img { border-radius: 4px; }
 #header-profile_container img {
     /* 가로 크기 */
-    width: 2rem;
+    width: 2.2rem;
     /* 커서 형태 */
     cursor: pointer;
 }
@@ -280,8 +299,9 @@
     /* 외부 여백 */
     margin-top: 1.5rem;
     margin-left: 1.5rem;
-    /* 가로 크기 */
+    /* 가로 세로 크기 */
     width: 4rem;
+    height: 4rem;
 }
 /* 외부 여백 */
 .header-myprofile_ul { margin: 0; }
@@ -293,4 +313,47 @@
     padding-top: 0.5rem;
     /* 텍스트 크기 */
     font-size: 1.2rem;
+}
+
+
+
+/* -------------------- 푸터 영역 -------------------- */
+#footer_container {
+    /* 외부 여백 */
+    margin-top: 8rem;
+    /* 내부 여백 */
+    padding-top: 2rem;
+    padding-bottom: 4rem;
+    /* 정렬 */
+    text-align: center;
+    /* 테두리 */
+    border-top: 0.1px solid var(--headerBtnColor);
+}
+
+
+/* ========== 이용약관 영역 설정 ========== */
+#footer-link_container {
+    /* 정렬 */
+    justify-content: center;
+    /* 텍스트 크기 */
+    font-size: 1.1rem;
+}
+#footer-link_container div {
+    /* 내부 여백 */
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+
+/* ~~~~~ 이용약관 호버 ~~~~~ */
+#footer-link_container>a:hover { opacity: 1; }
+
+
+/* ========== Copyright 영역 설정 ========== */
+#footer-copyright_container {
+    /* 텍스트 크기 */
+    font-size: 0.9rem;
+    /* 텍스트 간격 */
+    letter-spacing: 1px;
+    /* 줄 간격 */
+    line-height: 1.5rem;
 }

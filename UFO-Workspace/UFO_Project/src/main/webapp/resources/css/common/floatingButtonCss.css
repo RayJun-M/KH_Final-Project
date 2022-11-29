@@ -1,0 +1,150 @@
+@charset "UTF-8";
+
+/* -------------------- 공통 설정 -------------------- */
+
+/* ========== 페이지 설정 ========== */
+/* 박스 크기 */
+html, body, * { box-sizing: border-box; }
+/* 세로 크기 */
+html, body { min-height: 100vh; }
+/* 배경 색상 */
+html, body, .wrap { background-color: var(--htmlBackColor); }
+html {
+    /* 최소 가로 크기 */
+    min-width: 1200px;
+    /* 글꼴 - sans-serif (대체 웹 안전 글꼴) */
+    font-family: 'Noto Sans KR', sans-serif;
+}
+/* 외부 여백 */
+body { margin: 0px; }
+
+/* ~~~~~ 검색 버튼 클릭 ~~~~~ */
+/* 범위 이탈 처리 */
+html.search { overflow: hidden; }
+
+
+/* ========== 스크롤바 설정 ========== */
+
+/* ~~~~~ 스크롤바 버튼 + 스크롤바 막대 ~~~~~ */
+/* 배경 색상 */
+::-webkit-scrollbar-button, ::-webkit-scrollbar-thumb { background-color: var(--scrollbarBtnThumbBackColor); }
+
+/* ~~~~~ 스크롤바 트랙 + 스크롤바 교차점 ~~~~~ */
+/* 배경 색상 */
+::-webkit-scrollbar-track, ::-webkit-scrollbar-corner { background-color: var(--scrollbarTrackCornerBackColor); }
+
+/* ~~~~~ 스크롤바 버튼 + 스크롤바 막대 + 스크롤바 트랙 ~~~~~ */
+/* 테두리 둥글게 */
+::-webkit-scrollbar-button, ::-webkit-scrollbar-thumb, ::-webkit-scrollbar-track { border-radius: 5px; }
+
+/* ~~~~~ 스크롤바 전체 ~~~~~ */
+::-webkit-scrollbar {
+    /* 가로 세로 크기 */
+    width: 15px;
+    height: 15px;
+    /* 배경 색상 */
+    background-color: transparent;
+}
+
+/* ~~~~~ 스크롤바 버튼 ~~~~~ */
+::-webkit-scrollbar-button {
+    /* 배경 이미지 크기 */
+    background-size: 12px 12px;
+    /* 배경 이미지 반복 여부 */
+    background-repeat: no-repeat;
+    /* 배경 이미지 위치 */
+    background-position: center center;
+}
+/* 배경 이미지 */
+::-webkit-scrollbar-button:vertical:decrement { background-image: url('../../image/common/scrollbar-button_up.svg'); }
+::-webkit-scrollbar-button:vertical:increment { background-image: url('../../image/common/scrollbar-button_down.svg'); }
+::-webkit-scrollbar-button:horizontal:decrement { background-image: url('../../image/common/scrollbar-button_left.svg'); }
+::-webkit-scrollbar-button:horizontal:increment { background-image: url('../../image/common/scrollbar-button_right.svg'); }
+
+/* ~~~~~ 스크롤바 막대 ~~~~~ */
+/* 테두리 그림자 */
+::-webkit-scrollbar-thumb { box-shadow: inset 0px 0px 5px 2px rgb(0, 0, 0, .4); }
+
+
+
+/* -------------------- 다크 · 라이트 모드 변수 -------------------- */
+:root[color-mode='dark'] {
+    --mainLogoUrl: url('../../image/common/main-logo_dark.png');
+    --ufoColor: rgb(100, 255, 218);
+    --htmlBackColor: rgb(23, 26, 33);
+    --scrollbarBtnThumbBackColor: rgba(100, 100, 100, .6) !important;
+    --scrollbarTrackCornerBackColor: rgba(10, 10, 10, .6);
+    --headerBackColor1: rgba(23, 26, 33, .7);
+    --headerBackColor2: rgba(23, 26, 33, 0);
+    --headerBtnColor: rgba(255, 255, 255, .6);
+    --headerMenuLinkColor: rgb(255, 255, 255);
+    --headerSubmenuBackColor: rgba(0, 0, 0, .9);
+    --headerSearchBackColor: rgb(23, 26, 33) !important;
+    --headerSearchResultBackColor: rgba(0, 0, 0, .7);
+    --contentsEnrollInputColor: rgba(255, 255, 255, .7);
+    --contentsEnrollBtnColor: rgba(255, 20, 20);
+}
+:root[color-mode='light'] {
+    --mainLogoUrl: url('../../image/common/main-logo_light.png');
+    --ufoColor: rgb(100, 255, 218);
+    --htmlBackColor: rgb(230, 230, 230);
+    --scrollbarBtnThumbBackColor: rgba(50, 50, 50, .6) !important;
+    --scrollbarTrackCornerBackColor: rgba(150, 150, 150, .6);
+    --headerBackColor1: rgba(230, 230, 230, .7);
+    --headerBackColor2: rgba(230, 230, 230, 0);
+    --headerBtnColor: rgba(0, 0, 0, .6);
+    --headerMenuLinkColor: rgb(23, 26, 33);
+    --headerSubmenuBackColor: rgba(255, 255, 255, .9);
+    --headerSearchBackColor: rgb(230, 230, 230) !important;
+    --headerSearchResultBackColor: rgba(0, 0, 0, .7);
+    --contentsEnrollInputColor: rgba(255, 255, 255, .7);
+    --contentsEnrollBtnColor: rgba(255, 20, 20);
+}
+
+
+
+/* -------------------- 전체 영역 설정 -------------------- */
+
+/* 세로 크기 */
+.wrap { height: 100%; }
+
+
+
+/* -------------------- 플로팅 버튼 영역 설정 -------------------- */
+
+/* ========== 상하단 이동 스크롤 버튼 설정 ========== */
+#scroll-button_container {
+    /* 위치 */
+    position: fixed;
+    bottom: 105px;
+    right: 45px;
+    /* 가로 크기 */
+    width: 40px;
+    /* 표시 유형 */
+    display: flex;
+    /* 배치 방향 */
+    flex-direction: column;
+    /* 정렬 */
+    text-align: center;
+    /* 텍스트 크기 */
+    font-size: 25px;
+}
+#scroll-top-btn_container, #scroll-bottom-btn_container {
+    /* 커서 형태 */
+    cursor: pointer;
+    /* 테두리 둥글게 */
+    border-radius: 20px;
+}
+#scroll-top-btn_container {
+    /* 외부 여백 */
+    margin-bottom: 20px;
+    /* 배경 색상 */
+    background-color: transparent;
+    color: transparent;
+}
+#scroll-bottom-btn_container {
+    /* 배경 색상 */
+    background-color: var(--scrollbarBtnThumbBackColor);
+    /* 텍스트 색상 */
+    color: var(--ufoColor);
+}

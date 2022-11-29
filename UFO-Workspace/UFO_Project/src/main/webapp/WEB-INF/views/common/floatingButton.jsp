@@ -1,116 +1,88 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
     <title>Floating Button</title>
 
-    <!-- CSS 스타일시트 -->
-    <link rel="stylesheet" href="resources/css/floatingButtonCss.css">
+    <!-- jQuery 라이브러리 -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 
-    <!-- Font Awesome 아이콘 연결 -->
+    <!-- AlertifyJS 라이브러리 -->
+    <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css"/>
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/default.min.css"/>
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/semantic.min.css"/>
+
+    <!-- Google Fonts 라이브러리 -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Sans+KR">
+
+    <!-- Font Awesome 라이브러리 -->
     <script src="https://kit.fontawesome.com/d57af49dc3.js" crossorigin="anonymous"></script>
 
-    <!-- 1대1 채팅 연결 -->
-	<script id="happytalkSDK" src="https://design.happytalkio.com/sdk/happytalk.chat.v2.min.js"></script>
+	<!-- CSS 스타일시트 -->
+	<link rel="stylesheet" href="resources/css/common/floatingButtonCss.css">
+
+    <!-- JavaScript 파일 -->
+    <script src="resources/js/common/floatingButtonJs.js"></script>
 </head>
 
 <body>
 
+    <c:if test="${ not empty alertMsg }">
+        <script>
+            alertify.alert("Ur Favorite OTT", "${ alertMsg }");
+        </script>
+        <c:remove var="alertMsg" scope="session" />
+    </c:if>
+
+
     <!-- 플로팅 버튼 영역 -->
     <div id="floating_container">
 
-        <!-- 상하단 이동 스크롤 버튼 -->
-        <div id="scroll_button_container">
-
-            <!-- 상단 이동 버튼 -->
-            <a href="javascript:;" id="scroll_top">
-                <i class="fa-solid fa-circle-chevron-up"></i>
-            </a>
-
-            <!-- 하단 이동 버튼 -->
-            <a href="javascript:;" id="scroll_bottom">
-                <i class="fa-solid fa-circle-chevron-down"></i>
-            </a>
-
+        <!-- 상하단 이동 스크롤 버튼 영역 -->
+        <div id="scroll-button_container">
+            <div id="scroll-top-btn_container">
+                <i class="fa-solid fa-caret-up"></i>
+            </div>
+            <div id="scroll-bottom-btn_container">
+                <i class="fa-solid fa-caret-down"></i>
+            </div>
         </div>
-
-        <!-- 해피톡 1:1 문의 채팅 상담 버튼 -->
-        <script>
-            var ht = null;
-            (function(id, scriptSrc, callback) {
-                var d = document,
-                    tagName = 'script',
-                    $script = d.createElement(tagName),
-                    $element = d.getElementsByTagName(tagName)[0];
-
-                $script.id = id;
-                $script.async = true;
-                $script.src = scriptSrc;
-
-                if (callback) { $script.addEventListener('load', function (e) { callback(null, e); }, false); }
-                $element.parentNode.insertBefore($script, $element);
-            })('happytalkSDK', 'https://design.happytalkio.com/sdk/happytalk.chat.v2.min.js', function() {
-                ht = new Happytalk({
-                siteId: '5000100354',
-                siteName: 'InsertCoin',
-                categoryId: '152971',
-                divisionId: '152972'
-            });
-            });
-        </script>
 
     </div>
 
 
     <script>
-        $(function() {
 
-            // 화면 스크롤 시
-            $(window).scroll(function() {
+        /* ----- HappyTalk 연결 ----- */
+        var ht = null;
 
-                // 상단 이동 버튼 상단으로부터 200px 이상에서만 표시
-                if($(window).scrollTop() >= 200) {
-                    $('#scroll_top').show();
-                } else {
-                    $('#scroll_top').hide();
-                }
+        (function(id, scriptSrc, callback) {
+            var d = document,
+                tagName = 'script',
+                $script = d.createElement(tagName),
+                $element = d.getElementsByTagName(tagName)[0];
 
-                // 하단 이동 버튼 하단으로부터 200px 이상까지만 표시
-                if($(window).scrollTop() <= ($(window).height() - 200)) {
-                    $('#scroll_bottom').show();
-                } else {
-                    $('#scroll_bottom').hide();
-                }
+            $script.id = id;
+            $script.async = true;
+            $script.src = scriptSrc;
 
-                if($(window).scrollTop() >= 10) {
-                    $('#header_container').css("opacity", "0.9");
-                } else {
-                    $('#header_container').css("opacity", "1");
-                }
-            });
+            if (callback) {
+                $script.addEventListener('load', function (e) {
+                    callback(null, e);
+                }, false);
+            }
 
-            // 상단 이동 버튼 스크롤 설정
-            $('#scroll_top').click(function() {
-                $('html').animate({ scrollTop: 0 });
-            });
-
-            // 하단 이동 버튼 스크롤 설정
-            $('#scroll_bottom').click(function() {
-                $('html').animate({ scrollTop: $('html').height() });
-            });
-
-            const $theme = document.querySelector('#theme_cb');
-
-            $theme.addEventListener('click', e => {
-                if (e.target.checked) {
-                    document.documentElement.setAttribute('color-theme', 'light');
-                    $('#header_logo').attr("src", "resources/image/common/main-logo_light.png");
-                } else {
-                    document.documentElement.setAttribute('color-theme', 'dark');
-                    $('#header_logo').attr("src", "resources/image/common/main-logo_dark.png");
-                }
+            $element.parentNode.insertBefore($script, $element);
+        })('happytalkSDK', 'https://design.happytalkio.com/sdk/happytalk.chat.v2.min.js', function() {
+            ht = new Happytalk({
+                siteId: '4000002558',
+                siteName: 'Ur Favorite OTT',
+                categoryId: '154913',
+                divisionId: '154914'
             });
         });
     </script>

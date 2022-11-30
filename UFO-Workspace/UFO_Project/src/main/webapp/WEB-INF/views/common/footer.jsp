@@ -14,7 +14,6 @@
 
         <!-- 이용약관 영역 -->
         <div id="footer-link_container">
-            <a href="about.main"><div>ABOUT</div></a>
             <a href="service.main"><div>서비스 이용약관</div></a>
             <a href="pay.main"><div>유료상품 이용약관</div></a>
             <a href="personal.main"><div>개인정보 처리방침</div></a>

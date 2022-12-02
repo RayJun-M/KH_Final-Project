@@ -7,6 +7,7 @@
 
 - [GitHub 저장소](https://github.com/RayJun-M/KH_Final-Project.git)
 - [Trello Board](https://trello.com/b/WMTTQiF6/khfinal-project)
+- [Project-Workspace](https://github.com/RayJun-M/KH_Final-Project/tree/main/UFO-Workspace)
 <br><br><br>
 
 ### 📝 문서 링크
@@ -23,28 +24,56 @@
 <table border="1" align="center" style="text-align: center; border-collapse: collapse;">
 	<tr height="40">
 		<td width="200" style="background-color: rgb(30, 160, 130); font-weight: bold;">분류</td>
-		<td colspan="2" style="background-color: rgb(30, 160, 130); font-weight: bold;">이름</td>
+		<td colspan="3" style="background-color: rgb(30, 160, 130); font-weight: bold;">이름</td>
+	</tr>
+	<tr height="40">
+		<td style="font-weight: bold;">서버</td>
+		<td colspan="3">Apache Tomcat v8.5</td>
+	</tr>
+	<tr height="40">
+		<td style="font-weight: bold;">프레임워크</td>
+		<td width="200">Spring 4.0.0</td>
+		<td width="200">Apache Maven 3.8.6</td>
+		<td width="200">MyBatis 3.5.11</td>
+	</tr>
+	<tr height="40">
+		<td style="font-weight: bold;">언어</td>
+		<td colspan="3">Java SE 1.8</td>
+	</tr>
+	<tr height="40">
+		<td style="font-weight: bold;" rowspan="2">기술</td>
+		<td>JSP</td>
+		<td>Servlet</td>
+		<td>JDBC</td>
+	</tr>
+	<tr height="40">
+		<td colspan="2">DBCP 1.4</td>
+		<td>JSTL 1.0</td>
+	</tr>
+	<tr height="40">
+		<td style="font-weight: bold;">개발 환경</td>
+		<td colspan="3">Spring Tool Suite 3.9.13</td>
 	</tr>
 	<tr height="40">
 		<td style="font-weight: bold;">공용 연락망</td>
-		<td colspan="2">Slack</td>
+		<td colspan="3">Slack</td>
 	</tr>
 	<tr height="40">
 		<td style="font-weight: bold;">공용 저장소</td>
-		<td width="150">GitHub</td>
-		<td width="150">Google Drive</td>
+		<td colspan="2">GitHub</td>
+		<td>Google Drive</td>
 	</tr>
 	<tr height="40">
 		<td style="font-weight: bold;">일정 관리 · 업무 분담</td>
-		<td colspan="2">Trello</td>
+		<td colspan="3">Trello</td>
 	</tr>
 	<tr height="40">
 		<td style="font-weight: bold;">UI 프로토타이핑</td>
-		<td colspan="2">Kakao Oven</td>
+		<td colspan="3">Kakao Oven</td>
 	</tr>
 	<tr height="40">
 		<td style="font-weight: bold;">웹 사이트 로고 제작</td>
-		<td colspan="2">Piskel</td>
+		<td colspan="3">Piskel</td>
 	</tr>
 </table>
 <br>
@@ -70,6 +99,10 @@
 		<td>프로토타이핑 (메인)</td>
 		<td colspan="2">웹 사이트 로고 제작</td>
 	</tr>
+	<tr height="30">
+		<td style="background-color: rgb(30, 160, 130); font-weight: bold;">백엔드</td>
+		<td colspan="3">Spring Project 생성 및 환경 설정</td>
+	</tr>
 </table>
 <br>
 
@@ -83,6 +116,10 @@
 	<tr height="30">
 		<td style="background-color: rgb(30, 160, 130); font-weight: bold;">프론트엔드</td>
 		<td colspan="2">프로토타이핑 (고객센터)</td>
+	</tr>
+	<tr height="30">
+		<td style="background-color: rgb(30, 160, 130); font-weight: bold;">백엔드</td>
+		<td colspan="2">Spring Project 생성 및 환경 설정</td>
 	</tr>
 </table>
 <br>

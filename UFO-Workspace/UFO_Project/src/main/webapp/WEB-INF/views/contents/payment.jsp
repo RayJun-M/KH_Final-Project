@@ -4,7 +4,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
 
 <html>
   <head>
-    
+
     <!-- 아임포트 CDN -->
     <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
 
@@ -27,7 +27,6 @@ uri="http://java.sun.com/jsp/jstl/core" %>
       #provides i {
         margin-bottom: 20px;
       }
-
       ul{
         list-style:none;
       }
@@ -35,12 +34,10 @@ uri="http://java.sun.com/jsp/jstl/core" %>
       #content_header {
         margin-top: 100px;
       }
-
       #content_header, #content_main{
         padding: 0 20%;
       }
-
-      #payOpt, #regOpt {
+      #regOpt, #subsOpt {
         float:left;
         width:50%;
         text-align: center;
@@ -48,11 +45,9 @@ uri="http://java.sun.com/jsp/jstl/core" %>
         line-height: normal;
         padding-top:10px;
       }
-
-      #payOpt, #regOpt:hover {
+      #regOpt, #subsOpt:hover {
         cursor: pointer;
       }
-
       #provides {
         float:left;
         border: 1px solid white;
@@ -60,22 +55,18 @@ uri="http://java.sun.com/jsp/jstl/core" %>
         text-align: center;
         padding-top:10px;
       }
-
       #provides>ul>li {
         padding-top:10px;
       }
-
       #payBtn {
         display:inline-block;
         width: 100%;
         /* height: 100%; */
       }
-
       #content_footer{
         margin-top: 100px;
         margin-left: 120px;
       }
-
       #content_footer > ul {
         margin-top: 10px
       }
@@ -86,7 +77,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
   <body>
     <!-- 전체 영역 -->
     <div class="wrap">
-      
+
       <!-- 플로팅 버튼 영역 -->
       <jsp:include page="../common/floatingButton.jsp" />
 
@@ -95,15 +86,15 @@ uri="http://java.sun.com/jsp/jstl/core" %>
 
       <!-- 콘텐츠 영역 -->
       <div id="content_container">
-        
+
         <!-- 콘텐츠 헤더 --> 
         <div id="content_header" style="font-weight:bold">
           <p style="font-size: x-large;">이용권을 선택해주세요 <br>
             <span style="font-size: small; color:grey">영화/드라마/해외시리즈 무제한!</span>
           </p>
         </div>
-        
-        
+
+
         <!-- 이용권 선택 / 결제 -->
 
         <div id="content_main"> <!-- 선택창, 결제버튼 포함하는 div -->

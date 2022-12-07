@@ -92,7 +92,7 @@
                                     <a href="userEnrollForm.me">회원가입</a>
                                 </li>
                                 <li>
-                                    <a href="#">이용권</a>
+                                    <a href="payment.pay">이용권</a>
                                 </li>
                             </ul>
                         </li>
@@ -132,7 +132,7 @@
                          </a>
                          <ul class="sub_menu mypage_menu">
                              <li id="header_userInfo">
-                             	<a href="#">
+                             	<a href="update.me">
                                  <img id="member_profile" src="resources/image/member/profile${ loginUser.userProfile }.png">
                                  <p>${ loginUser.userNickname } 님</p>
                              	</a>

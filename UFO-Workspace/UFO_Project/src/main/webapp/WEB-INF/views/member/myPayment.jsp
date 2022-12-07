@@ -44,13 +44,11 @@
     #mypage_navi {
     	border-bottom: 1px solid gray;
     }
-
     /*
     #mypage_navi>div:active {
     	border-bottom:3px solid #64FFDA;
     }
     */
-
     #mypage_navi a:hover {
     	color: white;
     }
@@ -74,8 +72,6 @@
     	background-color: #64FFDA;
     	border: 1px solid #64FFDA;
     }
-
-
 	
 	/* 박성현씨가 먹인 style */
 	
@@ -86,7 +82,6 @@
 	#paymentTable th, #paymentTable td {
 		text-align: center;
 	}
-
 	.active :hover {
 		cursor: pointer;
 	}
@@ -102,11 +97,11 @@
 
 		<!-- 헤더 영역 -->
         <jsp:include page="../common/header.jsp" />
-	
-		
+
+
         <!-- 컨텐츠 영역 (개별 구현 구역) -->
         <div id="content_container">
-        	
+
 	        <table id="user_profile">
 	            <tr>
 	                <td rowspan="2" width="220"><img src="resources/image/user/profile/profile1.jfif" width="170" height="170"></td>
@@ -126,10 +121,10 @@
 	                <td><button onclick="location.href='#'">이용권 구독</button></td>
 	            </tr>
 	        </table>
-	    	
+
 		    <!-- 이용권 구독하지 않은 경우만 나타는 구독 유도탭 -->
 		    <div align="center" id="subscribe_tab">이용권을 구독하고 인기 TV프로그램과 다양한 영화를 자유롭게 시청하세요!  이용권 구독하기></div>
-		    
+
 		    <!-- !!! 본인이 맡은 탭 div에 id="selected_tab" 붙어녛기 !!!-->
 		    <div id="mypage_navi">
 		        <div><a href="">시청 내역</a></div>
@@ -140,7 +135,7 @@
 		        <div><a href="">커뮤니티 댓글 내역</a></div>
 			</div>
 
-			
+
 			<table id="paymentTable">
 				<thead>
 					<tr>
@@ -181,7 +176,7 @@
 						<td>2022.07.11</td>
 						<td>2022.08.10</td>
 					</tr>
-					
+
 					<!-- 페이징 처리 할 영역 -->
 
 
@@ -189,18 +184,14 @@
 
 
 					<script>
-
 						onload = () => { 
 							let btn = document.querySelectorAll('.btn');
-
 							let abledBtn = [];
-
 							btn.forEach((el) => {
 								if(el.disabled == false){
 									abledBtn.push(el);
 								}
 							})
-
 							abledBtn.forEach((el) => {
 								console.log(el);
 								el.addEventListener('mouseenter', () => {
@@ -216,7 +207,6 @@
 											data: {},
 											type: 'post',
 											success: () => {
-
 											},
 											error: () => {
 												console.log('AJAX 호출 에러 발생');

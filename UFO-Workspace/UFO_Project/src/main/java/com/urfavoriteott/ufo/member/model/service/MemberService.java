@@ -1,10 +1,10 @@
-package com.urfavoriteott.ufo.member.model.service;
+package com.urfavoriteott.urfavoriteott.member.model.service;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import com.urfavoriteott.ufo.common.model.vo.PageInfo;
-import com.urfavoriteott.ufo.member.model.vo.Member;
+import com.urfavoriteott.urfavoriteott.common.model.vo.PageInfo;
+import com.urfavoriteott.urfavoriteott.member.model.vo.Member;
 
 public interface MemberService {
 
@@ -14,20 +14,6 @@ public interface MemberService {
 	 * @return
 	 */
 	Member loginMember(Member m);
-	
-	/**
-	 * 회원가입용 메소드 - 작성자 : 동민
-	 * @param m : 회원가입할 사용자의 계정
-	 * @return
-	 */
-	int insertMember(Member m);
-	
-	/**
-	 * 비밀번호 재설정용 메소드 - 작성자 : 동민
-	 * @param updatePassword : 비밀번호 재설정할 비밀번호 
-	 * @return
-	 */
-	int passWordUpdate(String updatePassword);
 	
 	/**
 	 * 사용자 - 닉네임 중복체크용 메소드 - 작성자 : 장희연

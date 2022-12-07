@@ -10,7 +10,10 @@ import org.springframework.stereotype.Service;
 import com.urfavoriteott.ufo.admin.model.dao.AdminDao;
 import com.urfavoriteott.ufo.common.model.vo.PageInfo;
 import com.urfavoriteott.ufo.contents.model.vo.Review;
+<<<<<<< HEAD
+=======
 import com.urfavoriteott.ufo.member.model.vo.Member;
+>>>>>>> upstream/main
 
 @Service
 public class AdminServiceImpl implements AdminService {
@@ -20,6 +23,8 @@ public class AdminServiceImpl implements AdminService {
 
     @Autowired
     private AdminDao adminDao;
+<<<<<<< HEAD
+=======
     
     @Override
 	public int selectListCount() {
@@ -56,6 +61,7 @@ public class AdminServiceImpl implements AdminService {
 		
 		return adminDao.deleteMember(sqlSession, userNo);
 	}
+>>>>>>> upstream/main
 
     	/**
     	 * 관리자 페이지 코멘트 관리를 위한 페이징바 - 작성자: 수빈

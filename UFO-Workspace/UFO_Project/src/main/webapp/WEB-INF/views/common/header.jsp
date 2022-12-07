@@ -110,12 +110,12 @@
                                 <c:choose>
                                     <c:when test="${ loginUser.userNo eq 0 }">
                                         <li>
-                                            <a href="commentList.ad">관리자 페이지</a>
+                                            <a href="admin_list.me">관리자 페이지</a>
                                         </li>
                                     </c:when>
                                     <c:otherwise>
                                         <li>
-                                            <a href="#">마이 페이지</a>
+                                            <a href="myPage.me">마이 페이지</a>
                                         </li>
                                     </c:otherwise>
                                 </c:choose>

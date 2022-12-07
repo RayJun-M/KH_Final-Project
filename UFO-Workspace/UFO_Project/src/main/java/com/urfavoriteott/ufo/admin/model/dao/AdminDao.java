@@ -9,11 +9,16 @@ import org.springframework.stereotype.Repository;
 
 import com.urfavoriteott.ufo.common.model.vo.PageInfo;
 import com.urfavoriteott.ufo.contents.model.vo.Review;
+<<<<<<< HEAD
+=======
 import com.urfavoriteott.ufo.member.model.vo.Member;
+>>>>>>> upstream/main
 
 @Repository
 public class AdminDao {
 	
+<<<<<<< HEAD
+=======
 public int selectListCount(SqlSessionTemplate sqlSession) {
 		
 		return sqlSession.selectOne("memberMapper.selectListCount");
@@ -52,6 +57,7 @@ public int selectListCount(SqlSessionTemplate sqlSession) {
 		return sqlSession.update("memberMapper.deleteMember", userNo);
 	}
 	
+>>>>>>> upstream/main
 	/**
 	 * 관리자 페이지 코멘트 관리를 위한 페이징바 - 작성자: 수빈
 	 * @param sqlSession

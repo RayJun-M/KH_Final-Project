@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "mybatis-3-mapper.dtd" >
+<mapper namespace="memberMapper">
+
+	<!-- MEMBER 테이블로부터 조회된 내용을 Member 타입으로 가공해주는 ResultMap -->
+	<resultMap id="memberResultSet" type="member">
+		<result column="USER_NO" property="userNo" />
+		<result column="USER_ID" property="userId" />
+		<result column="USER_PWD" property="userPwd" />
+		<result column="USER_NICKNAME" property="userNickname" />
+		<result column="USER_PROFILE" property="userProfile" />
+		<result column="USER_ENROLL_DATE" property="userEnrollDate" />
+		<result column="USER_STATUS" property="userStatus" />
+	</resultMap>
+	
+	<!-- 로그인용 쿼리문(암호화작업 완료) -->
+	<select id="loginMember" parameterType="member" resultMap="memberResultSet">
+		SELECT *
+		FROM MEMBER
+		WHERE USER_ID = #{userId}
+		AND USER_STATUS = 'Y'
+	</select>
+	
+	<!-- 회원가입용 쿼리문 -->
+	<insert id="insertMember" parameterType="member">
+		INSERT INTO MEMBER (USER_NO
+		                 ,  USER_ID
+		                 ,  USER_PWD
+		                 ,  USER_NICKNAME)
+		            VALUES (SEQ_USER_NO.NEXTVAL
+		                 ,  #{userId}
+		                 ,  #{userPwd}
+		                 ,  #{userNickname})
+	</insert>
+	
+	<!-- 닉네임중복체크용 쿼리문 -->
+	<select id="nickNameCheck" parameterType="string" resultType="_int">
+	   SELECT COUNT(*)
+	   FROM MEMBER
+	   WHERE USER_NICKNAME = #{checkNickname}
+	</select>
+
+</mapper>

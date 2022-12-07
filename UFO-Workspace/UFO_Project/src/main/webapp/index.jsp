@@ -1,12 +1,15 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=EUC-KR"
+    pageEncoding="EUC-KR" %>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+    <meta charset="EUC-KR">
+    <title>Ur Favorite OTT</title>
 </head>
+
 <body>
-	여기는 index.jsp 야
+
+    <jsp:forward page="WEB-INF/views/common/main.jsp" />
+
 </body>
 </html>

@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="72" height="72" viewBox="0 0 72 72">
+    <defs>
+        <style>
+            .cls-1{fill:none}
+        </style>
+    </defs>
+    <g id="재생" transform="translate(3.613 4.488)">
+        <path id="사각형_4377" data-name="사각형 4377" class="cls-1" transform="translate(-3.613 -4.488)" d="M0 0h72v72H0z"/>
+        <g id="타원_373" data-name="타원 373" transform="translate(2.387 1.512)" style="fill:rgba(0,0,0,.43);stroke:#fff;stroke-width:1.5px">
+            <circle cx="30" cy="30" r="30" style="stroke:none"/>
+            <circle class="cls-1" cx="30" cy="30" r="29.25"/>
+        </g>
+        <path id="다각형_4" data-name="다각형 4" d="M9.83.271a.2.2 0 0 1 .339 0l9.639 15.423a.2.2 0 0 1-.17.306H.361a.2.2 0 0 1-.17-.306z" transform="rotate(90 10.693 32.694)" style="fill:#fff"/>
+    </g>
+</svg>

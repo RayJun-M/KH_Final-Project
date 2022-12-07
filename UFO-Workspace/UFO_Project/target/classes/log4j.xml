@@ -11,7 +11,7 @@
 	</appender>
 	
 	<!-- Application Loggers -->
-	<logger name="com.urfavoriteott.ufo">
+	<logger name="com.urfavoriteott.urfavoriteott">
 		<level value="info" />
 	</logger>
 	

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "mybatis-3-mapper.dtd" >
+<mapper namespace="reviewMapper">
+
+	<resultMap id="reviewResultSet" type="review">
+		<result column="REVIEW_NO" property="reviewNo" />
+		<result column="USER_NO" property="userNo" />
+		<result column="MOVIE_ID" property="movieId" />
+		<result column="MOVIE_TITLE" property="movieTitle" />
+		<result column="TV_ID" property="tvId" />
+		<result column="TV_NAME" property="tvName" />
+		<result column="REVIEW_STAR" property="reviewStar" />
+		<result column="REVIEW_CONTENT" property="reviewContent" />
+		<result column="REVIEW_REGISTER_DATE" property="reviewDate" />
+		<result column="REVIEW_STATUS" property="reviewStatus" />
+		<result column="USER_ID" property="userId" />
+		<result column="USER_NICKNAME" property="userNickname" />
+	</resultMap>
+
+	<select id="selectAdminCommentListCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM REVIEW
+		WHERE REVIEW_STATUS = 'Y'
+	</select>
+	
+	<select id="selectAdminCommentList" resultMap="reviewResultSet">
+		SELECT REVIEW_NO
+		     , MB.USER_ID
+		     , MB.USER_NICKNAME
+		     , MV.TITLE AS "MOVIE_TITLE"
+		     , TV.NAME AS "TV_NAME"
+		     , TO_CHAR(REVIEW_STAR, 'FM0.0') AS "REVIEW_STAR"
+		     , REVIEW_CONTENT
+		FROM REVIEW R
+		LEFT JOIN MEMBER MB USING(USER_NO)
+		LEFT JOIN MOVIE MV ON(R.MOVIE_ID = MV.MOVIE_ID)
+		LEFT JOIN TV ON (R.MOVIE_ID = TV.TV_ID)
+		WHERE REVIEW_STATUS = 'Y'
+		ORDER BY REVIEW_REGISTER_DATE DESC
+	</select>
+	
+</mapper>

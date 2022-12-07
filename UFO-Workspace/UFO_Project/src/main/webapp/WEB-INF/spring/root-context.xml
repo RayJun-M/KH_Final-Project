@@ -2,11 +2,22 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd">
-
+	
 	<!-- Root Context: defines shared resources visible to all other web components -->
-	<!--
-		* root-context.xml
-		: 서버 구동 후 기본적으로 필요한 자바 객체인 도구 등록 (서버 구동 시 2번째로 실행)
-	-->
-
+		
+		<bean class="org.apache.commons.dbcp.BasicDataSource" id="dataSource" destroy-method="close">
+			<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"></property>
+			<property name="url" value="jdbc:oracle:thin:@localhost:1521:xe"></property>
+			<property name="username" value="UFO"></property>
+			<property name="password" value="UFO"></property>
+		</bean>
+		
+		<bean class="org.mybatis.spring.SqlSessionFactoryBean" id="sqlSessionFactory">
+			<property name="configLocation" value="classpath:mybatis-config.xml"></property>
+			<property name="dataSource" ref="dataSource"></property>
+		</bean>
+		
+		<bean class="org.mybatis.spring.SqlSessionTemplate" id="sqlSession">
+			<constructor-arg ref="sqlSessionFactory" />
+		</bean>
 </beans>

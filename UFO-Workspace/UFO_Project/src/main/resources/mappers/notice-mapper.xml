@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "mybatis-3-mapper.dtd" >
+<mapper namespace="noticeMapper">
+
+	<resultMap id="noticeResultSet" type="notice">
+		<result column="NOTICE_NO" property="noticeNo" />
+		<result column="NOTICE_TITLE" property="noticeTitle" />
+		<result column="NOTICE_CONTENT" property="noticeContent" />
+		<result column="NOTICE_REGISTER_DATE" property="noticeRegisterDate" />
+		<result column="NOTICE_HIT" property="noticeHit" />
+		<result column="NOTICE_STATUS" property="noticeStatus" />
+	</resultMap>	
+	
+	<select id="selectNoticeListCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM NOTICE
+		WHERE NOTICE_STATUS = 'Y'
+	</select>
+	
+	<select id="selectNoticeList" resultMap="noticeResultSet">
+		SELECT NOTICE_NO
+			 , NOTICE_TITLE
+			 , TO_CHAR(NOTICE_REGISTER_DATE, 'YYYY-MM-DD') AS "NOTICE_REGISTER_DATE"
+			 , NOTICE_HIT
+		FROM NOTICE
+		WHERE NOTICE_STATUS = 'Y'
+		ORDER BY BOARD_NO DESC
+	</select>
+ 
+</mapper>

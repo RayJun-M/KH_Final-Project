@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "mybatis-3-config.dtd" >
+<configuration>
+
+	<settings>
+		<setting name="jdbcTypeForNull" value="NULL"/>
+	</settings>
+	
+	<typeAliases>
+		<typeAlias type="com.urfavoriteott.urfavoriteott.member.model.vo.Member" alias="member" />
+		<typeAlias type="com.urfavoriteott.urfavoriteott.notice.model.vo.Notice" alias="notice" />
+		<typeAlias type="com.urfavoriteott.urfavoriteott.review.model.vo.Review" alias="review" />
+	</typeAliases>
+	
+	<mappers>
+		<mapper resource="mappers/member-mapper.xml" />
+		<mapper resource="mappers/notice-mapper.xml" />
+		<mapper resource="mappers/review-mapper.xml" />
+		<mapper resource="mappers/payment-mapper.xml" />
+	</mappers>
+	
+</configuration>

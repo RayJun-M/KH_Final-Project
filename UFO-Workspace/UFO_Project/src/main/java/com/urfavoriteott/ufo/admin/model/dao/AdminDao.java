@@ -14,7 +14,7 @@ import com.urfavoriteott.ufo.member.model.vo.Member;
 @Repository
 public class AdminDao {
 	
-public int selectListCount(SqlSessionTemplate sqlSession) {
+	public int selectListCount(SqlSessionTemplate sqlSession) {
 		
 		return sqlSession.selectOne("memberMapper.selectListCount");
 	}

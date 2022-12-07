@@ -21,6 +21,7 @@ import com.urfavoriteott.ufo.common.template.Pagination;
 import com.urfavoriteott.ufo.member.model.service.MemberService;
 import com.urfavoriteott.ufo.member.model.vo.Member;
 
+
 @Controller
 public class MemberController {
 
@@ -31,18 +32,10 @@ public class MemberController {
 	@Autowired
 	private BCryptPasswordEncoder bcryptPasswordEncoder;
 		
-	@RequestMapping("myPage.me")
-	public String myPage() {
-		
-		return "member/myPage";
-	}
-	
-	@RequestMapping("updateForm.me")
-	public String updateForm() {
-		
-		return "member/memberUpdateForm";
-	}
-	
+	/**
+	 * 회원 로그인창을 띄워주는 메소드 - 작성자 : 동민
+	 * @return
+	 */
 	@RequestMapping("loginForm.me")
 	public String loginForm() {
 		
@@ -126,6 +119,91 @@ public class MemberController {
 	}
 	
 	/**
+	 * 회원가입창을 띄워주는 메소드 - 작성자 : 동민
+	 * @return
+	 */
+	@RequestMapping("userEnrollForm.me")
+	public String enrollForm() {
+
+		return "member/userEnroll";
+		
+	}
+	
+	/**
+	 * 회원가입용 메소드 - 작성자 : 동민
+	 * @param userId1 : 이메일 @ 앞주소
+	 * @param userId2 : 이메일 @ 뒷주소
+	 * @param userPwd : 사용자 비밀번호
+	 * @param nickName : 사용자 닉네임
+	 * @param model
+	 * @param session
+	 * @return
+	 */
+	@RequestMapping("insert.me")
+	public String insertMember(String userId1
+							 , String userId2
+							 , String userPwd
+							 , String userNickname
+			                 , Model model
+			                 , HttpSession session) {
+		
+		// user 아이디 이메일 주소로 합치기
+		String userId = userId1 + "@" + userId2;
+		
+		// 멤버 객체에 변수들 set
+		Member m = new Member();
+		m.setUserId(userId);
+		m.setUserPwd(userPwd);
+		m.setUserNickname(userNickname);
+		
+		// 암호화 작업 (암호문을 만들어내는 과정)
+		String encPwd = bcryptPasswordEncoder.encode(m.getUserPwd());
+		
+		m.setUserPwd(encPwd);
+		
+		int result = memberService.insertMember(m);
+		
+		if(result > 0) { // 성공
+			
+			session.setAttribute("alertMsg", "성공적으로 회원가입이 되었습니다.");
+			
+			return "redirect:/";
+			
+		}
+		
+		else { // 실패
+			
+			model.addAttribute("errorMsg", "회원가입 실패");
+			
+			return "common/errorPage";
+			
+		}
+		
+	}
+	
+	/**
+	 * 회원 비밀번호 재설정 화면을 띄워주는 메소드 - 작성자 : 동민
+	 * @return
+	 */
+	@RequestMapping("updatePasswordForm.me")
+	public String updatePasswordForm() {
+		
+		return "member/userPasswordUpdate";
+	}
+	
+	@RequestMapping("myPage.me")
+	public String myPage() {
+		
+		return "member/myPage";
+	}
+	
+	@RequestMapping("updateForm.me")
+	public String updateForm() {
+		
+		return "member/memberUpdateForm";
+	}
+	
+	/**
 	 * 사용자 - 닉네임 중복체크용 메소드 - 작성자 : 장희연
 	 * @param checkNickname : 중복체크할 사용자의 닉네임
 	 * @return
@@ -163,5 +241,28 @@ public class MemberController {
 			model.addAttribute("errorMsg", "회원정보 수정 실패");
 			return "common/errorPage";
 		}
-	}	
+	}
+	
+	/**
+	 * 사용자 - 회원 탈퇴용 메소드 - 작성자 : 장희연
+	 * @param userNo : 로그인한 사용자(탈퇴할 회원)의 회원 번호
+	 * @param model
+	 * @param session
+	 * @return
+	 */
+	@RequestMapping("delete.me")
+	public String deleteMember(int userNo, Model model, HttpSession session) {
+		
+		int result = memberService.deleteMember(userNo);
+		
+		if(result > 0) {
+			
+			// session.setAttribute("alertMsg", "회원 탈퇴 처리 성공");
+			return "redirect:/logout.me";
+		} else {
+			
+			model.addAttribute("errorMsg", "회원 탈퇴 처리 실패");
+			return "common/errorPage";
+		}
+	}
 }

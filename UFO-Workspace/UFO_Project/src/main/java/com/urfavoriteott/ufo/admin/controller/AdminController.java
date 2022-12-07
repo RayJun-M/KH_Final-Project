@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.urfavoriteott.ufo.admin.model.service.AdminService;
 import com.urfavoriteott.ufo.common.model.vo.PageInfo;
@@ -89,20 +90,13 @@ public class AdminController {
 	 * @param session
 	 * @return
 	 */
+	
 	@RequestMapping("admin_updatePwd.me")
-	public String updatePwd(int userNo, Model model, HttpSession session) {
+	public String updatePwd(int userNo) {
 		
 		int result = adminService.updatePwd(userNo);
 		
-		if(result > 0) {
-			
-			// session.setAttribute("alertMsg", "비밀번호 초기화 성공");
-			return "redirect:/admin_list.me";
-		} else {
-			
-			model.addAttribute("errorMsg", "비밀번호 초기화 실패");
-			return "common/errorPage";
-		}
+		return (result > 0) ? "success" : "fail";
 	}
 	
 	/**
@@ -112,20 +106,13 @@ public class AdminController {
 	 * @param session
 	 * @return
 	 */
+	@ResponseBody
 	@RequestMapping("admin_delete.me")
 	public String deleteMember(int userNo, Model model, HttpSession session) {
 		
 		int result = adminService.deleteMember(userNo);
 		
-		if(result > 0) {
-			
-			// session.setAttribute("alertMsg", "회원 탈퇴 처리 성공");
-			return "redirect:/admin_list.me";
-		} else {
-			
-			model.addAttribute("errorMsg", "회원 탈퇴 처리 실패");
-			return "common/errorPage";
-		}
+		return (result > 0) ? "success" : "fail";
 	}
 	
 	/**

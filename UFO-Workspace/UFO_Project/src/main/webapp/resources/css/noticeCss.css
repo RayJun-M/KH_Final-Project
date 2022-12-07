@@ -1,0 +1,100 @@
+@charset "UTF-8";
+
+/* ---------- 컨텐츠 영역 ---------- */
+#content_container {
+    /* 세로 크기 : 1550(px) */
+    width: 100%;
+   	color: rgb(255, 255, 255); 
+    position: relative;
+}
+
+/* ===== 제목 + 최신 게임 ===== */
+.main_text, .new_game_container, .genre_search_container {
+    /* 컨텐츠 영역 기본 좌우 여백 10% */
+    margin-left: 10%;
+    margin-right: 10%;
+}
+
+/* ===== 제목 ===== */
+.main_text {
+    /* 폰트 설정 */
+    margin-top: 50px;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+     
+
+        #navigator2 { height: 150px; }
+
+        #content { height: 1150px;}
+        #content_2>div { width: 100%;}
+        #content_2_1 { height: 20%; float: left; }
+        #content_2_2 { height: 60%; float: left; }
+        #content_2_3 { height: 20%; float: left; }
+
+        #header { 
+            height: 230px;
+            background: #163A66;
+        }
+
+        #header>div { height: 100%; float: left; }
+
+        #header_1 { width: 70%; }
+
+        #header_1>p {
+            box-sizing: border-box;
+            font-size: 45px;
+            font-weight: bold;
+            margin-top: 130px;
+            margin-left: 150px;
+            color: white;
+        }
+
+        #header_2 { width: 30%; }
+
+        #header_2>img {
+            height: 60%;
+            margin-left: 150px;
+            margin-top: 70px;
+        }
+
+
+        /* content 영역 */
+        #content>div { height : 100%; float : left; }
+        #content_1 { width : 15%; }
+        #content_2 { width : 70%; }
+        #content_3 { width : 15%; }
+
+        .outer {
+        width: 100%;
+        height: 100%;
+        margin: auto;
+        padding: 100px;
+        border: 1px solid black;
+    }
+    .table {
+        text-align: center;
+        height: 50px;
+    }
+    
+    tbody>tr:hover {
+        cursor : pointer;
+        /*
+        color : white;
+        background-color : lightgray;
+        */
+    }
+
+    thead>tr {
+       font-weight: bolder; 
+       
+    }
+    
+    #searchCategory {
+        text-align: center;
+    }
+
+    td { height: 50px;}
+
+    .admin-donation-search { float: right }

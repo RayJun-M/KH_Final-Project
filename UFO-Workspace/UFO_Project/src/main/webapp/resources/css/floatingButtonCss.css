@@ -9,7 +9,6 @@
     /* 화면 가로 크기 : 최소 1400(px) */
     width: 100%;
     min-width: 1400px;
-    min-height: 1600px;
     /* 배경 색상 설정 */
     background-color: rgb(23, 26, 33);
 }

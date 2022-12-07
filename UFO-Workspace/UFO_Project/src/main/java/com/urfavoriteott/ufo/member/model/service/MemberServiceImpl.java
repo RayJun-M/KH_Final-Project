@@ -55,6 +55,4 @@ public class MemberServiceImpl implements MemberService {
 		return memberDao.deleteMember(sqlSession, userNo);
 	}
 
-
-	
 }

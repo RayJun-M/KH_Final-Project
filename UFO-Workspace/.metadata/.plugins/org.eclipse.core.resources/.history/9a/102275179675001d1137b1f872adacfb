@@ -1,6 +1,0 @@
-package com.urfavoriteott.ufo.cs.model.dao;
-
-@Repository
-public class NoticeDao {
-
-}

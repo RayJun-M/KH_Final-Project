@@ -1,4 +1,4 @@
-package com.urfavoriteott.urfavoriteott.member.model.dao;
+package com.urfavoriteott.ufo.member.model.dao;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -7,8 +7,9 @@ import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Component;
 
-import com.urfavoriteott.urfavoriteott.common.model.vo.PageInfo;
-import com.urfavoriteott.urfavoriteott.member.model.vo.Member;
+import com.urfavoriteott.ufo.common.model.vo.PageInfo;
+import com.urfavoriteott.ufo.member.model.vo.Member;
+
 
 @Component
 public class MemberDao {
@@ -25,51 +26,41 @@ public class MemberDao {
 		
 	}
 	
+	/**
+	 * 회원가입용 메소드 - 작성자 : 동민
+	 * @param sqlSession
+	 * @param m : 회원가입할 사용자의 계정
+	 * @return
+	 */
+	public int insertMember(SqlSessionTemplate sqlSession, Member m) {
+		
+		return sqlSession.insert("memberMapper.insertMember", m);
+	}
+	
 	public int nicknameCheck(SqlSessionTemplate sqlSession, String checkNickname) {
 		
 		return sqlSession.selectOne("memberMapper.nicknameCheck", checkNickname);
 	}
 	
+	/**
+	 * 사용자 - 회원 정보 수정용 메소드 - 작성자 : 장희연
+	 * @param sqlSession
+	 * @param m : 사용자의 수정할 회원 정보(아이디, 회원번호, 프로필, 닉네임)
+	 * @return
+	 */
 	public int updateMember(SqlSessionTemplate sqlSession, Member m) {
 		
 		return sqlSession.update("memberMapper.updateMember", m);
 	}
 	
-	public int selectListCount(SqlSessionTemplate sqlSession) {
-		
-		return sqlSession.selectOne("memberMapper.selectListCount");
-	}
-	
-	public ArrayList<Member> selectList(SqlSessionTemplate sqlSession, PageInfo pi) {
-		
-		int limit = pi.getBoardLimit();
-		int offset = (pi.getCurrentPage() - 1) * limit;
-		RowBounds rowBounds = new RowBounds(offset, limit);
-		
-		return (ArrayList)sqlSession.selectList("memberMapper.selectList", null, rowBounds);
-	}
-	
-	public int selectSearchCount(SqlSessionTemplate sqlSession, HashMap<String, String> map) {
-		
-		return sqlSession.selectOne("memberMapper.selectSearchCount", map);
-	}
-	
-	public ArrayList<Member> selectSearchList(SqlSessionTemplate sqlSession, HashMap<String, String> map, PageInfo pi) {
-		
-		int limit = pi.getBoardLimit();
-		int offset = (pi.getCurrentPage() - 1) * limit;
-		RowBounds rowBounds = new RowBounds(offset, limit);
-		
-		return (ArrayList)sqlSession.selectList("memberMapper.selectSearchList", map, rowBounds);
-	}
-	
-	public int updatePwd(SqlSessionTemplate sqlSession, int userNo) {
-
-		return sqlSession.update("memberMapper.updatePwd", userNo);
-	}
-	
+	/**
+	 * 사용자 - 회원 탈퇴 처리용 메소드 - 작성자 : 장희연 
+	 * @param sqlSession
+	 * @param userNo : 로그인한 사용자(탈퇴할 회원)의 회원 번호
+	 * @return
+	 */
 	public int deleteMember(SqlSessionTemplate sqlSession, int userNo) {
-	
+		
 		return sqlSession.update("memberMapper.deleteMember", userNo);
 	}
 }

@@ -50,6 +50,8 @@ public class MemberServiceImpl implements MemberService {
 	}
 	
 	@Override
+<<<<<<< HEAD
+=======
 	public int selectListCount() {
 		
 		return memberDao.selectListCount(sqlSession);
@@ -80,6 +82,7 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
+>>>>>>> upstream/main
 	public int deleteMember(int userNo) {
 		
 		return memberDao.deleteMember(sqlSession, userNo);

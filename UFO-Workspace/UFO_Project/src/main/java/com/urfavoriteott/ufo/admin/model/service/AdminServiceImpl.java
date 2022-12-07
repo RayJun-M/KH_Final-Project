@@ -11,8 +11,12 @@ import com.urfavoriteott.ufo.admin.model.dao.AdminDao;
 import com.urfavoriteott.ufo.common.model.vo.PageInfo;
 import com.urfavoriteott.ufo.contents.model.vo.Review;
 <<<<<<< HEAD
+import com.urfavoriteott.ufo.member.model.vo.Member;
+=======
+<<<<<<< HEAD
 =======
 import com.urfavoriteott.ufo.member.model.vo.Member;
+>>>>>>> upstream/main
 >>>>>>> upstream/main
 
 @Service
@@ -25,6 +29,9 @@ public class AdminServiceImpl implements AdminService {
     private AdminDao adminDao;
 <<<<<<< HEAD
 =======
+<<<<<<< HEAD
+=======
+>>>>>>> upstream/main
     
     @Override
 	public int selectListCount() {
@@ -61,6 +68,9 @@ public class AdminServiceImpl implements AdminService {
 		
 		return adminDao.deleteMember(sqlSession, userNo);
 	}
+<<<<<<< HEAD
+=======
+>>>>>>> upstream/main
 >>>>>>> upstream/main
 
     	/**

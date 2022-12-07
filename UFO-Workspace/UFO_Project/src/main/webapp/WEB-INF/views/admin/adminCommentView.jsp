@@ -93,7 +93,10 @@
 								<tbody>
 									<c:forEach var="r" items="${ list }">
 										<tr class="personalComment">
-											<td><input type="checkbox" name="selectContent" id="selectContent"><label for="selectContent"></label></td>
+											<td>
+												<input type="checkbox" name="selectContent" id="selectContent">
+												<input type="hidden" value="${ r.reviewNo }">
+											</td>
 											<td id="userMail">${ r.userId }</td>
 											<td id="userNickname">${ r.userNickname }</td>
 											<td id="ContentName">
@@ -110,10 +113,20 @@
 											<td id="review_content">${ r.reviewContent }</td>
 										</tr>
 									</c:forEach>
-									<tr><th colspan="6" style="text-align: right;"><button type="button" class="btn btn-danger">삭제</button></th></tr>
+									<tr><th colspan="6" style="text-align: right;"><button type="button" class="btn btn-danger" onclick="deleteComment();">삭제</button></th></tr>
 								</tbody>
 							</table>
-		
+							
+							<script>
+								function deleteComment() {
+									
+									var reviewNo = document.getElementById("selectContent");
+									
+									console.log(reviewNo);
+									
+								}
+							</script>
+              
 							<br><br>                                        
 		
 							<div id="pagingArea">

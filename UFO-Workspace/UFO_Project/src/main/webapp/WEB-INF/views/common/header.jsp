@@ -92,7 +92,7 @@
                                     <a href="userEnrollForm.me">회원가입</a>
                                 </li>
                                 <li>
-                                    <a href="#">이용권</a>
+                                    <a href="payment.pay">이용권</a>
                                 </li>
                             </ul>
                         </li>
@@ -115,12 +115,12 @@
                                     </c:when>
                                     <c:otherwise>
                                         <li>
-                                            <a href="#">마이 페이지</a>
+                                            <a href="myPage.me">마이 페이지</a>
                                         </li>
                                     </c:otherwise>
                                 </c:choose>
                                 <li>
-                                    <a href="#">이용권</a>
+                                    <a href="payment.pay">이용권</a>
                                 </li>
                                 <li>
                                     <a href="logout.me">로그아웃</a>

@@ -1,4 +1,4 @@
-package com.urfavoriteott.urfavoriteott.member.model.service;
+package com.urfavoriteott.ufo.member.model.service;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -7,9 +7,9 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.urfavoriteott.urfavoriteott.common.model.vo.PageInfo;
-import com.urfavoriteott.urfavoriteott.member.model.dao.MemberDao;
-import com.urfavoriteott.urfavoriteott.member.model.vo.Member;
+import com.urfavoriteott.ufo.common.model.vo.PageInfo;
+import com.urfavoriteott.ufo.member.model.dao.MemberDao;
+import com.urfavoriteott.ufo.member.model.vo.Member;
 
 @Service
 public class MemberServiceImpl implements MemberService {
@@ -73,6 +73,4 @@ public class MemberServiceImpl implements MemberService {
 		return memberDao.deleteMember(sqlSession, userNo);
 	}
 
-
-	
 }

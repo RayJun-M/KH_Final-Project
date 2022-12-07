@@ -1,4 +1,4 @@
-package com.urfavoriteott.urfavoriteott.member.model.dao;
+package com.urfavoriteott.ufo.member.model.dao;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -7,8 +7,8 @@ import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Component;
 
-import com.urfavoriteott.urfavoriteott.common.model.vo.PageInfo;
-import com.urfavoriteott.urfavoriteott.member.model.vo.Member;
+import com.urfavoriteott.ufo.common.model.vo.PageInfo;
+import com.urfavoriteott.ufo.member.model.vo.Member;
 
 @Component
 public class MemberDao {

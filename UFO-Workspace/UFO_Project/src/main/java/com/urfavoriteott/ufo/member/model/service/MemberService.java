@@ -1,10 +1,10 @@
-package com.urfavoriteott.urfavoriteott.member.model.service;
+package com.urfavoriteott.ufo.member.model.service;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import com.urfavoriteott.urfavoriteott.common.model.vo.PageInfo;
-import com.urfavoriteott.urfavoriteott.member.model.vo.Member;
+import com.urfavoriteott.ufo.common.model.vo.PageInfo;
+import com.urfavoriteott.ufo.member.model.vo.Member;
 
 public interface MemberService {
 

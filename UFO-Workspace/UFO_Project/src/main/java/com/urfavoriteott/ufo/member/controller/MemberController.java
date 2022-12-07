@@ -1,4 +1,4 @@
-package com.urfavoriteott.urfavoriteott.member.controller;
+package com.urfavoriteott.ufo.member.controller;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -16,10 +16,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.urfavoriteott.urfavoriteott.common.model.vo.PageInfo;
-import com.urfavoriteott.urfavoriteott.common.template.Pagination;
-import com.urfavoriteott.urfavoriteott.member.model.service.MemberService;
-import com.urfavoriteott.urfavoriteott.member.model.vo.Member;
+import com.urfavoriteott.ufo.common.model.vo.PageInfo;
+import com.urfavoriteott.ufo.common.template.Pagination;
+import com.urfavoriteott.ufo.member.model.service.MemberService;
+import com.urfavoriteott.ufo.member.model.vo.Member;
 
 @Controller
 public class MemberController {
@@ -163,104 +163,5 @@ public class MemberController {
 			model.addAttribute("errorMsg", "회원정보 수정 실패");
 			return "common/errorPage";
 		}
-	}
-	
-	/**
-	 * 관리자 - 회원 리스트 조회용 메소드 - 작성자 : 장희연
-	 * @param currentPage : 요청한 페이지번호
-	 * @param model
-	 * @return
-	 */
-	@RequestMapping("admin_list.me")
-	public String selectList(@RequestParam(value="cpage", defaultValue="1")int currentPage, Model model) {
-		
-		int listCount = memberService.selectListCount();
-		int pageLimit = 10;
-		int boardLimit = 10;
-		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, pageLimit, boardLimit);
-		
-		ArrayList<Member> list = memberService.selectList(pi);
-		
-		model.addAttribute("list", list);
-		model.addAttribute("pi", pi);
-		
-		return "admin/adminMemberListView";
-	}
-	
-	/**
-	 * 관리자 - 회원 검색 조회용 메소드 - 작성자 : 장희연
-	 * @param currentPage : 요청한 페이지번호
-	 * @param keyword : 검색조건(아이디, 닉네임)
-	 * @param searchword : 검색어
-	 * @param model
-	 * @return
-	 */
-	@RequestMapping("admin_search.me")
-	public String selectSearchList(@RequestParam(value="cpage", defaultValue="1")int currentPage, String keyword, String searchword, Model model) {
-		
-		HashMap<String, String> map = new HashMap<>();
-		map.put("keyword", keyword);
-		map.put("searchword", searchword);
-		
-		int searchCount = memberService.selectSearchCount(map);
-		int pageLimit = 10;
-		int boardLimit = 10;
-		PageInfo pi = Pagination.getPageInfo(searchCount, currentPage, pageLimit, boardLimit);
-		
-		ArrayList<Member> list = memberService.selectSearchList(map, pi);
-		
-		model.addAttribute("list", list);
-		model.addAttribute("pi", pi);
-		
-		model.addAttribute("keyword", keyword);
-		model.addAttribute("searchword", searchword);
-		
-		return "admin/adminMemberListView";
-	}
-	
-	/**
-	 * 관리자 - 비밀번호 초기화용 메소드 - 작성자 : 장희연
-	 * @param userNo : 비밀번호를 초기화할 회원의 회원번호
-	 * @param model 
-	 * @param session
-	 * @return
-	 */
-	@RequestMapping("updatePwd.me")
-	public String updatePwd(int userNo, Model model, HttpSession session) {
-		
-		int result = memberService.updatePwd(userNo);
-		
-		if(result > 0) {
-			
-			// session.setAttribute("alertMsg", "비밀번호 초기화 성공");
-			return "redirect:/admin_list.me";
-		} else {
-			
-			model.addAttribute("errorMsg", "비밀번호 초기화 실패");
-			return "common/errorPage";
-		}
-	}
-	
-	/**
-	 * 관리자 - 회원 탈퇴 처리용 메소드 - 작성자 : 장희연
-	 * @param userNo : 탈퇴 처리할 회원의 회원번호
-	 * @param model
-	 * @param session
-	 * @return
-	 */
-	@RequestMapping("delete.me")
-	public String deleteMember(int userNo, Model model, HttpSession session) {
-		
-		int result = memberService.deleteMember(userNo);
-		
-		if(result > 0) {
-			
-			// session.setAttribute("alertMsg", "회원 탈퇴 처리 성공");
-			return "redirect:/admin_list.me";
-		} else {
-			
-			model.addAttribute("errorMsg", "회원 탈퇴 처리 실패");
-			return "common/errorPage";
-		}
-	}
+	}	
 }

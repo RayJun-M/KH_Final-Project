@@ -1,11 +1,4 @@
-package com.urfavoriteott.urfavoriteott.member.controller;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+package com.urfavoriteott.ufo.member.controller;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -23,18 +16,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-<<<<<<< HEAD
 import com.urfavoriteott.ufo.common.model.vo.PageInfo;
 import com.urfavoriteott.ufo.common.template.Pagination;
 import com.urfavoriteott.ufo.member.model.service.MemberService;
 import com.urfavoriteott.ufo.member.model.vo.Member;
 
-=======
-import com.urfavoriteott.urfavoriteott.common.model.vo.PageInfo;
-import com.urfavoriteott.urfavoriteott.common.template.Pagination;
-import com.urfavoriteott.urfavoriteott.member.model.service.MemberService;
-import com.urfavoriteott.urfavoriteott.member.model.vo.Member;
->>>>>>> upstream/main
 
 @Controller
 public class MemberController {
@@ -45,15 +31,6 @@ public class MemberController {
 	// 비밀번호 암호화를 위한 변수
 	@Autowired
 	private BCryptPasswordEncoder bcryptPasswordEncoder;
-<<<<<<< HEAD
-	
-	/**
-	 * 회원 로그인창을 띄워주는 메소드 - 작성자 : 동민
-	 * @return
-	 */
-	@RequestMapping("loginForm.me")
-	public String loginForm() {
-=======
 		
 	@RequestMapping("myPage.me")
 	public String myPage() {
@@ -67,10 +44,13 @@ public class MemberController {
 		return "member/memberUpdateForm";
 	}
 	
+	/**
+	 * 회원 로그인창을 띄워주는 메소드 - 작성자 : 동민
+	 * @return
+	 */
 	@RequestMapping("loginForm.me")
 	public String loginForm() {
 		
->>>>>>> upstream/main
 		return "member/userLogin";
 	}
 	
@@ -114,37 +94,24 @@ public class MemberController {
 			// 비밀번호도 일치한다면 => 로그인 성공
 			session.setAttribute("loginUser", loginUser);
 			
-<<<<<<< HEAD
-			session.setAttribute("alertMsg", "로그인에 성공하였습니다.");
-=======
 			// session.setAttribute("alertMsg", "로그인에 성공하였습니다.");
 			
 			System.out.println("로그인 성공");
->>>>>>> upstream/main
 			
 			mv.setViewName("redirect:/");
 			
 		}
 		else {
 			
-<<<<<<< HEAD
-			mv.addObject("errorMsg", "로그인 실패");
-			
-=======
 			// 로그인 실패
 			mv.addObject("errorMsg", "로그인 실패");
 			
 			// /WEB-INF/views/common/errorPage.jsp
->>>>>>> upstream/main
 			mv.setViewName("common/errorPage");
 		}
 		
 		return mv;
 		
-<<<<<<< HEAD
-		
-=======
->>>>>>> upstream/main
 	}
 	
 	/**
@@ -160,8 +127,6 @@ public class MemberController {
 		
 		// 메인페이지로 url 요청
 		return "redirect:/";
-		
-<<<<<<< HEAD
 		
 	}
 	
@@ -227,26 +192,18 @@ public class MemberController {
 		}
 		
 	}
-		
-	@RequestMapping("myPage.me")
-	public String myPage() {
-		
-		return "member/myPage";
-	}
-	
-	@RequestMapping("updateForm.me")
-	public String updateForm() {
-		
-		return "member/memberUpdateForm";
-	}
-	
 	
 	/**
-=======
+	 * 회원 비밀번호 재설정 화면을 띄워주는 메소드 - 작성자 : 동민
+	 * @return
+	 */
+	@RequestMapping("updatePasswordForm.me")
+	public String updatePasswordForm() {
+		
+		return "member/userPasswordUpdate";
 	}
 	
 	/**
->>>>>>> upstream/main
 	 * 사용자 - 닉네임 중복체크용 메소드 - 작성자 : 장희연
 	 * @param checkNickname : 중복체크할 사용자의 닉네임
 	 * @return
@@ -282,105 +239,6 @@ public class MemberController {
 		} else {
 			
 			model.addAttribute("errorMsg", "회원정보 수정 실패");
-			return "common/errorPage";
-		}
-	}
-	
-	/**
-	 * 관리자 - 회원 리스트 조회용 메소드 - 작성자 : 장희연
-	 * @param currentPage : 요청한 페이지번호
-	 * @param model
-	 * @return
-	 */
-	@RequestMapping("admin_list.me")
-	public String selectList(@RequestParam(value="cpage", defaultValue="1")int currentPage, Model model) {
-		
-		int listCount = memberService.selectListCount();
-		int pageLimit = 10;
-		int boardLimit = 10;
-		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, pageLimit, boardLimit);
-		
-		ArrayList<Member> list = memberService.selectList(pi);
-		
-		model.addAttribute("list", list);
-		model.addAttribute("pi", pi);
-		
-		return "admin/adminMemberListView";
-	}
-	
-	/**
-	 * 관리자 - 회원 검색 조회용 메소드 - 작성자 : 장희연
-	 * @param currentPage : 요청한 페이지번호
-	 * @param keyword : 검색조건(아이디, 닉네임)
-	 * @param searchword : 검색어
-	 * @param model
-	 * @return
-	 */
-	@RequestMapping("admin_search.me")
-	public String selectSearchList(@RequestParam(value="cpage", defaultValue="1")int currentPage, String keyword, String searchword, Model model) {
-		
-		HashMap<String, String> map = new HashMap<>();
-		map.put("keyword", keyword);
-		map.put("searchword", searchword);
-		
-		int searchCount = memberService.selectSearchCount(map);
-		int pageLimit = 10;
-		int boardLimit = 10;
-		PageInfo pi = Pagination.getPageInfo(searchCount, currentPage, pageLimit, boardLimit);
-		
-		ArrayList<Member> list = memberService.selectSearchList(map, pi);
-		
-		model.addAttribute("list", list);
-		model.addAttribute("pi", pi);
-		
-		model.addAttribute("keyword", keyword);
-		model.addAttribute("searchword", searchword);
-		
-		return "admin/adminMemberListView";
-	}
-	
-	/**
-	 * 관리자 - 비밀번호 초기화용 메소드 - 작성자 : 장희연
-	 * @param userNo : 비밀번호를 초기화할 회원의 회원번호
-	 * @param model 
-	 * @param session
-	 * @return
-	 */
-	@RequestMapping("updatePwd.me")
-	public String updatePwd(int userNo, Model model, HttpSession session) {
-		
-		int result = memberService.updatePwd(userNo);
-		
-		if(result > 0) {
-			
-			// session.setAttribute("alertMsg", "비밀번호 초기화 성공");
-			return "redirect:/admin_list.me";
-		} else {
-			
-			model.addAttribute("errorMsg", "비밀번호 초기화 실패");
-			return "common/errorPage";
-		}
-	}
-	
-	/**
-	 * 관리자 - 회원 탈퇴 처리용 메소드 - 작성자 : 장희연
-	 * @param userNo : 탈퇴 처리할 회원의 회원번호
-	 * @param model
-	 * @param session
-	 * @return
-	 */
-	@RequestMapping("delete.me")
-	public String deleteMember(int userNo, Model model, HttpSession session) {
-		
-		int result = memberService.deleteMember(userNo);
-		
-		if(result > 0) {
-			
-			// session.setAttribute("alertMsg", "회원 탈퇴 처리 성공");
-			return "redirect:/admin_list.me";
-		} else {
-			
-			model.addAttribute("errorMsg", "회원 탈퇴 처리 실패");
 			return "common/errorPage";
 		}
 	}

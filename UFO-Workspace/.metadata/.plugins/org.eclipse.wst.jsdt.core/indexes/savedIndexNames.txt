@@ -1,5 +1,0 @@
-INDEX VERSION 1.4+C:\KH_Final-Project\UFO-Workspace\.metadata\.plugins\org.eclipse.wst.jsdt.core\indexes
-1095584084.index
-2403085653.index
-2454354737.index
-3118263792.index

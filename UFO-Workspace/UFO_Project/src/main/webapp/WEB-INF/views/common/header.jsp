@@ -105,7 +105,7 @@
                             <ul class="sub_menu mypage_menu">
                                 <li id="header_userInfo">
                                     <img id="member_profile" src="resources/image/member/profile1.png">
-                                    <p>RayJun 님</p>
+                                    <p>${ loginUser.userNickname } 님</p>
                                 </li>
                                 <c:choose>
                                     <c:when test="${ loginUser.userNo eq 0 }">

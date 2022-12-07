@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -90,11 +91,44 @@
         	
 	        <table id="user_profile">
 	            <tr>
-	                <td rowspan="2" width="220"><img src="resources/image/user/profile/profile1.jfif" width="170" height="170"></td>
-	                <td colspan="2" width="380" style="font-size:35px; font-weight:900;">//이용자닉네임//</td>
+	                <td rowspan="2" width="220">
+	                	<c:choose>
+	                		<c:when test="${ loginUser.userProfile eq 1 }">
+	                			<img src="resources/image/user/profile/profile1.jfif" width="170" height="170">
+	                		</c:when>
+	                		<c:when test="${ loginUser.userProfile eq 2 }">
+	                			<img src="resources/image/user/profile/profile2.png" width="170" height="170">
+	                		</c:when>
+	                		<c:when test="${ loginUser.userProfile eq 3 }">
+	                			<img src="resources/image/user/profile/profile3.png" width="170" height="170">
+	                		</c:when>
+	                		<c:when test="${ loginUser.userProfile eq 4 }">
+	                			<img src="resources/image/user/profile/profile4.png" width="170" height="170">
+	                		</c:when>
+	                		<c:when test="${ loginUser.userProfile eq 5 }">
+	                			<img src="resources/image/user/profile/profile5.jpg" width="170" height="170">
+	                		</c:when>
+	                		<c:when test="${ loginUser.userProfile eq 6 }">
+	                			<img src="resources/image/user/profile/profile6.jpg" width="170" height="170">
+	                		</c:when>
+	                		<c:when test="${ loginUser.userProfile eq 7 }">
+	                			<img src="resources/image/user/profile/profile7.jfif" width="170" height="170">
+	                		</c:when>
+	                		<c:when test="${ loginUser.userProfile eq 8 }">
+	                			<img src="resources/image/user/profile/profile8.png" width="170" height="170">
+	                		</c:when>
+	                		<c:when test="${ loginUser.userProfile eq 9 }">
+	                			<img src="resources/image/user/profile/profile9.jpg" width="170" height="170">
+	                		</c:when>
+	                		<c:otherwise>
+	                			<img src="resources/image/user/profile/profile10.jpg" width="170" height="170">
+	                		</c:otherwise>
+	                	</c:choose>
+	                </td>
+	                <td colspan="2" width="380" style="font-size:35px; font-weight:900;">${ loginUser.userNickname }</td>
 	                <td>
 	                	<button type="button" onclick="location.href='updateForm.me'">회원정보 수정</button>
-	                	<button type="button" data-toggle="modal" data-target="#updatePwdForm">비밀번호 변경</button>
+	                	<button type="button" onclick="##">비밀번호 변경</button>
 	                </td> 
 	            </tr>
 	            <tr>
@@ -111,21 +145,20 @@
 		    <!-- 이용권 구독하지 않은 경우만 나타는 구독 유도탭 -->
 		    <div align="center" id="subscribe_tab">이용권을 구독하고 인기 TV프로그램과 다양한 영화를 자유롭게 시청하세요!  이용권 구독하기></div>
 		    
-		    <!-- !!! 본인이 맡은 탭 div에 id="selected_tab" 붙어녛기 !!!-->
 		    <div id="mypage_navi">
 		        <div><a href="">시청 내역</a></div>
 		        <div><a href="">볼래요</a></div>
-		        <div id="selected_tab"><a href="myPayment.pay">이용권 내역</a></div>       
+		        <div><a href="">이용권 내역</a></div>       
 		        <div><a href="">별점 및 코멘트 내역</a></div>
 		        <div><a href="">커뮤니티 글 내역</a></div>
 		        <div><a href="">커뮤니티 댓글 내역</a></div>
 			</div>
         </div>
 
-
 		<!-- 푸터 영역 -->
         <jsp:include page="../common/footer.jsp" />
 
     </div>
-  </body>
+
+</body>
 </html>

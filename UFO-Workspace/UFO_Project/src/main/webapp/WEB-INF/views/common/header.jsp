@@ -79,9 +79,9 @@
         </div>
 
         <div id="header_profile_container">
-            <ul>
-                <c:choose>
-                    <c:when test="${ empty loginUser }">
+            <c:choose>
+                <c:when test="${ empty loginUser }">
+                    <ul>
                         <li class="main_menu logout_menu">
                             <a href="loginForm.me">로그인</a>
                             <ul class="sub_menu">
@@ -92,33 +92,28 @@
                                     <a href="userEnrollForm.me">회원가입</a>
                                 </li>
                                 <li>
-                                    <a href="payment.pay">이용권</a>
+                                    <a href="#">이용권</a>
                                 </li>
                             </ul>
                         </li>
-                    </c:when>
-                    <c:otherwise>
-                        <li class="main_menu login_menu">
-                            <a href="">
-                                <img id="member_profile" src="resources/image/member/profile1.png">
-                            </a>
-                            <ul class="sub_menu mypage_menu">
-                                <li id="header_userInfo">
-                                    <img id="member_profile" src="resources/image/member/profile1.png">
-                                    <p>${ loginUser.userNickname } 님</p>
+                    </ul>
+                </c:when>
+                <c:when test="${ loginUser.userProfile eq 0 }">
+                    <ul>
+                   		<li class="main_menu login_menu">
+                        	<a href="admin_list.me">
+		                       <img id="member_profile" src="resources/image/member/profile${ loginUser.userProfile }.png">
+		                    </a>
+		                    <ul class="sub_menu mypage_menu">
+                             	<li id="header_userInfo">
+                             		<a href="#">
+                             			<img id="member_profile" src="resources/image/member/profile${ loginUser.userProfile }.png">
+                                    	<p>${ loginUser.userNickname } 님</p>
+                             		</a>
                                 </li>
-                                <c:choose>
-                                    <c:when test="${ loginUser.userNo eq 0 }">
-                                        <li>
-                                            <a href="commentList.ad">관리자 페이지</a>
-                                        </li>
-                                    </c:when>
-                                    <c:otherwise>
-                                        <li>
-                                            <a href="myPage.me">마이 페이지</a>
-                                        </li>
-                                    </c:otherwise>
-                                </c:choose>
+                                <li>
+                                    <a href="admin_list.me">관리자 페이지</a>
+                                </li>
                                 <li>
                                     <a href="payment.pay">이용권</a>
                                 </li>
@@ -127,9 +122,35 @@
                                 </li>
                             </ul>
                         </li>
-                    </c:otherwise>
-                </c:choose>
-            </ul>
+                    </ul>
+                </c:when>
+                <c:otherwise>
+                    <ul>
+                        <li class="main_menu login_menu">
+                         <a href="myPage.me">
+                            <img id="member_profile" src="resources/image/member/profile${ loginUser.userProfile }.png">
+                         </a>
+                         <ul class="sub_menu mypage_menu">
+                             <li id="header_userInfo">
+                             	<a href="#">
+                                 <img id="member_profile" src="resources/image/member/profile${ loginUser.userProfile }.png">
+                                 <p>${ loginUser.userNickname } 님</p>
+                             	</a>
+                             </li>
+                             <li>
+                                 <a href="myPage.me">마이 페이지</a>
+                             </li>
+                             <li>
+                                 <a href="payment.pay">이용권</a>
+                             </li>
+                             <li>
+                                 <a href="logout.me">로그아웃</a>
+                             </li>
+                         </ul>
+                     </li>
+                 </ul>
+                </c:otherwise>
+            </c:choose>
         </div>
 
     </div>

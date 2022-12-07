@@ -83,11 +83,11 @@
 }
 /* 로그인만 텍스트 색상 다르게 설정 */
 .main_menu:not(#logout_menu)>a { color:rgb(255, 255, 255); }
-.login_menu { display: none; }
-.login_menu.logout { display: none; }
-.login_menu.login { display: block !important; }
-.logout_menu.logout { display: block !important; }
-.logout_menu.login { display: none; }
+/* .login_menu { display: none; } */
+/* .login_menu.logout { display: none; } */
+/* .login_menu.login { display: block !important; } */
+/* .logout_menu.logout { display: block !important; } */
+/* .logout_menu.login { display: none; } */
 
 
 /* ~~~ 메인 메뉴 호버 효과 ~~~ */

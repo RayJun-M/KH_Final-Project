@@ -1,4 +1,4 @@
-package com.urfavoriteott.ufo.member.model.dao;
+package com.urfavoriteott.urfavoriteott.member.model.dao;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -7,9 +7,14 @@ import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Component;
 
+<<<<<<< HEAD
 import com.urfavoriteott.ufo.common.model.vo.PageInfo;
 import com.urfavoriteott.ufo.member.model.vo.Member;
 
+=======
+import com.urfavoriteott.urfavoriteott.common.model.vo.PageInfo;
+import com.urfavoriteott.urfavoriteott.member.model.vo.Member;
+>>>>>>> upstream/main
 
 @Component
 public class MemberDao {
@@ -26,6 +31,7 @@ public class MemberDao {
 		
 	}
 	
+<<<<<<< HEAD
 	/**
 	 * 회원가입용 메소드 - 작성자 : 동민
 	 * @param sqlSession
@@ -37,6 +43,8 @@ public class MemberDao {
 		return sqlSession.insert("memberMapper.insertMember", m);
 	}
 	
+=======
+>>>>>>> upstream/main
 	public int nicknameCheck(SqlSessionTemplate sqlSession, String checkNickname) {
 		
 		return sqlSession.selectOne("memberMapper.nicknameCheck", checkNickname);

@@ -1,4 +1,7 @@
-package com.urfavoriteott.ufo.member.model.service;
+package com.urfavoriteott.urfavoriteott.member.model.service;
+
+import java.util.ArrayList;
+import java.util.HashMap;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -7,10 +10,16 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+<<<<<<< HEAD
 import com.urfavoriteott.ufo.common.model.vo.PageInfo;
 import com.urfavoriteott.ufo.member.model.dao.MemberDao;
 import com.urfavoriteott.ufo.member.model.vo.Member;
 
+=======
+import com.urfavoriteott.urfavoriteott.common.model.vo.PageInfo;
+import com.urfavoriteott.urfavoriteott.member.model.dao.MemberDao;
+import com.urfavoriteott.urfavoriteott.member.model.vo.Member;
+>>>>>>> upstream/main
 
 @Service
 public class MemberServiceImpl implements MemberService {
@@ -27,6 +36,7 @@ public class MemberServiceImpl implements MemberService {
 	}
 	
 	@Override
+<<<<<<< HEAD
 	public int insertMember(Member m) {
 		
 		return memberDao.insertMember(sqlSession, m);
@@ -34,6 +44,8 @@ public class MemberServiceImpl implements MemberService {
 	}
 	
 	@Override
+=======
+>>>>>>> upstream/main
 	public int nicknameCheck(String checkNickname) {
 		
 		return memberDao.nicknameCheck(sqlSession, checkNickname);
@@ -74,11 +86,14 @@ public class MemberServiceImpl implements MemberService {
 		
 		return memberDao.updatePwd(sqlSession, userNo);
 	}
+<<<<<<< HEAD
 	
 	@Override
 	public int passWordUpdate(String updatePassword) {
 		return 0;
 	}
+=======
+>>>>>>> upstream/main
 
 	@Override
 	public int deleteMember(int userNo) {

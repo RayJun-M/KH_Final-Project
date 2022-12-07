@@ -1,0 +1,24 @@
+@charset "UTF-8";
+
+/* ---------- 컨텐츠 영역 ---------- */
+#content_container {
+    /* 세로 크기 : 1550(px) */
+    width: 100%;
+    color: rgb(255, 255, 255);
+    position: relative;
+}
+
+/* ===== 제목 + 최신 게임 ===== */
+.main_text, .new_game_container, .genre_search_container {
+    /* 컨텐츠 영역 기본 좌우 여백 10% */
+    margin-left: 10%;
+    margin-right: 10%;
+}
+
+/* ===== 제목 ===== */
+.main_text {
+    /* 폰트 설정 */
+    margin-top: 50px;
+    font-size: 20px;
+    font-weight: bold;
+}

@@ -5,23 +5,11 @@ import java.util.HashMap;
 
 import com.urfavoriteott.ufo.common.model.vo.PageInfo;
 import com.urfavoriteott.ufo.contents.model.vo.Review;
-<<<<<<< HEAD
 import com.urfavoriteott.ufo.member.model.vo.Member;
-=======
-<<<<<<< HEAD
-=======
-import com.urfavoriteott.ufo.member.model.vo.Member;
->>>>>>> upstream/main
->>>>>>> upstream/main
 
 public interface AdminService {
 	
 	/**
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-=======
->>>>>>> upstream/main
 	 * 관리자 - 회원 리스트 조회용 메소드 - 작성자 : 장희연
 	 * 전체 회원 수 조회
 	 * @return
@@ -67,10 +55,6 @@ public interface AdminService {
 	int deleteMember(int userNo);
 	
 	/**
-<<<<<<< HEAD
-=======
->>>>>>> upstream/main
->>>>>>> upstream/main
 	 * 관리자 페이지 코멘트 관리를 위한 페이징바 - 작성자: 수빈
 	 * @param reviewNo : 코멘트 번호
 	 * @return

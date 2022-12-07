@@ -31,7 +31,6 @@ public class MemberController {
 	// 비밀번호 암호화를 위한 변수
 	@Autowired
 	private BCryptPasswordEncoder bcryptPasswordEncoder;
-<<<<<<< HEAD
 		
 	/**
 	 * 회원 로그인창을 띄워주는 메소드 - 작성자 : 동민
@@ -40,28 +39,6 @@ public class MemberController {
 	@RequestMapping("loginForm.me")
 	public String loginForm() {
 		
-=======
-		
-	@RequestMapping("myPage.me")
-	public String myPage() {
-		
-		return "member/myPage";
-	}
-	
-	@RequestMapping("updateForm.me")
-	public String updateForm() {
-		
-		return "member/memberUpdateForm";
-	}
-	
-	/**
-	 * 회원 로그인창을 띄워주는 메소드 - 작성자 : 동민
-	 * @return
-	 */
-	@RequestMapping("loginForm.me")
-	public String loginForm() {
-		
->>>>>>> upstream/main
 		return "member/userLogin";
 	}
 	
@@ -204,7 +181,6 @@ public class MemberController {
 		
 	}
 	
-<<<<<<< HEAD
 	/**
 	 * 회원 비밀번호 재설정 화면을 띄워주는 메소드 - 작성자 : 동민
 	 * @return
@@ -228,19 +204,6 @@ public class MemberController {
 	}
 	
 	/**
-=======
-	/**
-	 * 회원 비밀번호 재설정 화면을 띄워주는 메소드 - 작성자 : 동민
-	 * @return
-	 */
-	@RequestMapping("updatePasswordForm.me")
-	public String updatePasswordForm() {
-		
-		return "member/userPasswordUpdate";
-	}
-	
-	/**
->>>>>>> upstream/main
 	 * 사용자 - 닉네임 중복체크용 메소드 - 작성자 : 장희연
 	 * @param checkNickname : 중복체크할 사용자의 닉네임
 	 * @return
@@ -279,7 +242,6 @@ public class MemberController {
 			return "common/errorPage";
 		}
 	}
-<<<<<<< HEAD
 	
 	/**
 	 * 사용자 - 회원 탈퇴용 메소드 - 작성자 : 장희연
@@ -303,6 +265,4 @@ public class MemberController {
 			return "common/errorPage";
 		}
 	}
-=======
->>>>>>> upstream/main
 }

@@ -50,39 +50,6 @@ public class MemberServiceImpl implements MemberService {
 	}
 	
 	@Override
-<<<<<<< HEAD
-=======
-	public int selectListCount() {
-		
-		return memberDao.selectListCount(sqlSession);
-	}
-
-	@Override
-	public ArrayList<Member> selectList(PageInfo pi) {
-		
-		return memberDao.selectList(sqlSession, pi);
-	}
-
-	@Override
-	public int selectSearchCount(HashMap<String, String> map) {
-		
-		return memberDao.selectSearchCount(sqlSession, map);
-	}
-
-	@Override
-	public ArrayList<Member> selectSearchList(HashMap<String, String> map, PageInfo pi) {
-		
-		return memberDao.selectSearchList(sqlSession, map, pi);
-	}
-
-	@Override
-	public int updatePwd(int userNo) {
-		
-		return memberDao.updatePwd(sqlSession, userNo);
-	}
-
-	@Override
->>>>>>> upstream/main
 	public int deleteMember(int userNo) {
 		
 		return memberDao.deleteMember(sqlSession, userNo);

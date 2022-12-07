@@ -3,8 +3,16 @@ package com.urfavoriteott.ufo.admin.controller;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+<<<<<<< HEAD
 import javax.servlet.http.HttpSession;
 
+=======
+<<<<<<< HEAD
+=======
+import javax.servlet.http.HttpSession;
+
+>>>>>>> upstream/main
+>>>>>>> upstream/main
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,7 +23,14 @@ import com.urfavoriteott.ufo.admin.model.service.AdminService;
 import com.urfavoriteott.ufo.common.model.vo.PageInfo;
 import com.urfavoriteott.ufo.common.template.Pagination;
 import com.urfavoriteott.ufo.contents.model.vo.Review;
+<<<<<<< HEAD
 import com.urfavoriteott.ufo.member.model.vo.Member;
+=======
+<<<<<<< HEAD
+=======
+import com.urfavoriteott.ufo.member.model.vo.Member;
+>>>>>>> upstream/main
+>>>>>>> upstream/main
 
 @Controller
 public class AdminController {
@@ -23,6 +38,11 @@ public class AdminController {
 	@Autowired
 	private AdminService adminService;
 	
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+=======
+>>>>>>> upstream/main
 	@RequestMapping("admin_stat.st")
 	public String statistics() {
 		
@@ -128,6 +148,10 @@ public class AdminController {
 		}
 	}
 	
+<<<<<<< HEAD
+=======
+>>>>>>> upstream/main
+>>>>>>> upstream/main
 	/**
 	 * 관리자 페이지 코멘트 관리에서 사용할 페이징 바, 기본 접속 시 전체 코멘트 조회 - 작성자 : 수빈
 	 * @param currentPage

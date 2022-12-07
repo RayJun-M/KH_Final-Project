@@ -75,6 +75,10 @@
 		<td style="font-weight: bold;">웹 사이트 로고 제작</td>
 		<td colspan="3">Piskel</td>
 	</tr>
+	<tr height="40">
+		<td style="font-weight: bold;">웹 사이트 로고 제작</td>
+		<td colspan="2">Piskel</td>
+	</tr>
 </table>
 <br>
 

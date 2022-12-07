@@ -1,4 +1,4 @@
-package com.urfavoriteott.ufo.member.controller;
+package com.urfavoriteott.urfavoriteott.member.controller;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -16,11 +16,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.urfavoriteott.ufo.common.model.vo.PageInfo;
-import com.urfavoriteott.ufo.common.template.Pagination;
-import com.urfavoriteott.ufo.member.model.service.MemberService;
-import com.urfavoriteott.ufo.member.model.vo.Member;
-
+import com.urfavoriteott.urfavoriteott.common.model.vo.PageInfo;
+import com.urfavoriteott.urfavoriteott.common.template.Pagination;
+import com.urfavoriteott.urfavoriteott.member.model.service.MemberService;
+import com.urfavoriteott.urfavoriteott.member.model.vo.Member;
 
 @Controller
 public class MemberController {
@@ -31,13 +30,22 @@ public class MemberController {
 	// 비밀번호 암호화를 위한 변수
 	@Autowired
 	private BCryptPasswordEncoder bcryptPasswordEncoder;
+		
+	@RequestMapping("myPage.me")
+	public String myPage() {
+		
+		return "member/myPage";
+	}
 	
-	/**
-	 * 회원 로그인창을 띄워주는 메소드 - 작성자 : 동민
-	 * @return
-	 */
+	@RequestMapping("updateForm.me")
+	public String updateForm() {
+		
+		return "member/memberUpdateForm";
+	}
+	
 	@RequestMapping("loginForm.me")
 	public String loginForm() {
+		
 		return "member/userLogin";
 	}
 	
@@ -81,20 +89,23 @@ public class MemberController {
 			// 비밀번호도 일치한다면 => 로그인 성공
 			session.setAttribute("loginUser", loginUser);
 			
-			session.setAttribute("alertMsg", "로그인에 성공하였습니다.");
+			// session.setAttribute("alertMsg", "로그인에 성공하였습니다.");
+			
+			System.out.println("로그인 성공");
 			
 			mv.setViewName("redirect:/");
 			
 		}
 		else {
 			
+			// 로그인 실패
 			mv.addObject("errorMsg", "로그인 실패");
 			
+			// /WEB-INF/views/common/errorPage.jsp
 			mv.setViewName("common/errorPage");
 		}
 		
 		return mv;
-		
 		
 	}
 	
@@ -112,84 +123,7 @@ public class MemberController {
 		// 메인페이지로 url 요청
 		return "redirect:/";
 		
-		
 	}
-	
-	/**
-	 * 회원가입창을 띄워주는 메소드 - 작성자 : 동민
-	 * @return
-	 */
-	@RequestMapping("userEnrollForm.me")
-	public String enrollForm() {
-
-		return "member/userEnroll";
-		
-	}
-	
-	/**
-	 * 회원가입용 메소드 - 작성자 : 동민
-	 * @param userId1 : 이메일 @ 앞주소
-	 * @param userId2 : 이메일 @ 뒷주소
-	 * @param userPwd : 사용자 비밀번호
-	 * @param nickName : 사용자 닉네임
-	 * @param model
-	 * @param session
-	 * @return
-	 */
-	@RequestMapping("insert.me")
-	public String insertMember(String userId1
-							 , String userId2
-							 , String userPwd
-							 , String userNickname
-			                 , Model model
-			                 , HttpSession session) {
-		
-		// user 아이디 이메일 주소로 합치기
-		String userId = userId1 + "@" + userId2;
-		
-		// 멤버 객체에 변수들 set
-		Member m = new Member();
-		m.setUserId(userId);
-		m.setUserPwd(userPwd);
-		m.setUserNickname(userNickname);
-		
-		// 암호화 작업 (암호문을 만들어내는 과정)
-		String encPwd = bcryptPasswordEncoder.encode(m.getUserPwd());
-		
-		m.setUserPwd(encPwd);
-		
-		int result = memberService.insertMember(m);
-		
-		if(result > 0) { // 성공
-			
-			session.setAttribute("alertMsg", "성공적으로 회원가입이 되었습니다.");
-			
-			return "redirect:/";
-			
-		}
-		
-		else { // 실패
-			
-			model.addAttribute("errorMsg", "회원가입 실패");
-			
-			return "common/errorPage";
-			
-		}
-		
-	}
-		
-	@RequestMapping("myPage.me")
-	public String myPage() {
-		
-		return "member/myPage";
-	}
-	
-	@RequestMapping("updateForm.me")
-	public String updateForm() {
-		
-		return "member/memberUpdateForm";
-	}
-	
 	
 	/**
 	 * 사용자 - 닉네임 중복체크용 메소드 - 작성자 : 장희연

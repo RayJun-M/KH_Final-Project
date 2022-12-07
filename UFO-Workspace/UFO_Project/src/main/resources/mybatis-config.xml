@@ -16,7 +16,6 @@
         <typeAlias type="com.urfavoriteott.ufo.contents.model.vo.Episode" alias="episode" />
         <typeAlias type="com.urfavoriteott.ufo.contents.model.vo.Movie" alias="movie" />
         <typeAlias type="com.urfavoriteott.ufo.contents.model.vo.Payment" alias="payment" />
-        <typeAlias type="com.urfavoriteott.ufo.contents.model.vo.PaymentRegular" alias="paymentRegular" />
         <typeAlias type="com.urfavoriteott.ufo.contents.model.vo.Review" alias="review" />
         <typeAlias type="com.urfavoriteott.ufo.contents.model.vo.Tv" alias="tv" />
         <typeAlias type="com.urfavoriteott.ufo.cs.model.vo.Notice" alias="notice" />

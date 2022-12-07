@@ -40,7 +40,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
         padding: 0 20%;
       }
 
-      #regOpt, #subsOpt {
+      #payOpt, #regOpt {
         float:left;
         width:50%;
         text-align: center;
@@ -49,7 +49,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
         padding-top:10px;
       }
 
-      #regOpt, #subsOpt:hover {
+      #payOpt, #regOpt:hover {
         cursor: pointer;
       }
 
@@ -107,13 +107,13 @@ uri="http://java.sun.com/jsp/jstl/core" %>
         <!-- 이용권 선택 / 결제 -->
 
         <div id="content_main"> <!-- 선택창, 결제버튼 포함하는 div -->
-          <div id="regOpt" value="5900"> <!-- 일반결제 -->
+          <div id="payOpt" value="5900"> <!-- 일반결제 -->
             <i class="fa-solid fa-circle-check" ></i>
             <p style="font-weight:900">한달 이용권</i><br>
               <span>5,900원</span>
             </p>
           </div>
-          <div id="subsOpt" value="3900"> <!-- 정기결제 -->
+          <div id="regOpt" value="3900"> <!-- 정기결제 -->
             <i class="fa-solid fa-circle-check"></i>
             <p style="font-weight:900">정기 구독권</i><br>
               <span>3,900원</span>

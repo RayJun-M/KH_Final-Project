@@ -23,4 +23,10 @@ public class PaymentController {
 		
 		return "";
 	}
+	
+	@RequestMapping("regInsert.pay")
+	public String insertRegPay() {
+		
+		return "";
+	}
 }

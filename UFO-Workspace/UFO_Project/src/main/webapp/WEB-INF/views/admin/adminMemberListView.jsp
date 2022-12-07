@@ -137,7 +137,7 @@
         	
 	        <table id="admin_profile">
 	            <tr>
-	                <td width="220"><img src="resources/image/user/profile/admin.png" width="170" height="170"></td>
+	                <td width="220"><img src="resources/image/member/profile0.png" width="170" height="170"></td>
 	                <td width="380" style="font-size:50px; font-weight:900;">관리자</td>
 	            </tr>
 	        </table>

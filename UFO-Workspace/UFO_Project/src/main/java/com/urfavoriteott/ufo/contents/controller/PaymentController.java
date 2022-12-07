@@ -12,15 +12,15 @@ public class PaymentController {
     @Autowired
     private PaymentService paymentService;
     
-	@RequestMapping("payment.pay")
+    @RequestMapping("payment.pay")
 	public String paymentView() {
-		
-		return "payment/payment";
+
+		return "contents/payment";
 	}
-	
+
 	@RequestMapping("insert.pay")
 	public String insertPay() {
-		
+
 		return "";
 	}
 }

@@ -28,7 +28,7 @@ onload = () => {
   const regOpt = document.getElementById('regOpt'); // 일반결제 탭
   const subsOpt = document.getElementById('subsOpt'); // 정기결제 탭
   const payBtn = document.getElementById('payBtn'); // 결제하기 버튼
-  
+
   if($(subsOpt).css('backgroundColor','#64FFDA')){
     changeColor(subsOpt,'','white');
   }
@@ -36,7 +36,7 @@ onload = () => {
   regOpt.addEventListener('click',() => {
   changeColor(regOpt, '#64FFDA', 'black');
   $(payBtn).attr('disabled',false);
-  
+
   payBtn.addEventListener('click', () => {
     // IMP.request_pay(param, callback) 결제창 호출
     IMP.request_pay({
@@ -65,7 +65,7 @@ onload = () => {
     });
   });
 })
-  
+
 subsOpt.addEventListener('click',() => {
   if($(regOpt).css('backgroundColor','#64FFDA')){
     changeColor(regOpt,'','white');

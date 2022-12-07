@@ -35,7 +35,6 @@
     	padding: 10px;
 		text-align: center;
     }
-
     #admin_mypage_navi {
     	border-bottom: 1px solid gray;
     }
@@ -64,7 +63,6 @@
 	#paymentTable th, #paymentTable td {
 		text-align: center;
 	}
-
 	.active :hover {
 		cursor: pointer;
 	}
@@ -80,18 +78,18 @@
 
 		<!-- 헤더 영역 -->
         <jsp:include page="../common/header.jsp" />
-	
-		
+
+
         <!-- 컨텐츠 영역 (개별 구현 구역) -->
         <div id="content_container">
-        	
+
 	        <table id="admin_profile">
 	            <tr>
 	                <td width="220"><img src="resources/image/user/profile/admin.png" width="170" height="170"></td>
 	                <td width="380" style="font-size:50px; font-weight:900;">관리자</td>
 	            </tr>
 	        </table>
-	    	
+
 	    	<!-- !!! 본인이 맡은 탭 div에 id="selected_tab" 붙어녛기 !!!-->
 		    <div id="admin_mypage_navi">
 		        <div><a href="admin_list.me">회원 관리</a></div>
@@ -148,7 +146,7 @@
 						<td>2022.08.10</td>
 						<td><button class="btn btn-sm btn-outline-dark" style="background-color: #64FFDA;">해지</button></td>
 					</tr>
-					
+
 					<!-- 페이징 처리 할 영역 -->
 
 
@@ -156,18 +154,14 @@
 
 
 					<script>
-
 						onload = () => { 
 							let btn = document.querySelectorAll('.btn');
-
 							let abledBtn = [];
-
 							btn.forEach((el) => {
 								if(el.disabled == false){
 									abledBtn.push(el);
 								}
 							})
-
 							abledBtn.forEach((el) => {
 								console.log(el);
 								el.addEventListener('mouseenter', () => {
@@ -183,7 +177,6 @@
 											data: {},
 											type: 'post',
 											success: () => {
-
 											},
 											error: () => {
 												console.log('AJAX 호출 에러 발생');
@@ -204,6 +197,6 @@
         <jsp:include page="../common/footer.jsp" />
 
     </div>
-    
+
 </body>
 </html>

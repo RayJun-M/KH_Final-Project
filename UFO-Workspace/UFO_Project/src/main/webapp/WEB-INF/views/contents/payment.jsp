@@ -177,21 +177,20 @@ uri="http://java.sun.com/jsp/jstl/core" %>
             name : '일반결제',
             amount : 200,
             buyer_email: '${loginUser.userId}',
-            // buyer_tel: '010-1234-5678',
-            buyer_addr: '서울특별시 강남구 삼성동',
-            buyer_postcode: '123-123'
           }, rsp => {
-              if (rsp.success) { // 결제 성공 -> 돈 빠져나갔으니까 내가 받은 결제 정보와 아임포트 서버에 저장된 결제 정보 대조시켜서 일치하는지 확인 -> REST API 활용해야 함
-                console.log('rsp: '+rsp);
+              if (rsp.success) {
+                console.dir(rsp);
                 $.ajax({
                   url:'insert.pay',
-                  method:'POST',
-                  headers: {'Content-Type':'application/json'},
-                  data: {
-                  }
+                  method:'get',
+                  data: {payNo: rsp.imp_uid,
+                         payOrderNo: rsp.merchant_uid,
+                         userNo: ${loginUser.userNo},
+                         payment: rsp.paid_amount,
+                         payUrl: rsp.receipt_url}
                 }).done(data => { // insert.pay로 요청 보내서 데이터 insert 성공하면 돌릴 로직
-                  console.log
                   alert('결제가 성공적으로 완료되었습니다.')
+                  location.href="/ufo"
                   console.log('data :'+data);
                 });
               } else {

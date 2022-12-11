@@ -4,7 +4,7 @@
 	<resultMap id="paymentResultSet" type="payment">
 		<result column="PAY_NO" property="payNo" />
 		<result column="PAY_ORDER_NO" property="payOrderNo" />
-		<result column="USERNO" property="userNo" />
+		<result column="USER_NO" property="userNo" />
 		<result column="PAYMENT" property="payment" />
 		<result column="PAY_DATE" property="payDate" />
 		<result column="PAY_END_DATE" property="payEndDate" />
@@ -30,7 +30,7 @@
 							PAYMENT,
 							PAY_URL)
 		VALUES (#{payNo},
-				#{payOrderNo,
+				#{payOrderNo},
 				#{userNo},
 				#{payment},
 				#{payUrl})

@@ -24,19 +24,18 @@ public class PaymentController {
 
 		return "contents/payment";
 	}
-    
+
     /**
-     * @param imp_uid: 결제고유번호 - 검증과정에 필요
-     * @param merchant_uid: DB에 저장할 주문번호
-     * @return
+     * 작성자: 성현
+     * @param payment
+     * @return : 성공 / 실패 여부 리턴
      */
     @ResponseBody
-	@RequestMapping(value = "insert.pay", produces = "application/json; charset=utf-8")
-	public String insertPay(@RequestBody Payment payment) {
-		
-    	System.out.println(payment);
+	@RequestMapping(value = "insert.pay", produces = "text/html; charset=utf-8")
+	public String insertPay(Payment payment) {
     	
     	int result = paymentService.insertPay(payment);
+    	
     	String str = "";
     	
     	if(result > 0 ) { // 성공
@@ -47,10 +46,9 @@ public class PaymentController {
 		return str;
 	}
 	
-	@RequestMapping("regInsert.pay")
+	@RequestMapping(value="regInsert.pay", produces="text/html; charset=utf-8")
 	public String insertRegPay() {
 		
 		return "";
 	}
-	
 }

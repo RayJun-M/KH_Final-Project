@@ -11,5 +11,4 @@ public class PaymentDao {
 	public int insertPay(SqlSessionTemplate sqlSession, Payment payment) {
 		return sqlSession.insert("paymentMapper.insertPay", payment);
 	}
-
 }

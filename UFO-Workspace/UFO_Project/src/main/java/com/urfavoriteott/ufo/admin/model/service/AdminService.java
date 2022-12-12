@@ -3,6 +3,7 @@ package com.urfavoriteott.ufo.admin.model.service;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import com.urfavoriteott.ufo.admin.model.vo.Report;
 import com.urfavoriteott.ufo.admin.model.vo.Sales;
 import com.urfavoriteott.ufo.common.model.vo.PageInfo;
 import com.urfavoriteott.ufo.contents.model.vo.Review;
@@ -97,29 +98,91 @@ public interface AdminService {
 	
 	/**
 	 * 관리자 페이지 코멘트 관리를 위한 페이징바 - 작성자: 수빈
-	 * @param reviewNo : 코멘트 번호
 	 * @return
 	 */
 	int selectAdminCommentListCount();
-	
+
 	/**
 	 * 관리자 페이지에서 코멘트 관리를 위해 모든 코멘트 조회 (select) - 작성자: 수빈
-	 * @param reviewNo : 코멘트 번호
+	 * @param pi : 페이징바
 	 * @return
 	 */
 	ArrayList<Review> selectAdminCommentList(PageInfo pi);
 	
 	/**
 	 * 관리자 페이지 코멘트 관리에서 검색을 위한 페이징바(select) - 작성자: 수빈
+	 * @param map : 조건과 검색어를 담은 HashMap
 	 * @return
 	 */
 	int searchAdminCommentListCount(HashMap map);
 	
-	
 	/**
 	 * 관리자 페이지 코멘트 관리에서 검색된 코멘트 조회 (select) - 작성자: 수빈
+	 * @param map : 조건과 검색어를 담은 HashMap
+	 * @param pi : 페이징바
 	 * @return
 	 */
 	ArrayList<Review> searchAdminCommentList(HashMap map, PageInfo pi);
+	
+	/**
+	 * 관리자 페이지 코멘트 관리에서 선택된 코멘트 삭제 (update) - 작성자: 수빈
+	 * @param checkNum : checkbox 중 선택된 것의 리뷰 번호
+	 * @return
+	 */
+	int deleteAdminComment(int checkNum); 
+	
+	/**
+	 * 관리자 페이지 신고 관리를 위한 페이징바(select) - 작성자: 수빈
+	 * @return
+	 */
+	int reportedCommentListCount();
+	
+	/**
+	 * 관리자 페이지에서 신고 관리를 위해 신고된 모든 코멘트 조회 (select) - 작성자: 수빈
+	 * @param pi
+	 * @return
+	 */
+	ArrayList<Report> reportedCommentList(PageInfo pi);
+	
+	/**
+	 * 관리자 페이지 신고 관리에서 신고된 코멘트를 삭제(REPORT_STATUS='Y') 하는 메소드 - 작성자: 수빈
+	 * @param reportNo
+	 * @return
+	 */
+	int changeStatusReportedComment(int reportNo);
+	
+	/**
+	 * 관리자 페이지 신고 관리에서 신고된 코멘트를 삭제(REVIEW_STATUS='N') 하는 메소드 - 작성자: 수빈
+	 * @param reviewNo
+	 * @return
+	 */
+	int deleteReportedComment(int reviewNo);
+
+	/**
+	 * 관리자 페이지 신고 관리에서 처리된 코멘트 보기 버튼 클릭 시 페이징바(select) - 작성자: 수빈
+	 * @return
+	 */
+	int processedCommentListCount();
+
+	/**
+	 * 관리자 페이지 신고 관리에서 처리된 코멘트 보기 버튼 클릭 시 신고 처리된 모든 코멘트 조회 (select) - 작성자: 수빈
+	 * @param pi
+	 * @return
+	 */
+	ArrayList<Report> processedCommentList(PageInfo pi);
+	
+	/**
+	 * 관리자 페이지 신고 관리에서 신고된 코멘트를 되돌리는(REPORT_STATUS='N') 메소드 - 작성자: 수빈
+	 * @param reportNo
+	 * @return
+	 */
+	int resetStatusReportedComment(int reportNo);
+	
+	/**
+	 * 관리자 페이지 신고 관리에서 신고된 코멘트를 삭제 상태를 되돌리는(REVIEW_STATUS='Y') 메소드 - 작성자: 수빈
+	 * @param reviewNo
+	 * @return
+	 */
+	int resetReportedComment(int reviewNo);
 
 }

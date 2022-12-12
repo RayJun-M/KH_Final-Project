@@ -1,5 +1,9 @@
 package com.urfavoriteott.ufo.member.model.service;
 
+import java.util.ArrayList;
+
+import com.urfavoriteott.ufo.common.model.vo.PageInfo;
+import com.urfavoriteott.ufo.contents.model.vo.Review;
 import com.urfavoriteott.ufo.member.model.vo.Member;
 
 
@@ -53,4 +57,26 @@ public interface MemberService {
 	 * @return
 	 */
 	int deleteMember(int userNo);
+	
+	/**
+	 * 마이 페이지 별점 및 코멘트 내역 조회를 위한 페이징바(select) - 작성자 : 수빈
+	 * @param loginUserNo
+	 * @return
+	 */
+	int selectMyCommentListCount(String loginUserNo);
+	
+	/**
+	 * 마이 페이지 별점 및 코멘트 내역에서 코멘트 조회 (select) - 작성자 : 수빈
+	 * @param pi
+	 * @param loginUserNo
+	 * @return
+	 */
+	ArrayList<Review> selectMyCommentList(PageInfo pi, String loginUserNo);
+	
+	/**
+	 * 마이 페이지 별점 및 코멘트 내역에서 선택된 리뷰 삭제 메소드 - 작성자: 수빈
+	 * @param checkNum
+	 * @return
+	 */
+	int deleteMyComment(int checkNum); 
 }

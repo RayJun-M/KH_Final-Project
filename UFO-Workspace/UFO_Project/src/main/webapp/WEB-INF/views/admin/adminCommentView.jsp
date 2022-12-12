@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,7 +13,7 @@
 	<link href="resources/css/adminCommentView.css" rel="stylesheet">
 
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css">
-	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+	<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
 	<!--
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
@@ -48,7 +48,7 @@
 		        <div><a href="">콘텐츠 관리</a></div>
 				<div id="selected_tab"><a href="commentList.ad">코멘트 관리</a></div>
 		        <div><a href="">이용권 관리</a></div>       
-		        <div><a href="">신고 관리</a></div>
+		        <div><a href="reportManagement.ad">신고 관리</a></div>
 		        <div><a href="admin_stat.st">통계 관리</a></div>
 			</div>
 
@@ -94,8 +94,7 @@
 									<c:forEach var="r" items="${ list }">
 										<tr class="personalComment">
 											<td>
-												<input type="checkbox" name="selectContent" id="selectContent">
-												<input type="hidden" value="${ r.reviewNo }">
+												<input type="checkbox" name="selectContent" id="selectContent" value="${ r.reviewNo }">
 											</td>
 											<td id="userMail">${ r.userId }</td>
 											<td id="userNickname">${ r.userNickname }</td>
@@ -116,17 +115,7 @@
 									<tr><th colspan="6" style="text-align: right;"><button type="button" class="btn btn-danger" onclick="deleteComment();">삭제</button></th></tr>
 								</tbody>
 							</table>
-							
-							<script>
-								function deleteComment() {
-									
-									var reviewNo = document.getElementById("selectContent");
-									
-									console.log(reviewNo);
-									
-								}
-							</script>
-              
+		
 							<br><br>                                        
 		
 							<div id="pagingArea">
@@ -168,7 +157,9 @@
 								<tbody>
 									<c:forEach var="r" items="${ searchList }">
 										<tr class="personalComment">
-											<td><input type="checkbox" name="selectContent" id="selectContent"><label for="selectContent"></label></td>
+											<td>
+												<input type="checkbox" name="selectContent" id="selectContent" value="${ r.reviewNo }">
+											</td>
 											<td id="userMail">${ r.userId }</td>
 											<td id="userNickname">${ r.userNickname }</td>
 											<td id="ContentName">
@@ -185,7 +176,7 @@
 											<td id="review_content">${ r.reviewContent }</td>
 										</tr>
 									</c:forEach>
-									<tr><th colspan="6" style="text-align: right;"><button type="button" class="btn btn-danger">삭제</button></th></tr>
+									<tr><th colspan="6" style="text-align: right;"><button type="button" class="btn btn-danger" onclick="deleteComment();">삭제</button></th></tr>
 								</tbody>
 							</table>
 		
@@ -219,6 +210,50 @@
 								조회된 코멘트가 없습니다.
 							</c:otherwise>
 						</c:choose>
+						
+						<script>
+							function deleteComment() {
+								
+								 // 체크박스의 리뷰번호를 담을 배열 선언
+								let reviewNoArr = [];
+								
+								// name 값이 selectContent인 속성 취득 
+								const selectContent = document.getElementsByName("selectContent");
+								
+								// 취득한 수만큼 반복 돌리기
+								for (let i = 0; i < selectContent.length; i++) {
+									
+									// 속성 중에 체크된 항목이 있을 경우
+									if(selectContent[i].checked == true) {
+										reviewNoArr.push(selectContent[i].value);
+									}
+								}
+								
+								// 결과를 표시
+								// console.log(reviewNoArr); // 체크박스된 리뷰의 번호가 잘 뽑힘!
+								// console.dir(reviewNoArr); // Array[선택된checkbox숫자]
+								
+								if(confirm("선택된 코멘트를 삭제하시겠습니까?")) {
+									
+									$.ajax({
+										url : "deleteComment.ad",
+										data : { reviewNoArr : reviewNoArr },
+										type : "get",
+										success : function(result) {
+											if(result == 1) {
+												alert("성공적으로 삭제되었습니다.");
+												location.reload();
+											}
+										},
+										error : function() {
+											console.log("관리자 코멘트 삭제용 ajax 통신 실패!");
+										}
+										
+									});
+								}
+								
+							}
+						</script>
 
 				</div> <!-- commentListAll 영역 끝 -->
 

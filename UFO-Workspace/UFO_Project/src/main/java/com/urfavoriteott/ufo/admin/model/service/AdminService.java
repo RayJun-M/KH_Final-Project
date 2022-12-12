@@ -3,6 +3,7 @@ package com.urfavoriteott.ufo.admin.model.service;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import com.urfavoriteott.ufo.admin.model.vo.Sales;
 import com.urfavoriteott.ufo.common.model.vo.PageInfo;
 import com.urfavoriteott.ufo.contents.model.vo.Review;
 import com.urfavoriteott.ufo.member.model.vo.Member;
@@ -53,6 +54,46 @@ public interface AdminService {
 	 * @return
 	 */
 	int deleteMember(int userNo);
+	
+	/**
+	 * 관리자 - 한달이용권 월별 매출 메소드 - 작성자 : 장희연
+	 * @return
+	 */
+	ArrayList<Sales> selectSalesPerMonthOnce();
+	
+	/**
+	 * 관리자 - 월간구독권 월별 매출 메소드 - 작성자 : 장희연
+	 * @return
+	 */
+	ArrayList<Sales> selectSalesPerMonthSub();
+	
+	/**
+	 * 관리자 - 월별 매출 메소드 - 작성자 : 장희연
+	 * @return
+	 */
+	ArrayList<Sales> selectSalesPerMonth();
+	
+	/**
+	 * 관리자 - 한달이용권 연도별 매출 메소드 - 작성자 : 장희연
+	 * @return
+	 */
+	ArrayList<Sales> selectSalesPerYearOnce();
+	
+	/**
+	 * 관리자 - 월간구독권 연도별 매출 메소드 - 작성자 : 장희연
+	 * @return
+	 */
+	ArrayList<Sales> selectSalesPerYearSub();
+	
+	/**
+	 * 관리자 - 연도별 매출 메소드 - 작성자 : 장희연
+	 * @return
+	 */
+	ArrayList<Sales> selectSalesPerYear();
+	
+	ArrayList<Integer> selectViewsTV(String genre);
+	
+	ArrayList<Integer> selectViewsMovie(String genre);
 	
 	/**
 	 * 관리자 페이지 코멘트 관리를 위한 페이징바 - 작성자: 수빈

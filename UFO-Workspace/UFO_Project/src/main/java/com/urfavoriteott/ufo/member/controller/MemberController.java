@@ -244,6 +244,16 @@ public class MemberController {
 	}
 	
 	/**
+	 * 사용자 - 마이페이지에서 비밀번호 변경 화면 띄우는 메소드 - 작성자 : 장희연
+	 * @return
+	 */
+	@RequestMapping("myPageupdatePwdForm.me")
+	public String updatePwdForm() {
+		
+		return "member/myPageUserPwdUpdate";
+	}
+	
+	/**
 	 * 사용자 - 회원 탈퇴용 메소드 - 작성자 : 장희연
 	 * @param userNo : 로그인한 사용자(탈퇴할 회원)의 회원 번호
 	 * @param model
@@ -251,18 +261,34 @@ public class MemberController {
 	 * @return
 	 */
 	@RequestMapping("delete.me")
-	public String deleteMember(int userNo, Model model, HttpSession session) {
+	public String deleteMember(int userNo, String userPwd, Model model, HttpSession session) {
 		
-		int result = memberService.deleteMember(userNo);
+		String encPwd = ((Member)session.getAttribute("loginUser")).getUserPwd();
 		
-		if(result > 0) {
+		// 비밀번호 대조작업
+		if(bcryptPasswordEncoder.matches(userPwd, encPwd)) {
 			
-			// session.setAttribute("alertMsg", "회원 탈퇴 처리 성공");
-			return "redirect:/logout.me";
+			// 비밀번호가 맞을 경우 => 탈퇴처리
+			int result = memberService.deleteMember(userNo);
+			
+			if(result > 0) { // 탈퇴처리 성공
+				
+				// 로그아웃 처리후 일회성 알람 메세지 담기, 메인페이지로 url 재요청
+				session.removeAttribute("loginUser"); // 로그인한 회원의 정보만 지우고 session은 살림
+				session.setAttribute("alertMsg", "성공적으로 탈퇴되었습니다. 그동안 이용해주셔서 감사합니다.");
+				
+				return "redirect:/";
+				
+			} else { // 탈퇴처리 실패 => 에러문구를 담아서 에러페이지로 포워딩
+				
+				model.addAttribute("errorMsg", "회원 탈퇴 실패");
+				
+				return "common/errorPage";
+			}
 		} else {
 			
-			model.addAttribute("errorMsg", "회원 탈퇴 처리 실패");
-			return "common/errorPage";
+			session.setAttribute("alertMsg", "비밀번호를 잘못 입력하였습니다. 확인해주세요.");
+			return "redirect:/myPage.me";
 		}
 	}
 }

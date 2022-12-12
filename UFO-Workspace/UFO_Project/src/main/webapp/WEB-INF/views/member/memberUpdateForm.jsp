@@ -67,18 +67,18 @@
 		        	<input type="hidden" name="userNo" value="${ loginUser.userNo }">
 		        	<input type="hidden" name="userProfile" id="userProfile" value="${ loginUser.userProfile }">
 		            <tr>
-		            	<td><img src="resources/image/user/profile/profile1.jfif" value="1" width="170" height="170"></td>
-		            	<td><img src="resources/image/user/profile/profile2.png" value="2" width="170" height="170"></td>
-		            	<td><img src="resources/image/user/profile/profile3.png" value="3" width="170" height="170"></td>
-		            	<td><img src="resources/image/user/profile/profile4.png" value="4" width="170" height="170"></td>
-		            	<td><img src="resources/image/user/profile/profile5.jpg" value="5" width="170" height="170"></td>
+		            	<td><img src="resources/image/member/profile1.png" value="1" width="170" height="170"></td>
+		            	<td><img src="resources/image/member/profile2.png" value="2" width="170" height="170"></td>
+		            	<td><img src="resources/image/member/profile3.png" value="3" width="170" height="170"></td>
+		            	<td><img src="resources/image/member/profile4.png" value="4" width="170" height="170"></td>
+		            	<td><img src="resources/image/member/profile5.png" value="5" width="170" height="170"></td>
 		            </tr>
 		            <tr>
-		            	<td><img src="resources/image/user/profile/profile6.jpg" value="6" width="170" height="170"></td>
-		            	<td><img src="resources/image/user/profile/profile7.jfif" value="7" width="170" height="170"></td>
-		            	<td><img src="resources/image/user/profile/profile8.png" value="8" width="170" height="170"></td>
-		            	<td><img src="resources/image/user/profile/profile9.jpg" value="9" width="170" height="170"></td>
-		            	<td><img src="resources/image/user/profile/profile10.jpg" value="10" width="170" height="170"></td>
+		            	<td><img src="resources/image/member/profile6.png" value="6" width="170" height="170"></td>
+		            	<td><img src="resources/image/member/profile7.png" value="7" width="170" height="170"></td>
+		            	<td><img src="resources/image/member/profile8.jpg" value="8" width="170" height="170"></td>
+		            	<td><img src="resources/image/member/profile9.jpg" value="9" width="170" height="170"></td>
+		            	<td><img src="resources/image/member/profile10.png" value="10" width="170" height="170"></td>
 		            </tr>
 		        </table>
 		    	
@@ -106,7 +106,6 @@
 					if($(this).attr("value") == ${ loginUser.userProfile }) {
 						$(this).addClass("active");
 					}
-					
 				});
 			});
 			

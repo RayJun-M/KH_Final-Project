@@ -11,14 +11,14 @@ import org.json.simple.parser.JSONParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
-import com.urfavoriteott.ufo.contents.model.service.MovieService;
+import com.urfavoriteott.ufo.contents.model.service.ContentsService;
 import com.urfavoriteott.ufo.contents.model.vo.Movie;
 
 @Controller
-public class MovieController {
+public class ContentsController {
 
     @Autowired
-    private MovieService movieService;
+    private ContentsService contentsService;
 
     private String baseUrl = "https://api.themoviedb.org/3/";
     private String movieTopRated = "movie/top_rated";
@@ -126,7 +126,7 @@ public class MovieController {
             	JSONObject content = (JSONObject) list.get(i);
 
             	m.setPosterPath("https://image.tmdb.org/t/p/w500" + content.get("poster_path").toString());
-            	m.setMovieId((int)content.get("id"));
+            	m.setMovieId(Integer.parseInt(content.get("id").toString()));
 
             	resultList.add(m);
             }
@@ -195,7 +195,7 @@ public class MovieController {
             	JSONObject content = (JSONObject) list.get(i);
 
             	m.setPosterPath("https://image.tmdb.org/t/p/w500" + content.get("poster_path").toString());
-            	m.setMovieId((int)content.get("id"));
+            	m.setMovieId(Integer.parseInt(content.get("id").toString()));
 
             	resultList.add(m);
             }

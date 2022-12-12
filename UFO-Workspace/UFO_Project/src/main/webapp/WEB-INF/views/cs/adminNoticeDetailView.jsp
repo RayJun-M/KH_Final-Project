@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
 <!DOCTYPE html>
 <html>
 <head>
@@ -159,7 +160,7 @@
                                     </div>
 									
                                     <div class="form-button" style="margin-left: 1400px;">
-								            <a href="adminNoticeUpdateForm.no" class="btn btn-warning" style="color:white">수정</a>
+								            <a href="adminNoticeUpdateForm.no?nno=${ n.noticeNo }" class="btn btn-warning" style="color:white">수정</a>
 								            <a href="adminNoticeDelete.no?nno=${ n.noticeNo }" class="btn btn-danger" style="color:white">삭제</a>
 								            <a href="adminNoticeList.no" class="btn btn-info" style="color:white">목록</a>
                                     </div>

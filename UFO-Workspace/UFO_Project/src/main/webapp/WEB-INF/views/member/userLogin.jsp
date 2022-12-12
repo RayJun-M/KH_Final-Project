@@ -101,7 +101,7 @@
                                 <div class="link" id="link_1" style="padding-left: 18%;">
                                     <a href="userEnrollForm.me" style="text-decoration:none; color:white;">회원가입</a>
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                    <a href="" style="text-decoration:none; color:white;">비밀번호재설정</a>
+                                    <a href="updatePasswordForm.me" style="text-decoration:none; color:white;">비밀번호재설정</a>
                                 </div>				
                         </div>
                         <br>

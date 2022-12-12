@@ -301,7 +301,7 @@
                                     </tr>
                                     <tr style="height:80px;">
                                         <th>* 닉네임</th>
-                                        <td colspan="3"><input type="text" class="form-control" id="userNickname" name="userNickname" maxlength="10" style="width:400px" required ></td>
+                                        <td colspan="3"><input type="text" class="form-control" id="userNickname" name="userNickname" minlength="2" maxlength="15" style="width:400px" required ></td>
                                     	<td id="checkResult" style="font-size:0.9em; display:none;"></td>    
                                     </tr>
                                     
@@ -581,16 +581,17 @@
 			$(function() {
 				
 				// 닉네임을 입력받는 input 요소 객체를 변수에 담아두기 => keyup 이벤트 걸기
-				var $nickNameInput = $("#enroll-form input[name=userNickname]");
+				var $nicknameInput = $("#enroll-form input[name=userNickname]");
+				var regExp = /^[a-zA-Z0-9ㄱ-ㅎㅏ-ㅣ가-힣\d]{2,15}$/i;
 				
-				$nickNameInput.keyup(function() {
+				$nicknameInput.keyup(function() {
 					
 					// 1글자 이상일때 ajax요청
-					if($nickNameInput.val().length >= 1) {
+					if(regExp.test($nicknameInput.val())) {
 					// ajax 를 요청하여 중복체크
 						$.ajax({
 							url : "nickNameCheck.me",
-							data : {checkNickname : $nickNameInput.val()},
+							data : {checkNickname : $nicknameInput.val()},
 							success : function(result) {
 								
 								if(result == "NNNNN") { // 사용 불가능

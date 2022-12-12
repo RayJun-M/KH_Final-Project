@@ -32,18 +32,6 @@ public class MemberController {
 	@Autowired
 	private BCryptPasswordEncoder bcryptPasswordEncoder;
 		
-	@RequestMapping("myPage.me")
-	public String myPage() {
-		
-		return "member/myPage";
-	}
-	
-	@RequestMapping("updateForm.me")
-	public String updateForm() {
-		
-		return "member/memberUpdateForm";
-	}
-	
 	/**
 	 * 회원 로그인창을 띄워주는 메소드 - 작성자 : 동민
 	 * @return
@@ -203,6 +191,18 @@ public class MemberController {
 		return "member/userPasswordUpdate";
 	}
 	
+	@RequestMapping("myPage.me")
+	public String myPage() {
+		
+		return "member/myPage";
+	}
+	
+	@RequestMapping("updateForm.me")
+	public String updateForm() {
+		
+		return "member/memberUpdateForm";
+	}
+	
 	/**
 	 * 사용자 - 닉네임 중복체크용 메소드 - 작성자 : 장희연
 	 * @param checkNickname : 중복체크할 사용자의 닉네임
@@ -240,6 +240,55 @@ public class MemberController {
 			
 			model.addAttribute("errorMsg", "회원정보 수정 실패");
 			return "common/errorPage";
+		}
+	}
+	
+	/**
+	 * 사용자 - 마이페이지에서 비밀번호 변경 화면 띄우는 메소드 - 작성자 : 장희연
+	 * @return
+	 */
+	@RequestMapping("myPageupdatePwdForm.me")
+	public String updatePwdForm() {
+		
+		return "member/myPageUserPwdUpdate";
+	}
+	
+	/**
+	 * 사용자 - 회원 탈퇴용 메소드 - 작성자 : 장희연
+	 * @param userNo : 로그인한 사용자(탈퇴할 회원)의 회원 번호
+	 * @param model
+	 * @param session
+	 * @return
+	 */
+	@RequestMapping("delete.me")
+	public String deleteMember(int userNo, String userPwd, Model model, HttpSession session) {
+		
+		String encPwd = ((Member)session.getAttribute("loginUser")).getUserPwd();
+		
+		// 비밀번호 대조작업
+		if(bcryptPasswordEncoder.matches(userPwd, encPwd)) {
+			
+			// 비밀번호가 맞을 경우 => 탈퇴처리
+			int result = memberService.deleteMember(userNo);
+			
+			if(result > 0) { // 탈퇴처리 성공
+				
+				// 로그아웃 처리후 일회성 알람 메세지 담기, 메인페이지로 url 재요청
+				session.removeAttribute("loginUser"); // 로그인한 회원의 정보만 지우고 session은 살림
+				session.setAttribute("alertMsg", "성공적으로 탈퇴되었습니다. 그동안 이용해주셔서 감사합니다.");
+				
+				return "redirect:/";
+				
+			} else { // 탈퇴처리 실패 => 에러문구를 담아서 에러페이지로 포워딩
+				
+				model.addAttribute("errorMsg", "회원 탈퇴 실패");
+				
+				return "common/errorPage";
+			}
+		} else {
+			
+			session.setAttribute("alertMsg", "비밀번호를 잘못 입력하였습니다. 확인해주세요.");
+			return "redirect:/myPage.me";
 		}
 	}
 }

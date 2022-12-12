@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
 <!DOCTYPE html>
 <html>
 <head>
@@ -102,10 +103,10 @@
     <div class="wrap">
 
 		<!-- 플로팅 버튼 영역 -->
-        <jsp:include page="floatingButton.jsp" />
+        <jsp:include page="../common/floatingButton.jsp" />
 
 		<!-- 헤더 영역 -->
-        <jsp:include page="header.jsp" />
+        <jsp:include page="../common/header.jsp" />
 
 		
         <!-- 컨텐츠 영역 (개별 구현 구역) -->
@@ -120,8 +121,8 @@
 	    	
 	    	<!-- !!! 본인이 맡은 탭 div에 id="selected_tab" 붙어녛기 !!!-->
         <div id="admin_mypage_navi">
-		        <div id="selected_tab"><a href="">공지사항</a></div>
-		        <div><a href="">FAQ</a></div>       
+		        <div id="selected_tab"><a href="adminNoticeList.no">공지사항</a></div>
+		        <div><a href="adminFAQ.no">FAQ</a></div>       
 		</div>
 
             <div class="notice">
@@ -131,11 +132,12 @@
 					<div id="main">
                         <div id="notice">
                                     <p class="main_text" style="margin-left:50px; font-size:32px;">공지사항 수정</p> 
-                            <form id="enroll-form" action="" method="post">
+                            <form id="enroll-form" action="adminNoticeUpdate.no" method="post">
+                            	<input type="hidden" name="noticeNo" value="${ n.noticeNo }">
                                 <table align="center">
                                     <tr>
                                         <th>제목</th>
-                                        <td><input type="text" name="title" class="form-control" maxlength="33" required></td>
+                                        <td><input type="text" name="noticeTitle" id="noticeTitle" value="${ n.noticeTitle }" class="form-control" maxlength="33" required></td>
                                     </tr>
 
                                     <br>
@@ -143,7 +145,7 @@
                                     <tr>
                                         <th>내용</th>
                                         <td>
-                                            <textarea name="content" class="form-control" rows="19" required style="resize:none"></textarea>
+                                            <textarea name="noticeContent" id="noticeContent" class="form-control" rows="19" required style="resize:none">${ n.noticeContent }</textarea>
                                         </td>
                                     </tr>
                                 </table>
@@ -164,7 +166,7 @@
         
 
 		<!-- 푸터 영역 -->
-        <jsp:include page="footer.jsp" />
+        <jsp:include page="../common/footer.jsp" />
 
     </div>
     

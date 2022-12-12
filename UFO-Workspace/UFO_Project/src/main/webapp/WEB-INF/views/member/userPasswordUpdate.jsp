@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
 <!DOCTYPE html>
 <html>
 <head>
@@ -43,10 +44,10 @@
     <div class="wrap">
 
 		<!-- 플로팅 버튼 영역 -->
-        <jsp:include page="floatingButton.jsp" />
+        <jsp:include page="../common/floatingButton.jsp" />
 
 		<!-- 헤더 영역 -->
-        <jsp:include page="header.jsp" />
+        <jsp:include page="../common/header.jsp" />
 
 		
         <!-- 컨텐츠 영역 (개별 구현 구역) -->
@@ -56,7 +57,7 @@
             <p class="main_text" style="margin-left:600px; margin-top:100px;">비밀번호 재설정</p>
             <p style="margin-left:600px;">비밀번호 잊어버렸을때 이메일 인증 후 비밀번호 재설정을 통해 비밀번호를 다시 설정하실수 있습니다.</p>
             <div class="EnrollUser">
-				<form id="enroll-form" action="" method="post">
+				<form id="enroll-form" action="updatePassword.me" method="post">
                                 <table>
                                    <tr>
                                         <th style="height:80px;">* 이메일 주소</th> <!-- 이메일 선택해서 인풋에 넣기 -->
@@ -99,7 +100,7 @@
 
 
 		<!-- 푸터 영역 -->
-        <jsp:include page="footer.jsp" />
+        <jsp:include page="../common/footer.jsp" />
 
     
     

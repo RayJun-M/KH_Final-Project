@@ -3,25 +3,22 @@ package com.urfavoriteott.ufo.admin.controller;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-<<<<<<< HEAD
-=======
 import javax.servlet.http.HttpSession;
 
->>>>>>> upstream/main
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.google.gson.Gson;
 import com.urfavoriteott.ufo.admin.model.service.AdminService;
+import com.urfavoriteott.ufo.admin.model.vo.Sales;
 import com.urfavoriteott.ufo.common.model.vo.PageInfo;
 import com.urfavoriteott.ufo.common.template.Pagination;
 import com.urfavoriteott.ufo.contents.model.vo.Review;
-<<<<<<< HEAD
-=======
 import com.urfavoriteott.ufo.member.model.vo.Member;
->>>>>>> upstream/main
 
 @Controller
 public class AdminController {
@@ -29,8 +26,6 @@ public class AdminController {
 	@Autowired
 	private AdminService adminService;
 	
-<<<<<<< HEAD
-=======
 	@RequestMapping("admin_stat.st")
 	public String statistics() {
 		
@@ -97,20 +92,13 @@ public class AdminController {
 	 * @param session
 	 * @return
 	 */
+	
 	@RequestMapping("admin_updatePwd.me")
-	public String updatePwd(int userNo, Model model, HttpSession session) {
+	public String updatePwd(int userNo) {
 		
 		int result = adminService.updatePwd(userNo);
 		
-		if(result > 0) {
-			
-			// session.setAttribute("alertMsg", "비밀번호 초기화 성공");
-			return "redirect:/admin_list.me";
-		} else {
-			
-			model.addAttribute("errorMsg", "비밀번호 초기화 실패");
-			return "common/errorPage";
-		}
+		return (result > 0) ? "success" : "fail";
 	}
 	
 	/**
@@ -120,23 +108,143 @@ public class AdminController {
 	 * @param session
 	 * @return
 	 */
+	@ResponseBody
 	@RequestMapping("admin_delete.me")
 	public String deleteMember(int userNo, Model model, HttpSession session) {
 		
 		int result = adminService.deleteMember(userNo);
 		
-		if(result > 0) {
-			
-			// session.setAttribute("alertMsg", "회원 탈퇴 처리 성공");
-			return "redirect:/admin_list.me";
-		} else {
-			
-			model.addAttribute("errorMsg", "회원 탈퇴 처리 실패");
-			return "common/errorPage";
-		}
+		return (result > 0) ? "success" : "fail";
 	}
 	
->>>>>>> upstream/main
+	/**
+	 * 관리자 - 한달이용권 월별 매출 메소드 - 작성자 : 장희연
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value="salesPerMonthOnce.st", produces="application/json; charset=UTF-8")
+	public String selectSalesPerMonthOnce() {
+		
+		ArrayList<Sales> list = adminService.selectSalesPerMonthOnce();
+		
+		return new Gson().toJson(list);
+	}
+	
+	/**
+	 * 관리자 - 월간구독권 월별 매출 메소드 - 작성자 : 장희연
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value="salesPerMonthSub.st", produces="application/json; charset=UTF-8")
+	public String selectSalesPerMonthSub() {
+		
+		ArrayList<Sales> list = adminService.selectSalesPerMonthSub();
+		
+		return new Gson().toJson(list);
+	}
+	
+	/**
+	 * 관리자 - 월별 매출 메소드 - 작성자 : 장희연
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value="salesPerMonth.st", produces="application/json; charset=UTF-8")
+	public String selectSalesPerMonth() {
+		
+		ArrayList<Sales> list = adminService.selectSalesPerMonth();
+		
+		return new Gson().toJson(list);
+	}
+	
+	/**
+	 * 관리자 - 한달이용권 연도별 매출 메소드 - 작성자 : 장희연
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value="salesPerYearOnce.st", produces="application/json; charset=UTF-8")
+	public String selectSalesPerYearOnce() {
+		
+		ArrayList<Sales> list = adminService.selectSalesPerYearOnce();
+		
+		return new Gson().toJson(list);
+	}
+	
+	/**
+	 * 관리자 - 월간구독권 연도별 매출 메소드 - 작성자 : 장희연
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value="salesPerYearSub.st", produces="application/json; charset=UTF-8")
+	public String selectSalesPerYearSub() {
+		
+		ArrayList<Sales> list = adminService.selectSalesPerYearSub();
+		
+		return new Gson().toJson(list);
+	}
+	
+	/**
+	 * 관리자 - 연도별 매출 메소드 - 작성자 : 장희연
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value="salesPerYear.st", produces="application/json; charset=UTF-8")
+	public String selectSalesPerYear() {
+		
+		ArrayList<Sales> list = adminService.selectSalesPerYear();
+		
+		return new Gson().toJson(list);
+	}
+	
+	@ResponseBody
+	@RequestMapping("viewsOfTVPerGenre.st")
+	public HashMap<String, Integer> selectViewsTV(String[] genre) {
+		// System.out.println("장르: " + Arrays.toString(genre));
+		
+		HashMap<String, Integer> map = new HashMap();
+		
+		for(int i = 0; i < genre.length; i++) {
+			// System.out.println(genre[i]);
+			int views = 0; 
+			
+			ArrayList<Integer> list = adminService.selectViewsTV(genre[i]);
+			// System.out.println(list);
+			// System.out.println(list.size());
+			for(int j = 0; j < list.size(); j++) {
+				views += list.get(j);
+			}
+			
+			map.put(genre[i], views);
+		}
+		
+		System.out.println(map);
+		return map;
+	}
+	
+	@ResponseBody
+	@RequestMapping("viewsOfMoviePerGenre.st")
+	public HashMap<String, Integer> selectViewsMovie(String[] genre) {
+		// System.out.println("장르: " + Arrays.toString(genre));
+		
+		HashMap<String, Integer> map = new HashMap();
+		
+		for(int i = 0; i < genre.length; i++) {
+			// System.out.println(genre[i]);
+			int views = 0; 
+			
+			ArrayList<Integer> list = adminService.selectViewsMovie(genre[i]);
+			// System.out.println(list);
+			// System.out.println(list.size());
+			for(int j = 0; j < list.size(); j++) {
+				views += list.get(j);
+			}
+			
+			map.put(genre[i], views);
+		}
+		
+		System.out.println(map);
+		return map;
+	}
+	
 	/**
 	 * 관리자 페이지 코멘트 관리에서 사용할 페이징 바, 기본 접속 시 전체 코멘트 조회 - 작성자 : 수빈
 	 * @param currentPage
@@ -198,4 +306,6 @@ public class AdminController {
 		return "admin/adminCommentView";
 		
 	}
+	
+	
 }

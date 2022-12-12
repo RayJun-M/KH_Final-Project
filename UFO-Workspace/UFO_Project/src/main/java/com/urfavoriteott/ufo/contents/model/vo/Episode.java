@@ -21,11 +21,11 @@ public class Episode {
     private int episodeNumber;
     private String name;
     private String overview;
-    private int runTime;
+    private int runtime;
     private Date airDate;
     private String stillPath;
     private String videoKey;
-    private Date RegisterDate;
+    private Date registerDate;
     private String episodeStatus;
     private Date deleteDate;
 }

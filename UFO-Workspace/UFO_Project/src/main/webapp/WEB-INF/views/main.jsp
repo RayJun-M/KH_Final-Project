@@ -1,16 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" %>
 <%@ page import="java.util.ArrayList, com.urfavoriteott.ufo.contents.model.vo.Movie
-                , com.urfavoriteott.ufo.contents.controller.MovieController" %>
+                , com.urfavoriteott.ufo.contents.controller.ContentsController" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
     String contextPath = request.getContextPath();
-    ArrayList<Movie> movieHeader = new MovieController().getMovieTopRated();
-    ArrayList<Movie> moviePopular = new MovieController().getMoviePopular();
-    ArrayList<Movie> movieLatest = new MovieController().getMovieLatest();
-    ArrayList<Movie> movieVideo = new MovieController().getMovieVideo("436270");
-    ArrayList<Movie> movieGenre = new MovieController().getMovieSimilar("882598");
-    ArrayList<Movie> movieDirector = new MovieController().getMovieSimilar("76600");
-    ArrayList<Movie> movieCast = new MovieController().getMovieSimilar("597");
+    ArrayList<Movie> movieHeader = new ContentsController().getMovieTopRated();
+    ArrayList<Movie> moviePopular = new ContentsController().getMoviePopular();
+    ArrayList<Movie> movieLatest = new ContentsController().getMovieLatest();
+    ArrayList<Movie> movieVideo = new ContentsController().getMovieVideo("436270");
+    ArrayList<Movie> movieGenre = new ContentsController().getMovieSimilar("882598");
+    ArrayList<Movie> movieDirector = new ContentsController().getMovieSimilar("76600");
+    ArrayList<Movie> movieCast = new ContentsController().getMovieSimilar("597");
 %>
 <!DOCTYPE html>
 <html>
@@ -85,39 +86,43 @@
             	<% } %>
             </div>
 
-            <!-- 최신 게임 -->
-            <p class="main_text">한다은님이 시청 중인 콘텐츠</p>
-            <div class="genre_search_container">
-                <% for(Movie m : movieVideo) { %>
-            		<div>
-            			<iframe width="100%" height="350px" src="https://www.youtube.com/embed/<%= m.getVideoKey() %>" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-            		</div>
-                <% } %>
-            </div>
-
-            <!-- 장르 검색 -->
-            <p class="main_text">한다은님이 좋아할만한 공포 장르 콘텐츠</p>
-            <div class="genre_search_container">
-                <% for(Movie m : movieGenre) { %>
-            		<div><a href=""><img class="thumbnail" src=<%= m.getPosterPath() %>></a></div>
-            	<% } %>
-            </div>
-
-            <!-- 장르 검색 -->
-            <p class="main_text">한다은님이 좋아할만한 김감독 연출 콘텐츠</p>
-            <div class="genre_search_container">
-                <% for(Movie m : movieDirector) { %>
-            		<div><a href=""><img class="thumbnail" src=<%= m.getPosterPath() %>></a></div>
-            	<% } %>
-            </div>
-
-            <!-- 장르 검색 -->
-            <p class="main_text">한다은님이 좋아할만한 김배우 출연 콘텐츠</p>
-            <div class="genre_search_container">
-                <% for(Movie m : movieCast) { %>
-            		<div><a href=""><img class="thumbnail" src=<%= m.getPosterPath() %>></a></div>
-            	<% } %>
-            </div>
+            <c:choose>
+                <c:when test="${ not empty loginUser }">
+                	<!-- 최신 게임 -->
+		            <p class="main_text">${ loginUser.userNickname }님이 시청 중인 콘텐츠</p>
+		            <div class="genre_search_container">
+		                <% for(Movie m : movieVideo) { %>
+		            		<div>
+		            			<iframe width="100%" height="350px" src="https://www.youtube.com/embed/<%= m.getVideoKey() %>" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+		            		</div>
+		                <% } %>
+		            </div>
+		
+		            <!-- 장르 검색 -->
+		            <p class="main_text">${ loginUser.userNickname }님이 좋아할만한 공포 장르 콘텐츠</p>
+		            <div class="genre_search_container">
+		                <% for(Movie m : movieGenre) { %>
+		            		<div><a href=""><img class="thumbnail" src=<%= m.getPosterPath() %>></a></div>
+		            	<% } %>
+		            </div>
+		
+		            <!-- 장르 검색 -->
+		            <p class="main_text">${ loginUser.userNickname }님이 좋아할만한 김감독 연출 콘텐츠</p>
+		            <div class="genre_search_container">
+		                <% for(Movie m : movieDirector) { %>
+		            		<div><a href=""><img class="thumbnail" src=<%= m.getPosterPath() %>></a></div>
+		            	<% } %>
+		            </div>
+		
+		            <!-- 장르 검색 -->
+		            <p class="main_text">${ loginUser.userNickname }님이 좋아할만한 김배우 출연 콘텐츠</p>
+		            <div class="genre_search_container">
+		                <% for(Movie m : movieCast) { %>
+		            		<div><a href=""><img class="thumbnail" src=<%= m.getPosterPath() %>></a></div>
+		            	<% } %>
+		            </div>
+                </c:when>
+            </c:choose>
 
         </div>
 

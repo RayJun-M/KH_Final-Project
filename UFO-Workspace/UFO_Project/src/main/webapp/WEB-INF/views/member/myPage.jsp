@@ -94,43 +94,45 @@
 	                <td rowspan="2" width="220">
 	                	<c:choose>
 	                		<c:when test="${ loginUser.userProfile eq 1 }">
-	                			<img src="resources/image/user/profile/profile1.jfif" width="170" height="170">
+	                			<img src="resources/image/member/profile1.png" width="170" height="170">
 	                		</c:when>
 	                		<c:when test="${ loginUser.userProfile eq 2 }">
-	                			<img src="resources/image/user/profile/profile2.png" width="170" height="170">
+	                			<img src="resources/image/member/profile2.png" width="170" height="170">
 	                		</c:when>
 	                		<c:when test="${ loginUser.userProfile eq 3 }">
-	                			<img src="resources/image/user/profile/profile3.png" width="170" height="170">
+	                			<img src="resources/image/member/profile3.png" width="170" height="170">
 	                		</c:when>
 	                		<c:when test="${ loginUser.userProfile eq 4 }">
-	                			<img src="resources/image/user/profile/profile4.png" width="170" height="170">
+	                			<img src="resources/image/member/profile4.png" width="170" height="170">
 	                		</c:when>
 	                		<c:when test="${ loginUser.userProfile eq 5 }">
-	                			<img src="resources/image/user/profile/profile5.jpg" width="170" height="170">
+	                			<img src="resources/image/member/profile5.png" width="170" height="170">
 	                		</c:when>
 	                		<c:when test="${ loginUser.userProfile eq 6 }">
-	                			<img src="resources/image/user/profile/profile6.jpg" width="170" height="170">
+	                			<img src="resources/image/member/profile6.png" width="170" height="170">
 	                		</c:when>
 	                		<c:when test="${ loginUser.userProfile eq 7 }">
-	                			<img src="resources/image/user/profile/profile7.jfif" width="170" height="170">
+	                			<img src="resources/image/member/profile7.png" width="170" height="170">
 	                		</c:when>
 	                		<c:when test="${ loginUser.userProfile eq 8 }">
-	                			<img src="resources/image/user/profile/profile8.png" width="170" height="170">
+	                			<img src="resources/image/member/profile8.jpg" width="170" height="170">
 	                		</c:when>
 	                		<c:when test="${ loginUser.userProfile eq 9 }">
-	                			<img src="resources/image/user/profile/profile9.jpg" width="170" height="170">
+	                			<img src="resources/image/member/profile9.jpg" width="170" height="170">
 	                		</c:when>
 	                		<c:otherwise>
-	                			<img src="resources/image/user/profile/profile10.jpg" width="170" height="170">
+	                			<img src="resources/image/member/profile10.png" width="170" height="170">
 	                		</c:otherwise>
 	                	</c:choose>
 	                </td>
 	                <td colspan="2" width="380" style="font-size:35px; font-weight:900;">${ loginUser.userNickname }</td>
 	                <td>
 	                	<button type="button" onclick="location.href='updateForm.me'">회원정보 수정</button>
-	                	<button type="button" onclick="##">비밀번호 변경</button>
+	                	<button type="button" onclick="location.href='myPageupdatePwdForm.me'">비밀번호 변경</button>
+	                	<button type="button" data-toggle="modal" data-target="#deleteModal">회원 탈퇴</button>
 	                </td> 
 	            </tr>
+					
 	            <tr>
 	                <td style="font-size:20px; color:gray; font-weight:900;">나의 이용권</td>
 	                <!-- 
@@ -142,6 +144,37 @@
 	            </tr>
 	        </table>
 	    	
+		    <!-- 회원탈퇴 버튼 클릭 시 보여질 Modal -->
+		    <div class="modal fade" id="deleteModal">
+		        <div class="modal-dialog modal-sm">
+		            <div class="modal-content" style="background-color:black;">
+		                <!-- Modal Header -->
+		                <div class="modal-header">
+		                    <h4 class="modal-title">회원탈퇴</h4>
+		                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+		                </div>
+		
+		                <form action="delete.me" method="post">
+		                    <!-- Modal body -->
+		                    <div class="modal-body">
+		                        <div align="center">
+		                            탈퇴 후 복구가 불가능합니다. <br>
+		                            정말로 탈퇴 하시겠습니까? <br>
+		                        </div>
+		                        <br>
+		                            <label for="userPwd" class="mr-sm-2">Password : </label>
+		                            <input type="password" class="form-control mb-2 mr-sm-2" placeholder="Enter Password" id="userPwd" name="userPwd"> <br>
+		                    		<input type="hidden" name="userNo" value="${ loginUser.userNo }">
+		                    </div>
+		                    <!-- Modal footer -->
+		                    <div class="modal-footer" align="center">
+		                        <button type="submit" class="btn btn-danger">탈퇴하기</button>
+		                    </div>
+		                </form>
+		            </div>
+		        </div>
+		    </div>
+			
 		    <!-- 이용권 구독하지 않은 경우만 나타는 구독 유도탭 -->
 		    <div align="center" id="subscribe_tab">이용권을 구독하고 인기 TV프로그램과 다양한 영화를 자유롭게 시청하세요!  이용권 구독하기></div>
 		    

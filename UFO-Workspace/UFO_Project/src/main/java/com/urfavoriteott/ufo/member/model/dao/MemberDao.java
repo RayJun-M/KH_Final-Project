@@ -8,6 +8,8 @@ import org.springframework.stereotype.Component;
 
 import com.urfavoriteott.ufo.common.model.vo.PageInfo;
 import com.urfavoriteott.ufo.contents.model.vo.Review;
+import org.mybatis.spring.SqlSessionTemplate;
+import org.springframework.stereotype.Component;
 import com.urfavoriteott.ufo.member.model.vo.Member;
 
 

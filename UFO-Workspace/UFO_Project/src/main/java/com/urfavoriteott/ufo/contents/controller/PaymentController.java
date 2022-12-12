@@ -27,6 +27,7 @@ public class PaymentController {
     private IamportClient RESTAPI;
     
     public PaymentController() {
+    	// REST API를 사용하기 위해 발급받은 REST KEY, SECRET KEY를 기본 생성자를 호출하며 아임포트 클라이언트 객체에 담음
     	this.RESTAPI = new IamportClient("3817751562357623", "YJTkrsBfrE8koNNcoJLJqu8vcsqN6omgkYxW91ojs5newEjLVC7YR7Vt3A5L913mF0o26nHrkpLrZudV");
     }
     /**
@@ -39,6 +40,16 @@ public class PaymentController {
 		return "contents/payment";
 	}
     
+    /**
+     * 작성자: 성현
+     * @param imp_uid: 사용자가 결제에 성공했을 때 발급받는 결제번호
+     * @param model: 
+     * @param locale
+     * @param httpSession
+     * @return: 아임포트 서버에 저장된 결제 정보를 리턴해줍니다.
+     * @throws IamportResponseException
+     * @throws IOException
+     */
     @ResponseBody
     @RequestMapping("verify.pay/{imp_uid}")
     public IamportResponse<com.siot.IamportRestClient.response.Payment> paymentByImpUid(
@@ -70,8 +81,8 @@ public class PaymentController {
 		return str;
 	}
 	
-	@RequestMapping(value="regInsert.pay", produces="text/html; charset=utf-8")
-	public String insertRegPay() {
+	@RequestMapping(value="insert.reg", produces="text/html; charset=utf-8")
+	public String insertReg() {
 		
 		return "";
 	}

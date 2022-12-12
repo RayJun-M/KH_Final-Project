@@ -1,6 +1,4 @@
-package com.urfavoriteott.ufo.member.model.vo;
-
-import java.sql.Date;
+package com.urfavoriteott.ufo.admin.model.vo;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -13,9 +11,8 @@ import lombok.ToString;
 @Setter
 @Getter
 @ToString
-public class Dib {
+public class Sales {
 
-    private int userNo;
-    private int movieId;
-    private int tvId;
+    private int total;          // 총 매출
+    private String dateRange;   // 날짜 범위 (월, 년)
 }

@@ -19,9 +19,9 @@ public class Movie {
     private String originalTitle;
     private String title;
     private String genres;
-    private String tagline;
+    private String tagLine;
     private String overview;
-    private int runTime;
+    private int runtime;
     private Date releaseDate;
     private String director;
     private String cast;
@@ -38,4 +38,12 @@ public class Movie {
     private Date registerDate;
     private String movieStatus;
     private Date deleteDate;
+
+    public static final String BASEURL = "https://api.themoviedb.org/3/";
+    public static final String KEY = "?api_key=40154e686dd0abd5dd77271873687488";
+    public static final String LANGUAGE = "&language=ko";
+    public static final String PAGE = "&page=1";
+    public static final String SEARCHCONTENTS = "search/multi";
+    public static final String SEARCHQUERY = "&query=";
+    public static final String ADULT = "&include_adult=false";
 }

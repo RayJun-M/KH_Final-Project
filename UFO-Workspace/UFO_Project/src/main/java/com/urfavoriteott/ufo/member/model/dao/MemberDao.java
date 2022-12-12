@@ -1,8 +1,13 @@
 package com.urfavoriteott.ufo.member.model.dao;
 
+import java.util.ArrayList;
+
+import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Component;
 
+import com.urfavoriteott.ufo.common.model.vo.PageInfo;
+import com.urfavoriteott.ufo.contents.model.vo.Review;
 import com.urfavoriteott.ufo.member.model.vo.Member;
 
 
@@ -80,5 +85,43 @@ public class MemberDao {
 	public int deleteMember(SqlSessionTemplate sqlSession, int userNo) {
 		
 		return sqlSession.update("memberMapper.deleteMember", userNo);
+	}
+	
+	/**
+	 * 마이 페이지 별점 및 코멘트 내역 조회를 위한 페이징바(select) - 작성자 : 수빈
+	 * @param sqlSession
+	 * @param loginUser
+	 * @return
+	 */
+	public int selectMyCommentListCount(SqlSessionTemplate sqlSession, String loginUserNo) {
+		
+		return sqlSession.selectOne("memberMapper.selectMyCommentListCount", loginUserNo);
+	}
+	
+	/**
+	 * 마이 페이지 별점 및 코멘트 내역에서 코멘트 조회 (select) - 작성자 : 수빈
+	 * @param sqlSession
+	 * @param pi
+	 * @param loginUser
+	 * @return
+	 */
+	public ArrayList<Review> selectMyCommentList(SqlSessionTemplate sqlSession, PageInfo pi, String loginUserNo) {
+		
+		int limit = pi.getBoardLimit();
+		int offset = (pi.getCurrentPage() -1) * limit;
+		
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		
+		return (ArrayList)sqlSession.selectList("memberMapper.selectMyCommentList", loginUserNo, rowBounds);
+	}
+	
+	/**
+	 * 마이 페이지 별점 및 코멘트 내역에서 선택된 리뷰 삭제 메소드 - 작성자: 수빈
+	 * @param sqlSession
+	 * @param checkNum
+	 * @return
+	 */
+	public int deleteMyComment(SqlSessionTemplate sqlSession, int checkNum) {
+		return sqlSession.update("memberMapper.deleteMyComment", checkNum);
 	}
 }

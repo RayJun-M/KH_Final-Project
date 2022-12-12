@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.urfavoriteott.ufo.contents.model.dao.PaymentDao;
+import com.urfavoriteott.ufo.contents.model.vo.Payment;
 
 @Service
 public class PaymentServiceImpl implements PaymentService {
@@ -14,4 +15,12 @@ public class PaymentServiceImpl implements PaymentService {
 
     @Autowired
     private PaymentDao paymentDao;
+
+	@Override
+	public int insertPay(Payment payment) {
+		
+		int result = paymentDao.insertPay(sqlSession, payment);
+		
+		return result;
+	}
 }

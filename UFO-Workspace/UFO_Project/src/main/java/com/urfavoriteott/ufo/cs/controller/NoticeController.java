@@ -19,10 +19,10 @@ import com.urfavoriteott.ufo.cs.model.vo.Notice;
 @Controller
 public class NoticeController {
 
-    @Autowired
-    private NoticeService noticeService;
-    
-    /**
+	@Autowired
+	private NoticeService noticeService;
+	
+	/**
 	 * FAQ 조회 메소드 - 작성자 : 동민
 	 * @return
 	 */

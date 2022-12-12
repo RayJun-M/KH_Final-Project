@@ -7,7 +7,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css">
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+<script src="http://code.jquery.com/jquery-1.11.1.min.js"; type="text/javascript"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
 <link rel="stylesheet" href="https://bootswatch.com/5/lux/bootstrap.css">
@@ -191,24 +191,64 @@
 								<td>${ m.userNickname }</td>
 								<td>${ m.userEnrollDate }</td>
 								<td>${ m.userStatus }</td>
-								<td><button onclick="resetPwd();">비밀번호 초기화</button></td>
-								<td><button onclick="deleteMem();">탈퇴처리</button></td>
+								<td><button onclick="resetPwd(${ m.userNo });">비밀번호 초기화</button></td>
+								<td><button onclick="deleteMem(${ m.userNo });">탈퇴처리</button></td>
 							</tr>
-							<form id="postForm" action="" method="post">
-								<input type="hidden" name="userNo" value="${ m.userNo }">
-							</form>
 						</c:forEach>
 					</tbody>
 				</table>
 			</div>
 			
 			<script>
-				function resetPwd() {
-					$("#postForm").attr("action", "updatePwd.me").submit();
-				}
-				function deleteMem() {
-					$("#postForm").attr("action", "delete.me").submit();
-				}
+			function resetPwd(userNo) {
+				$.ajax({
+					url : "admin_updatePwd.me",
+					type : "post",
+					data : { 
+						userNo : userNo 
+					},
+					success : function(result) {
+						
+						console.log(result);
+						if(result == "success") {
+							
+							alert("비밀번호 초기화에 성공했습니다.");
+							location.href = "admin_list.me";
+						} else {
+
+							alert("비밀번호 초기화에 실패했습니다.");
+						}
+					},
+					error : function() {
+						console.log("ajax 통신 실패!");
+					}
+				});
+			}
+			
+			function deleteMem(userNo) {
+				$.ajax({
+					url : "admin_delete.me",
+					type : "post",
+					data : { 
+						userNo : userNo 
+					},
+					success : function(result) {
+						
+						console.log(result);
+						if(result == "success") {
+							
+							alert("회원탈퇴에 성공했습니다.");
+							location.href = "admin_list.me";
+						} else {
+
+							alert("회워탈퇴에 실패했습니다.");
+						}
+					},
+					error : function() {
+						console.log("ajax 통신 실패!");
+					}
+				});
+			}
 			</script>
 			
 			<div id="pagingArea">

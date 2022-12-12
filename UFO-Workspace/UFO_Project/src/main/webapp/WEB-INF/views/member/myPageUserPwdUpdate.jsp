@@ -55,44 +55,43 @@
 
             <!-- 비밀번호 재설정 -->
             <p class="main_text" style="margin-left:600px; margin-top:100px;">비밀번호 재설정</p>
-            <p style="margin-left:600px;">비밀번호 잊어버렸을때 이메일 인증 후 비밀번호 재설정을 통해 비밀번호를 다시 설정하실수 있습니다.</p>
+            <p style="margin-left:600px;">이메일 인증을 통해 비밀번호를 다시 설정하실수 있습니다.</p>
             <div class="EnrollUser">
 				<form id="enroll-form" action="updatePassword.me" method="post">
-                                <table>
-                                   <tr>
-                                        <th style="height:80px;">* 이메일 주소</th> <!-- 이메일 선택해서 인풋에 넣기 -->
-                                        <td colspan="3">
-                                            <input type="text" id="userId1" name= "userId1" class="form-control" maxlength="18" value="" style="width:188px; height:100%; display:inline-block;" required> @
-                                            <select class="custom-select" id="userId2" name="userId2" title="이메일 도메인 주소 선택" style="width:188px; display:inline-block; height:100%; margin-bottom:3px;" onclick="setEmailDomain(this.value);return false;" required>
-                                                <option>선택</option>
-                                                    <option value="naver.com">naver.com</option>
-                                                    <option value="gmail.com">gmail.com</option>
-                                                    <option value="hanmail.net">hanmail.net</option>
-                                                    <option value="hotmail.com">hotmail.com</option>
-                                                    <option value="korea.com">korea.com</option>
-                                                    <option value="nate.com">nate.com</option>
-                                                    <option value="yahoo.com">yahoo.com</option>
-                                            </select>
-                                            <td><button type="button" id="checkbutton" class="btn btn-info" data-toggle="modal" data-target="#emailCheck" style="margin-left:20px;">이메일인증</button></td>
-                                        </td>
-                                        <td width="80px" style="display:inline-block;"></td>
-                                    </tr>
-                                    <tr style="height:80px;">
-                                        <th>* 비밀번호</th>
-                                        <td colspan="3"><input type="password" class="form-control" id ="updatePwd" name="updatePwd" maxlength="30" style="width:400px" placeholder="영문자,숫자,특수문자로된 총 8 ~ 15자 이내로 입력 " required readonly></td>
-                                    </tr>
-                                    <tr style="height:80px;">
-                                        <th>* 비밀번호 확인</th>
-                                        <td  colspan="3"><input type="password" class="form-control" id="updateCheckPwd" name="updateCheckPwd" maxlength="30" style="width:400px" required readonly></td>
-                                    </tr>
-                                                      
-                                </table>
+                    <table>
+                       <tr>
+                            <th style="height:80px;">* 이메일 주소</th> <!-- 이메일 선택해서 인풋에 넣기 -->
+                            <td colspan="3">
+                                <input type="text" id="userId1" name= "userId1" class="form-control" maxlength="18" value="" style="width:188px; height:100%; display:inline-block;" required> @
+                                <select class="custom-select" id="userId2" name="userId2" title="이메일 도메인 주소 선택" style="width:188px; display:inline-block; height:100%; margin-bottom:3px;" onclick="setEmailDomain(this.value);return false;" required>
+                                    <option>선택</option>
+                                        <option value="naver.com">naver.com</option>
+                                        <option value="gmail.com">gmail.com</option>
+                                        <option value="hanmail.net">hanmail.net</option>
+                                        <option value="hotmail.com">hotmail.com</option>
+                                        <option value="korea.com">korea.com</option>
+                                        <option value="nate.com">nate.com</option>
+                                        <option value="yahoo.com">yahoo.com</option>
+                                </select>
+                                <td><button type="button" id="checkbutton" class="btn btn-info" data-toggle="modal" data-target="#emailCheck" style="margin-left:20px;">이메일인증</button></td>
+                            </td>
+                            <td width="80px" style="display:inline-block;"></td>
+                        </tr>
+                        <tr style="height:80px;">
+                            <th>* 비밀번호</th>
+                            <td colspan="3"><input type="password" class="form-control" id ="updatePwd" name="updatePwd" maxlength="30" style="width:400px" placeholder="영문자,숫자,특수문자로된 총 8 ~ 15자 이내로 입력 " required readonly></td>
+                        </tr>
+                        <tr style="height:80px;">
+                            <th>* 비밀번호 확인</th>
+                            <td  colspan="3"><input type="password" class="form-control" id="updateCheckPwd" name="updateCheckPwd" maxlength="30" style="width:400px" required readonly></td>
+                        </tr>
+                    </table>
                                 
-                                <div style="margin-top:100px; margin-left:300px;">
-                                    <button type="submit" class="btn btn-info" id="passwordSet" style="width:250px;" onclick="return validatePwd();" disabled>비밀번호 재설정</button>
-                                </div>
-                               </form>
-                </div>     
+                    <div style="margin-top:100px; margin-left:300px;">
+                        <button type="submit" class="btn btn-info" id="passwordSet" style="width:250px;" onclick="return validatePwd();" disabled>비밀번호 재설정</button>
+                    </div>
+                  </form>
+             </div>     
 
            </div>
            
@@ -100,9 +99,14 @@
            
 
 
-        <!-- 푸터 영역 -->
+
+		<!-- 푸터 영역 -->
         <jsp:include page="../common/footer.jsp" />
-        
+
+    
+    
+    <!-- 이메일 인증용 모달창 -->
+    <!-- The Modal -->
     <!-- 이메일 인증용 모달창 -->
     <!-- The Modal -->
 	<div class="modal" id="emailCheck">
@@ -123,11 +127,9 @@
                         <td><input type="text" class="mail-check-input" name="mail-check-input" id="mail-check-input" required></td>
                         <td><span id="mail-check-warn"></span></td>
                     </tr>
-                    
                 </table>
                 <br>
-                
-                <button type="button" id="certificationButton" class="btn btn-secondary btn-sm" onclick="certification();" disabled style="margin-left:135px">인증완료</button>
+                             
             </div>
 	    </div>
 	  </div>
@@ -162,7 +164,7 @@
 				$resultMsg.html('인증번호가 일치합니다.');
 				$resultMsg.css('color','green');
 				$('#checkbutton').attr('disabled', true);
-				$('#certificationButton').attr('disabled', false);
+				$('#emailCheck').modal('hide');
 				$('#updatePwd').attr('readonly',false);
 				$('#updateCheckPwd').attr('readonly',false);
 				$("#passwordSet").attr('disabled', false);
@@ -175,13 +177,6 @@
 				$resultMsg.css('color','red');
 			}
 		});
-	</script>
-	
-	<!-- 인증완료 버튼 클릭시 모달창 사라짐 -->
-	<script>
-	function certification() {
-		$('#emailCheck').modal('hide');
-	}
 	</script>
 	
 	<!-- 비밀번호 유효성 검사 -->

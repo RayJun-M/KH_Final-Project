@@ -1,13 +1,8 @@
 package com.urfavoriteott.ufo.member.model.dao;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-
-import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Component;
 
-import com.urfavoriteott.ufo.common.model.vo.PageInfo;
 import com.urfavoriteott.ufo.member.model.vo.Member;
 
 
@@ -40,6 +35,29 @@ public class MemberDao {
 	public int nicknameCheck(SqlSessionTemplate sqlSession, String checkNickname) {
 		
 		return sqlSession.selectOne("memberMapper.nicknameCheck", checkNickname);
+	}
+	
+	/**
+	 * 아이디 중복체크용 메소드 - 작성자 : 동민
+	 * @param sqlSession
+	 * @param checkId : 중복체크할 사용자의 아이디
+	 * @return
+	 */
+	public int idCheck(SqlSessionTemplate sqlSession, String checkId) {
+		
+		return sqlSession.selectOne("memberMapper.idCheck", checkId);
+		
+	}
+	
+	/**
+	 * 비밀번호 재설정 메소드 - 작성자 : 동민
+	 * @param sqlSession
+	 * @param m : 비밀번호 재설정할 사용자 정보
+	 * @return
+	 */
+	public int passwordUpdate(SqlSessionTemplate sqlSession, Member m) {
+		
+		return sqlSession.update("memberMapper.passwordUpdate", m);
 	}
 	
 	/**

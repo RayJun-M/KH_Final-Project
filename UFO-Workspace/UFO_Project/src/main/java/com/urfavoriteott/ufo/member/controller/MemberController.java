@@ -1,8 +1,5 @@
 package com.urfavoriteott.ufo.member.controller;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -11,13 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.urfavoriteott.ufo.common.model.vo.PageInfo;
-import com.urfavoriteott.ufo.common.template.Pagination;
 import com.urfavoriteott.ufo.member.model.service.MemberService;
 import com.urfavoriteott.ufo.member.model.vo.Member;
 
@@ -31,6 +26,10 @@ public class MemberController {
 	// 비밀번호 암호화를 위한 변수
 	@Autowired
 	private BCryptPasswordEncoder bcryptPasswordEncoder;
+	
+	// 이메일 인증을 위한 변수
+	@Autowired
+	private MailSendService mailService;
 		
 	/**
 	 * 회원 로그인창을 띄워주는 메소드 - 작성자 : 동민
@@ -181,6 +180,36 @@ public class MemberController {
 		
 	}
 	
+	@ResponseBody
+	@RequestMapping(value="idCheck.me", produces="text/html; charset=UTF-8")
+	/**
+	 * 아이디 중복체크용 메소드 - 작성자 : 동민
+	 * @param checkId : 중복체크할 이메일 주소
+	 * @return
+	 */
+	public String idCheck(String checkId) {
+		
+		int count = memberService.idCheck(checkId);
+		
+		// 삼항연산자 이용
+		return (count > 0) ? "NNNNN" : "NNNNY";
+		
+		
+	}
+	
+	/**
+	 * 이메일 인증용 메소드 - 작성자 : 동민
+	 * @param email : 인증할 이메일 주소
+	 * @return
+	 */
+	@GetMapping("/mailCheck")
+	@ResponseBody
+	public String mailCheck(String email) {
+		System.out.println("이메일 인증 요청이 들어옴!");
+		System.out.println("이메일 인증 이메일 : " + email);
+		return mailService.joinEmail(email);
+	}
+	
 	/**
 	 * 회원 비밀번호 재설정 화면을 띄워주는 메소드 - 작성자 : 동민
 	 * @return
@@ -189,6 +218,67 @@ public class MemberController {
 	public String updatePasswordForm() {
 		
 		return "member/userPasswordUpdate";
+	}
+	
+	@RequestMapping("myPage.me")
+	public String myPage() {
+		
+		return "member/myPage";
+	}
+	
+	@RequestMapping("updateForm.me")
+	public String updateForm() {
+		
+		return "member/memberUpdateForm";
+	}
+	
+	/**
+	 * 회원 비밀번호 재설정 메소드 - 작성자 : 동민
+	 * @param userId1 : 사용자 이메일 @ 앞주소(사용자 체크용)
+	 * @param userId2 : 사용자 이메일 @ 뒷주소
+	 * @param updatePwd : 변경할 비밀번호
+	 * @param model
+	 * @param session
+	 * @return
+	 */
+	@RequestMapping("updatePassword.me")
+	public String updatePassword(String userId1
+			                   , String userId2
+			                   , String updatePwd
+			                   , Model model
+			                   , HttpSession session) {
+		
+		// user 아이디 이메일 주소로 합치기
+		String userId = userId1 + "@" + userId2;
+		
+		// 멤버 객체에 변수들 set
+		Member m = new Member();
+		m.setUserId(userId);
+		m.setUserPwd(updatePwd);
+		
+		// 암호화 작업 (암호문을 만들어내는 과정) => 비밀번호 재설정시 다시 재 암호화돼서 DB에 담기게 됨
+		String encPwd = bcryptPasswordEncoder.encode(m.getUserPwd());
+		
+		m.setUserPwd(encPwd);
+		
+		int result = memberService.passwordUpdate(m);
+		
+		if(result > 0) { // 성공
+			
+			session.setAttribute("alertMsg", "비밀번호가 성공적으로 변경되었습니다.");
+			
+			return "redirect:/";
+			
+		}
+		
+		else { // 실패
+			
+			session.setAttribute("alertMsg", "유효한 아이디인지 다시 확인해주세요.");
+			
+			return "redirect:updatePasswordForm.me";
+			
+		}
+		
 	}
 	
 	@RequestMapping("myPage.me")
@@ -244,6 +334,16 @@ public class MemberController {
 	}
 	
 	/**
+	 * 사용자 - 마이페이지에서 비밀번호 변경 화면 띄우는 메소드 - 작성자 : 장희연
+	 * @return
+	 */
+	@RequestMapping("myPageupdatePwdForm.me")
+	public String updatePwdForm() {
+		
+		return "member/userPasswordUpdate";
+	}
+	
+	/**
 	 * 사용자 - 회원 탈퇴용 메소드 - 작성자 : 장희연
 	 * @param userNo : 로그인한 사용자(탈퇴할 회원)의 회원 번호
 	 * @param model
@@ -251,18 +351,34 @@ public class MemberController {
 	 * @return
 	 */
 	@RequestMapping("delete.me")
-	public String deleteMember(int userNo, Model model, HttpSession session) {
+	public String deleteMember(int userNo, String userPwd, Model model, HttpSession session) {
 		
-		int result = memberService.deleteMember(userNo);
+		String encPwd = ((Member)session.getAttribute("loginUser")).getUserPwd();
 		
-		if(result > 0) {
+		// 비밀번호 대조작업
+		if(bcryptPasswordEncoder.matches(userPwd, encPwd)) {
 			
-			// session.setAttribute("alertMsg", "회원 탈퇴 처리 성공");
-			return "redirect:/logout.me";
+			// 비밀번호가 맞을 경우 => 탈퇴처리
+			int result = memberService.deleteMember(userNo);
+			
+			if(result > 0) { // 탈퇴처리 성공
+				
+				// 로그아웃 처리후 일회성 알람 메세지 담기, 메인페이지로 url 재요청
+				session.removeAttribute("loginUser"); // 로그인한 회원의 정보만 지우고 session은 살림
+				session.setAttribute("alertMsg", "성공적으로 탈퇴되었습니다. 그동안 이용해주셔서 감사합니다.");
+				
+				return "redirect:/";
+				
+			} else { // 탈퇴처리 실패 => 에러문구를 담아서 에러페이지로 포워딩
+				
+				model.addAttribute("errorMsg", "회원 탈퇴 실패");
+				
+				return "common/errorPage";
+			}
 		} else {
 			
-			model.addAttribute("errorMsg", "회원 탈퇴 처리 실패");
-			return "common/errorPage";
+			session.setAttribute("alertMsg", "비밀번호를 잘못 입력하였습니다. 확인해주세요.");
+			return "redirect:/myPage.me";
 		}
 	}
 }

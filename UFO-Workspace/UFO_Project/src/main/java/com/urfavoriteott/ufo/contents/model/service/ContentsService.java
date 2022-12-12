@@ -1,5 +1,5 @@
 package com.urfavoriteott.ufo.contents.model.service;
 
-public interface TvService {
+public interface ContentsService {
 
 }

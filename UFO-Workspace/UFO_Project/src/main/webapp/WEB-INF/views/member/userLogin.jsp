@@ -4,6 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+	
     <meta charset="UTF-8">
     <title>Ur Favorite OTT</title>
 
@@ -109,10 +110,50 @@
                         <div>
                         <hr style="background:white; height:1px; width:400px; border:0; margin-left:4px;"> 
                         <br>
-                        <a href=""><img src="resources/image/user/profile/kakao.png" style="width:400px; height:50px;"></a>
+                        
+						<!-- 카카오 로그인 -->
+						<a class="p-2" href="https://kauth.kakao.com/oauth/authorize?client_id=70777bd61209002dcf057ee5cc50c3a4&redirect_uri=http://localhost:8282/urfavoriteott/kakaoLogin&response_type=code">
+						<!-- REST_API키 및 REDIRECT_URi는 본인걸로 수정하세요 -->
+						<!-- 저는 redirect_uri을 http://localhost:8080/member/kakaoLogin로 했습니다. -->
+						<!-- 본인걸로 수정 시 띄어쓰기 절대 하지 마세요. 오류납니다. -->
+						
+							<img src="resources/image/user/profile/kakao.png" style="height:45px">
+					      		<!-- 이미지는 카카오 개발자센터에서 제공하는 login 이미지를 사용했습니다. -->
+						</a>       
+						
+						<div onclick="kakaoLogout();">
+					      <a href="javascript:void(0)">
+					          <span>카카오 로그아웃</span>
+					      </a>
+						</div>          
+						     
                         <hr>
                         <a href=""><img src="resources/image/user/profile/naver.png" style="width:400px; height:50px;"></a>
                         </div>
+                        
+						<!-- 카카오 스크립트 -->
+						<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+						<script>
+						Kakao.init('e3c947e46d0bc62ce4399a8aa56a9944'); //발급받은 키 중 javascript키를 사용해준다.
+						console.log(Kakao.isInitialized()); // sdk초기화여부판단
+						//카카오로그아웃  
+						function kakaoLogout() {
+						    if (Kakao.Auth.getAccessToken()) {
+						      Kakao.API.request({
+						        url: '/v1/user/unlink',
+						        success: function (response) {
+						        	console.log(response)
+						        	alert('카카오 로그아웃 성공!!')
+						        	location.href = "http://localhost:8282/urfavoriteott";
+						        },
+						        fail: function (error) {
+						          console.log(error)
+						        },
+						      })
+						      Kakao.Auth.setAccessToken(undefined)
+						    }
+						  }  
+						</script>  
 
                         
                      </form>   

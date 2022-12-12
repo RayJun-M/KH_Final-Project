@@ -32,6 +32,20 @@
 		                 ,  #{userNickname})
 	</insert>
 	
+	<!-- 아이디중복체크용 쿼리문 -->
+	<select id="idCheck" parameterType="string" resultType="_int">
+	   SELECT COUNT(*)
+	   FROM MEMBER
+	   WHERE USER_ID = #{checkId}
+	</select>
+	
+	<!-- 비밀번호 재설정용 쿼리문 -->
+	<update id="passwordUpdate" parameterType="member">
+		UPDATE MEMBER
+		SET USER_PWD = #{userPwd}
+		WHERE USER_ID = #{userId} 
+	</update>
+	
 	<!-- 사용자 - 닉네임 중복확인용 쿼리문 -->
 	<select id="nicknameCheck" parameterType="string" resultType="_int">
 		SELECT COUNT(*)

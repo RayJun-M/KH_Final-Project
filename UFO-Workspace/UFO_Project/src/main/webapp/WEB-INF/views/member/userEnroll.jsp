@@ -276,8 +276,8 @@
                                    <tr>
                                         <th style="height:80px;">* 이메일 주소</th> <!-- 이메일 선택해서 인풋에 넣기 -->
                                         <td colspan="3">
-                                            <input type="text" id="email_id" name= "userId1" class="form-control" maxlength="18" value="" style="width:188px; height:100%; display:inline-block;" required> @
-                                            <select class="custom-select" name="userId2" title="이메일 도메인 주소 선택" style="width:188px; display:inline-block; height:100%; margin-bottom:3px;" onclick="setEmailDomain(this.value);return false;" required>
+                                            <input type="text" id="userId1" name="userId1" class="form-control" maxlength="18" value="" style="width:188px; height:100%; display:inline-block;" required> @
+                                            <select class="custom-select" id="userId2" name="userId2" title="이메일 도메인 주소 선택" style="width:188px; display:inline-block; height:100%; margin-bottom:3px;" onclick="setEmailDomain(this.value);return false;" required>
                                                 <option>선택</option>
                                                     <option value="naver.com">naver.com</option>
                                                     <option value="gmail.com">gmail.com</option>
@@ -287,28 +287,29 @@
                                                     <option value="nate.com">nate.com</option>
                                                     <option value="yahoo.com">yahoo.com</option>
                                             </select>
-                                            <td><button type="button" id="checkbutton" class="btn btn-info" data-toggle="modal" data-target="#emailCheck" style="margin-left:20px;">이메일인증</button></td>
+                                            <td><button type="button" id="idCheck" class="btn btn-info" style="margin-left:20px;" onclick='idC();'>아이디 중복 체크</button></td>
+                                            <td><button type="button" id="checkbutton" class="btn btn-info" data-toggle="modal" data-target="#emailCheck" style="margin-left:20px; display:none;">이메일인증</button></td>
                                         </td>
                                         <td width="80px" style="display:inline-block;"></td>
                                     </tr>
                                     <tr style="height:80px;">
                                         <th>* 비밀번호</th>
-                                        <td colspan="3"><input type="password" class="form-control" id ="userPwd" name="userPwd" maxlength="30" style="width:400px" placeholder="영문자,숫자,특수문자로된 총 8 ~ 15자 이내로 입력 " required></td>
+                                        <td colspan="3"><input type="password" class="form-control" id ="userPwd" name="userPwd" maxlength="30" style="width:400px" placeholder="영문자,숫자,특수문자로된 총 8 ~ 15자 이내로 입력 " required readonly></td>
                                     </tr>
                                     <tr style="height:80px;">
                                         <th>* 비밀번호 확인</th>
-                                        <td  colspan="3"><input type="password" class="form-control" id="checkPwd" name="checkPwd" maxlength="30" style="width:400px" required></td>
+                                        <td  colspan="3"><input type="password" class="form-control" id="checkPwd" name="checkPwd" maxlength="30" style="width:400px" required readonly></td>
                                     </tr>
                                     <tr style="height:80px;">
                                         <th>* 닉네임</th>
-                                        <td colspan="3"><input type="text" class="form-control" id="userNickname" name="userNickname" minlength="2" maxlength="15" style="width:400px" required ></td>
+                                        <td colspan="3"><input type="text" class="form-control" id="userNickname" name="userNickname" minlength="2" maxlength="15" style="width:400px" required readonly></td>
                                     	<td id="checkResult" style="font-size:0.9em; display:none;"></td>    
                                     </tr>
                                     
                                                       
                                 </table>
                                 
-                                
+                               
                             <div id="form_2_center_bottom">
                                 <div id="agreeTotal">
                                     <input type="checkbox" id="ag" name="agree_status" value="agree">
@@ -432,26 +433,74 @@
 	
 	      <!-- Modal body -->
 	      <div class="modal-body">
-	        
-            <form action="" method="post" align="center">
-                <input type="hidden" name="memId" value="">
                 <table>
                     <tr>
-                        <td>이메일인증코드</td>
-                        <td><input type="password" name="memPwd" id="memPwd" required></td>
+                        <td>인증코드 6자리를 입력해주세요!</td>
+                        <td><input type="text" class="mail-check-input" name="mail-check-input" id="mail-check-input" required></td>
+                        <td><span id="mail-check-warn"></span></td>
                     </tr>
                 </table>
-
                 <br>
-
-                <button type="button" class="btn btn-secondary btn-sm" onclick="return validatePwd();">인증완료</button>
-            </form>
-	       
+                
+                
+                <button type="button" id="certificationButton" class="btn btn-secondary btn-sm" onclick="certification();" disabled style="margin-left:135px">인증완료</button>
             </div>
 	    </div>
 	  </div>
 	</div>
-   </div> 
+	
+   </div>
+   
+   	   <!-- 이메일 인증 -->
+	   <script>
+	   $('#checkbutton').click(function() {
+			const eamil = $('#userId1').val() + "@" + $('#userId2').val(); // 이메일 주소값 얻어오기!
+			console.log('완성된 이메일 : ' + eamil); // 이메일 오는지 확인
+			const checkInput = $('#mail-check-input') // 인증번호 입력하는곳 
+			
+			$.ajax({
+				type : 'get',
+				url : '<c:url value ="/mailCheck?email="/>'+eamil, // GET방식이라 Url 뒤에 email을 뭍힐수있다.
+				success : function (data) {
+					console.log("data : " +  data);
+					checkInput.attr('disabled',false);
+					code =data;
+					alert('인증번호가 전송되었습니다.')
+				}			
+			}); // end ajax
+		}); // end send eamil   
+		
+		// 인증번호 비교 
+		// blur -> focus가 벗어나는 경우 발생
+		$('#mail-check-input').blur(function () {
+			const inputCode = $(this).val();
+			const $resultMsg = $('#mail-check-warn');
+			
+			if(inputCode === code){
+				$resultMsg.html('인증번호가 일치합니다.');
+				$resultMsg.css('color','green');
+				$('#checkbutton').css('display', 'none');
+				$('#userId2').attr('onFocus', 'this.initialSelect = this.selectedIndex');
+		      $('#userId2').attr('onChange', 'this.selectedIndex = this.initialSelect');
+		      $('#userPwd').attr('readonly',false);
+		      $('#checkPwd').attr('readonly',false);
+		      $('#userNickname').attr('readonly',false);
+		      $('#certificationButton').attr('disabled', false);
+			}else{
+				$resultMsg.html('인증번호가 불일치 합니다. 다시 확인해주세요!.');
+				$resultMsg.css('color','red');
+			}
+		});
+	   </script>
+	   
+		<!-- 인증완료 버튼 클릭시 모달창 사라짐 -->
+		<script>
+		function certification() {
+			$('#emailCheck').modal('hide');
+		}
+		</script>
+	   
+	   
     
         <script>
         // 전체체크박스 함수
@@ -575,6 +624,48 @@
         });
         }
     </script>
+    
+    
+    <!-- 아이디 중복체크 -->
+    <script>
+  	function idC() {
+  		
+  		var userId = $('#userId1').val() + "@" + $('#userId2').val(); // 이메일 주소값 얻어오기!
+  		
+   		$.ajax({
+   			url : "idCheck.me",
+   			data : {checkId : userId},
+   			success : function(result) {
+   				
+   				// result 의 값은 "NNNNN" 또는 "NNNNY" 가 담겨있음
+   				if(result == "NNNNN") { // 사용 불가
+   					
+   					alert("이미 존재하는 회원이나 탈퇴한 회원의 이메일주소입니다.");
+   					$('#userId1').focus(); // 재입력 유도
+   				} else { // 사용 가능
+   					
+   					if(confirm("사용 가능한 아이디입니다. 사용하시겠습니까?")) { // 사용하겠다.
+   						
+   						// 아이디값 확정 => 다시 수정 못하게 readonly 속성 추가
+   						$('#userId1').attr("readonly", true);
+
+   						$('#idCheck').css('display', 'none');
+   						$('#checkbutton').css('display', 'block');
+   						
+   						
+   					} else { // 사용하지 않겠다.
+   						
+   						// 재입력 유도
+   						$('#userId1').focus();
+   					}
+   				}
+   			}, 
+   			error : function() {
+   				console.log("아이디 중복체크용 ajax 통신 실패!");
+   			}
+   		});	                    	
+  	}
+	</script>   
     
     <!-- 닉네임 중복체크 -->
     <script>

@@ -77,12 +77,12 @@
             		<hr>
             		<div class="question" id="question1" onclick="answer1()">요금결제 / urfavoriteott 라이트 이용권이 무엇인가요?</div>
             		<hr>
-            		<div id="answer1" style= display:none><p>urfavoriteott 라이트 이용권은 KT 통신사 요금제 혜택으로 제공되는 KT 전용 상품으로, 티빙 서비스 내에서 별도 구매는 어려우시며, <br> 해당되는 KT요금제 상품 안내와 적용 시점 등의 자세한 내용은 KT 홈페이지를 참고해주시기 바랍니다.</p></div> <!-- 답변 -->
+            		<div id="answer1" style= display:none><p>urfavoriteott 라이트 이용권은 KT 통신사 요금제 혜택으로 제공되는 KT 전용 상품으로, urfavoriteott 서비스 내에서 별도 구매는 어려우시며, <br> 해당되는 KT요금제 상품 안내와 적용 시점 등의 자세한 내용은 KT 홈페이지를 참고해주시기 바랍니다.</p></div> <!-- 답변 -->
             		
             		<hr>
             		<div class="question" id="question2" onclick="answer2()">요금결제 / urfavoriteott 라이트 이용권은 어떻게 등록하나요?</div>
             		<hr>
-            		<div id="answer2" style= display:none><p>urfavoriteott 라이트 이용권은 KT 통신사 요금제 혜택으로 제공되는 이용권으로 관련 요금제를 사용하고 계시다면 제공받으실 수 있습니다. <br> urfavoriteott 라이트 이용권의 경우 urfavoriteott에서 별도 구매나 등록하는 방법이 아닌 KT 통신사 사이트에서 등록이 필요하신 점 참고하시어 이용에 불편 없으시길 바랍니다. </p></div> <!-- 답변 -->
+            		<div id="answer2" style= display:none><p>urfavoriteott 라이트 이용권은 urfavoriteott 통신사 요금제 혜택으로 제공되는 이용권으로 관련 요금제를 사용하고 계시다면 제공받으실 수 있습니다. <br> urfavoriteott 라이트 이용권의 경우 urfavoriteott에서 별도 구매나 등록하는 방법이 아닌 KT 통신사 사이트에서 등록이 필요하신 점 참고하시어 이용에 불편 없으시길 바랍니다. </p></div> <!-- 답변 -->
             		
             		<hr>
             		<div class="question" id="question3" onclick="answer3()">회원로그인 / 이메일을 잊어버렸을경우 어떻게 해나요?</div>
@@ -92,37 +92,37 @@
             		<hr>
             		<div class="question" id="question4" onclick="answer4()">요금결제 / 정기결제권 구독취소는 어떻게 해야 하나요?</div>
             		<hr>
-            		<div id="answer4" style= display:none><p> 마이페이지에서 하면 됨</p></div> <!-- 답변 -->
+            		<div id="answer4" style= display:none><p> 마이페이지에서 이용권 내역 -> 정기결제 구독 취소를 누르시면 구독하신 달 다음달부터 자동으로 결제가 취소됩니다.</p></div> <!-- 답변 -->
             		
             		<hr>
             		<div class="question" id="question5" onclick="answer5()">요금결제 / 정기결제와 일반결제의 차이점은 무엇인가요?</div>
             		<hr>
-            		<div id="answer5" style= display:none><p> 정기는 매달 갱신 일반결제는 한번 결제후 한달권 사용 이런식으로~~</p></div> <!-- 답변 -->
+            		<div id="answer5" style= display:none><p> 정기는 매달 갱신하여 회원이 구독취소 하기 전까지 자동으로 결제가 갱신이 됩니다. <br> 반면에 일반결제는 한번 결제하시면 사용하신 해당 기간동안 서비스를 이용하실 수 있습니다.</p></div> <!-- 답변 -->
             		
             		<hr>
             		<div class="question" id="question6" onclick="answer6()">회원로그인 / 로그인이 안될경우 고객문의를 남길 수 있는 방법이 있나요?</div>
             		<hr>
-            		<div id="answer6" style= display:none><p> 없음</p></div> <!-- 답변 -->
+            		<div id="answer6" style= display:none><p> 저희 해당 사이트에 로그인 메뉴에서 로그인을 하실수 있는데 로그인이 되지 않으면 챗봇을 통해 문의하시면 실시간으로 확인해서 답변 해드리겠습니다.</p></div> <!-- 답변 -->
             		
             		<hr>
             		<div class="question" id="question7" onclick="answer7()">기타 / 챗봇의 기능은 무엇인가요?</div>
             		<hr>
-            		<div id="answer7" style= display:none><p> 고객센터의 역할을 대신~~~~</p></div> <!-- 답변 -->
+            		<div id="answer7" style= display:none><p>저희 챗봇은 1:1문의와 같은 고객센터의 역할을 대신하는것으로 회원의 질문 내용을 실시간으로 답변해드리고 있습니다. <br> 궁금하신 사항이 있으면 챗봇을 통해 문의 주시면 바로 답변 해드리겠습니다.</p></div> <!-- 답변 -->
             		
             		<hr>
             		<div class="question" id="question8" onclick="answer8()">요금결제 / 일반결제도 중간에 취소가 가능한가요?</div>
             		<hr>
-            		<div id="answer8" style= display:none><p> 안됨</p></div> <!-- 답변 -->
+            		<div id="answer8" style= display:none><p> 저희 일반결제는 결제한 즉시부터 일정기간동안 서비스를 이용하실수 있습니다. <br> 따라서 결제하신후 서비스 이용 중간에 취소를 하실수가 없습니다.</p></div> <!-- 답변 -->
             		
             		<hr>
             		<div class="question" id="question9" onclick="answer9()">회원로그인 / 회원탈퇴를 하려는데 어떻게 해야 하나요?</div>
             		<hr>	
-            		<div id="answer9" style= display:none><p> 회원관리 -> 회원탈퇴 ~~~</p></div> <!-- 답변 -->	
+            		<div id="answer9" style= display:none><p> 로그인 하신후 마이페이지에서 회원탈퇴 서비스를 이용하시면 회원 탈퇴를 하실수 있습니다.</p></div> <!-- 답변 -->	
             		
             		<hr>
             		<div class="question" id="question10" onclick="answer10()">VOD / 영상 재생이 안되는데 어떻게 해야 하나요?</div>
             		<hr>	
-            		<div id="answer10" style= display:none><p> 저도몰라유~~</p></div> <!-- 답변 -->	
+            		<div id="answer10" style= display:none><p> 저희 사이트에서 영상 재생이 안되실 경우에는 챗봇을 통해 문의주시면 확인해서 바로 해결해 드리겠습니다.</p></div> <!-- 답변 -->	
            </div>
            
 

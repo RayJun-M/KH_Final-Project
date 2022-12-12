@@ -1,13 +1,9 @@
 package com.urfavoriteott.ufo.member.model.service;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.urfavoriteott.ufo.common.model.vo.PageInfo;
 import com.urfavoriteott.ufo.member.model.dao.MemberDao;
 import com.urfavoriteott.ufo.member.model.vo.Member;
 
@@ -33,8 +29,15 @@ public class MemberServiceImpl implements MemberService {
 	}
 	
 	@Override
-	public int passwordUpdate(String updatePassword) {
-		return 0;
+	public int idCheck(String checkId) {
+		
+		return memberDao.idCheck(sqlSession, checkId);
+	}
+	
+	@Override
+	public int passwordUpdate(Member m) {
+		
+		return memberDao.passwordUpdate(sqlSession, m);
 	}
 	
 	@Override

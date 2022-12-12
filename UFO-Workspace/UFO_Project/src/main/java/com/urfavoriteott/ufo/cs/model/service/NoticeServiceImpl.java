@@ -13,13 +13,13 @@ import com.urfavoriteott.ufo.cs.model.vo.Notice;
 @Service
 public class NoticeServiceImpl implements NoticeService {
 
-    @Autowired
-    private SqlSessionTemplate sqlSession;
-
-    @Autowired
-    private NoticeDao noticeDao;
-    
-    @Override
+	@Autowired
+	private NoticeDao noticeDao;
+	
+	@Autowired
+	private SqlSessionTemplate sqlSession;
+	
+	@Override
 	public int selectNoticeListCount() {
 		
 		return noticeDao.selectNoticeListCount(sqlSession);

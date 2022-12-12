@@ -100,10 +100,9 @@
            
 
 
-
-		<!-- 푸터 영역 -->
+        <!-- 푸터 영역 -->
         <jsp:include page="../common/footer.jsp" />
- 
+        
     <!-- 이메일 인증용 모달창 -->
     <!-- The Modal -->
 	<div class="modal" id="emailCheck">

@@ -220,6 +220,18 @@ public class MemberController {
 		return "member/userPasswordUpdate";
 	}
 	
+	@RequestMapping("myPage.me")
+	public String myPage() {
+		
+		return "member/myPage";
+	}
+	
+	@RequestMapping("updateForm.me")
+	public String updateForm() {
+		
+		return "member/memberUpdateForm";
+	}
+	
 	/**
 	 * 회원 비밀번호 재설정 메소드 - 작성자 : 동민
 	 * @param userId1 : 사용자 이메일 @ 앞주소(사용자 체크용)

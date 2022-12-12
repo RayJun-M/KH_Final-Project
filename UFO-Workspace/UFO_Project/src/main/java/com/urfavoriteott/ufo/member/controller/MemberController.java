@@ -265,10 +265,4 @@ public class MemberController {
 			return "common/errorPage";
 		}
 	}
-	
-	@RequestMapping("payment.me")
-	public String myPayment() {
-		
-		return "member/myPayment";
-	}
 }

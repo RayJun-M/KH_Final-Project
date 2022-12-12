@@ -4,14 +4,14 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.urfavoriteott.ufo.contents.model.dao.TvDao;
+import com.urfavoriteott.ufo.contents.model.dao.ContentsDao;
 
 @Service
-public class TvServiceImpl implements TvService {
+public class ContentsServiceImpl implements ContentsService {
 
     @Autowired
     private SqlSessionTemplate sqlSession;
 
     @Autowired
-    private TvDao tvDao;
+    private ContentsDao contentsDao;
 }

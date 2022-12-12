@@ -1,7 +1,6 @@
 /.settings/
 /target/
-/bin/
-.factorypath
 .classpath
+.factorypath
 .project
 .springBeans

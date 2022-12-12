@@ -19,7 +19,7 @@ public class Tv {
     private String originalName;
     private String name;
     private String genres;
-    private String tagline;
+    private String tagLine;
     private String overview;
     private int episodeCount;
     private Date airDate;

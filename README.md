@@ -45,22 +45,34 @@
 	<tr height="40">
 		<td style="font-weight: bold;">언어</td>
 		<td>Java SE 1.8</td>
-		<td colspan="2">SQL</td>
+		<td>SQL</td>
+		<td>HTML 5</td>
 	</tr>
 	<tr height="40">
-		<td style="font-weight: bold;" rowspan="2">기술</td>
+		<td style="font-weight: bold;" rowspan="4">기술</td>
 		<td>JSP</td>
 		<td>Servlet</td>
-		<td>JDBC</td>
+		<td>JSTL 1.0</td>
 	</tr>
 	<tr height="40">
-		<td colspan="2">DBCP 1.4</td>
-		<td>JSTL 1.0</td>
+		<td>JDBC 11.2.0.4</td>
+		<td>DBCP 1.4</td>
+		<td>Lombok 1.18.24</td>
+	</tr>
+	<tr height="40">
+		<td>Spring Security 5.7.3</td>
+		<td>JSON.simple 1.1.1</td>
+		<td>Gson 2.10</td>
+	</tr>
+	<tr height="40">
+		<td>JavaMail 1.4.7</td>
+		<td colspan="2">i'mport 0.2.22</td>
 	</tr>
 	<tr height="40">
 		<td style="font-weight: bold;">개발 환경</td>
 		<td>Spring Tool Suite<br>3.9.13</td>
-		<td colspan="2">Oracle SQL Developer<br>21.2.1.204</td>
+		<td>Visual Studio Code<br>1.74.0</td>
+		<td>Oracle SQL Developer<br>21.2.1.204</td>
 	</tr>
 	<tr height="40">
 		<td style="font-weight: bold;">공용 연락망</td>
@@ -70,6 +82,10 @@
 		<td style="font-weight: bold;">공용 저장소</td>
 		<td colspan="2">GitHub</td>
 		<td>Google Drive</td>
+	</tr>
+	<tr height="40">
+		<td style="font-weight: bold;">Git GUI</td>
+		<td colspan="3">Sourcetree</td>
 	</tr>
 	<tr height="40">
 		<td style="font-weight: bold;">일정 관리 · 업무 분담</td>

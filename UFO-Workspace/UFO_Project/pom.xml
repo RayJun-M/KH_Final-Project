@@ -23,14 +23,15 @@
 	<name>UFO_Project</name>
 	<packaging>war</packaging>
 	<version>1.0.0-BUILD-SNAPSHOT</version>
-	
-	<!-- 아임포트 REST API 사용하기 위한 설정 -->
+
+	<!-- i'mport REST API 설정 -->
 	<repositories>
 		<repository>
 		    <id>jitpack.io</id>
 		    <url>https://jitpack.io</url>
 		</repository>
 	</repositories>
+
 	<!-- 환경 설정 변수 선언 : <변수명>데이터</변수명> -->
 	<!--
 		JDK 버전 : Java SE 1.8
@@ -148,44 +149,43 @@
 			<scope>test</scope>
 		</dependency>
 
-
 		<!-- 추가 라이브러리 등록 -->
-		<!-- 1_1. ojdbc6 라이브러리 : DB 접속에 필요한 Oracle JDBC Driver -->
+		<!-- 1_1. ojdbc6 : DB 접속에 필요한 Oracle JDBC Driver -->
 		<dependency>
 			<groupId>com.oracle.database.jdbc</groupId>
 			<artifactId>ojdbc6</artifactId>
 			<version>11.2.0.4</version>
 		</dependency>
 
-		<!-- 1_2. Spring JDBC 라이브러리 : Spring에서 JDBC 사용할 수 있게 설정 -->
+		<!-- 1_2. Spring JDBC : Spring에서 JDBC 사용할 수 있게 설정 -->
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-jdbc</artifactId>
 			<version>${org.springframework-version}</version>
 		</dependency>
 
-		<!-- 1_3. MyBatis 라이브러리 : SQL Mapper 프레임워크 -->
+		<!-- 1_3. MyBatis : SQL Mapper 프레임워크 -->
 		<dependency>
 			<groupId>org.mybatis</groupId>
 			<artifactId>mybatis</artifactId>
 			<version>3.5.11</version>
 		</dependency>
 
-		<!-- 1_4. MyBatis Spring 라이브러리 : Spring에서 MyBatis 사용할 수 있게 설정 -->
+		<!-- 1_4. MyBatis Spring : Spring에서 MyBatis 사용할 수 있게 설정 -->
 		<dependency>
 			<groupId>org.mybatis</groupId>
 			<artifactId>mybatis-spring</artifactId>
 			<version>1.3.2</version>
 		</dependency>
 
-		<!-- 1_5. Commons DBCP 라이브러리 : Connection 객체 재활용 가능한 Connection Pool -->
+		<!-- 1_5. Commons DBCP : Connection 객체 재활용 가능한 Connection Pool -->
 		<dependency>
 			<groupId>commons-dbcp</groupId>
 			<artifactId>commons-dbcp</artifactId>
 			<version>1.4</version>
 		</dependency>
 
-		<!-- 2. Project Lombok 라이브러리 : Getter · Setter · 생성자 등을 어노테이션으로 자동 생성 -->
+		<!-- 2. Lombok : Getter · Setter · 생성자 등을 어노테이션으로 자동 생성 -->
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
@@ -193,7 +193,7 @@
 			<scope>provided</scope>
 		</dependency>
 
-		<!-- 3. Spring Security 라이브러리 : 사용자 인증과 접근 권한 관리 -->
+		<!-- 3. Spring Security : 사용자 인증과 접근 권한 관리 -->
 		<dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-core</artifactId>
@@ -210,28 +210,42 @@
 			<version>5.7.3</version>
 		</dependency>
 
-		<!-- JSON SIMPLE -->
+		<!-- 4_1. JSON.simple : JSON 데이터 처리 -->
 		<dependency>
-			<groupId>com.googlecode.json-simple</groupId>
-			<artifactId>json-simple</artifactId>
-			<version>1.1.1</version>
+		    <groupId>com.googlecode.json-simple</groupId>
+		    <artifactId>json-simple</artifactId>
+		    <version>1.1.1</version>
 		</dependency>
-		
-		<!-- Gson -->
+
+		<!-- 4_2. Gson : JSON의 자바 오브젝트의 직렬화 · 역직렬화 처리 -->
 		<dependency>
 		    <groupId>com.google.code.gson</groupId>
 		    <artifactId>gson</artifactId>
-		    <version>2.8.9</version>
+		    <version>2.10</version>
 		</dependency>
-		
-		<!-- 아임포트 REST API -->
+
+		<!-- 5_1. JavaMail : 이메일 발송 -->
+		<dependency>
+		    <groupId>javax.mail</groupId>
+		    <artifactId>mail</artifactId>
+		    <version>1.4.7</version>
+		</dependency>
+
+		<!-- 5_2. Spring Context Support : Spring에서 JavaMail 사용할 수 있게 설정 -->
+		<dependency>
+		    <groupId>org.springframework</groupId>
+		    <artifactId>spring-context-support</artifactId>
+		    <version>${org.springframework-version}</version>
+		</dependency>
+
+		<!-- 6. i'mport : PG 결제 연동 -->
 		<dependency>
 		    <groupId>com.github.iamport</groupId>
 		    <artifactId>iamport-rest-client-java</artifactId>
 		    <version>0.2.22</version>
 		</dependency>
 	</dependencies>
-	
+
 	<!-- 명령 수행 시 필요한 설정 정보 -->
     <build>
         <plugins>

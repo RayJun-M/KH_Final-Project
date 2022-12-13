@@ -2,6 +2,7 @@ package com.urfavoriteott.ufo.admin.controller;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
 import com.urfavoriteott.ufo.admin.model.service.AdminService;
+import com.urfavoriteott.ufo.admin.model.vo.Report;
 import com.urfavoriteott.ufo.admin.model.vo.Sales;
 import com.urfavoriteott.ufo.common.model.vo.PageInfo;
 import com.urfavoriteott.ufo.common.template.Pagination;
@@ -307,5 +309,126 @@ public class AdminController {
 		
 	}
 	
+	/**
+	 * 관리자 페이지 코멘트 관리에서 선택된 리뷰 삭제 메소드 - 작성자: 수빈
+	 * @param reviewNoArr
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value="deleteComment.ad", produces="application/json; charset=UTF-8")
+	public int deleteAdminComment(@RequestParam(value="reviewNoArr[]") List<String> reviewNoArr) {
+		
+		// System.out.println(reviewNoArr); // 체크박스에 담긴 리뷰 번호가 [4, 3] 와 같이 찍힘
+		
+		int result = 0;
+		int checkNum = 0; // 리뷰번호는 1부터 시작함
+		
+		for(String str : reviewNoArr) {
+			checkNum = Integer.parseInt(str);
+			// System.out.println(checkNum); // 4, 3이 차례로 찍힘
+			adminService.deleteAdminComment(checkNum);
+			result++;
+		}
+		
+		return result;
+	}
 	
+	/**
+	 * 관리자 페이지 신고 관리에서 사용할 페이징 바, 기본 접속 시 신고된 전체 코멘트 조회 - 작성자 : 수빈
+	 * @param currentPage
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping("reportManagement.ad")
+	public String reportedCommentList(@RequestParam(value="cpage", defaultValue="1") int currentPage, Model model) {
+		
+		int listCount = adminService.reportedCommentListCount();
+		
+		int pageLimit = 10;
+		int boardLimit = 10;
+		
+		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, pageLimit, boardLimit);
+		
+		ArrayList<Report> list = adminService.reportedCommentList(pi);
+		
+		model.addAttribute("pi", pi);
+		model.addAttribute("list", list);
+		
+		return "admin/adminReported";
+		
+	}
+	
+	/**
+	 * 관리자 페이지 신고 관리에서 신고된 코멘트를 삭제(STATUS='N') 하는 메소드 - 작성자: 수빈
+	 * @param reportNo
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value="deleteReportedComment.ad", produces="application/json; charset=UTF-8")
+	public int deleteReportedComment(int reportNo, int reviewNo) {
+		
+		// System.out.println(reportNo);
+		// System.out.println(reviewNo);
+		
+		int result1 = adminService.changeStatusReportedComment(reportNo);
+		
+		int result2 = adminService.deleteReportedComment(reviewNo);
+		
+		int result = result1 * result2;
+		
+		// System.out.println(result);
+		
+		return result;
+		
+	}
+	
+	/**
+	 * 관리자 페이지 신고 관리에서 처리된 코멘트 보기 버튼 클릭 시 사용할 페이징 바, 기본 접속 시 신고된 전체 코멘트 조회 - 작성자 : 수빈
+	 * @param currentPage
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping("processedCommentList.ad")
+	public String processedCommentList(@RequestParam(value="cpage", defaultValue="1") int currentPage, Model model) {
+		
+		int listCount = adminService.processedCommentListCount();
+		
+		int pageLimit = 10;
+		int boardLimit = 10;
+		
+		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, pageLimit, boardLimit);
+		
+		ArrayList<Report> list = adminService.processedCommentList(pi);
+		
+		model.addAttribute("pi", pi);
+		model.addAttribute("list", list);
+		
+		return "admin/adminProcessedComment";
+		
+	}
+	
+	/**
+	 * 관리자 페이지 신고 관리에서 신고된 코멘트를 되돌리는(STATUS='Y') 하는 메소드 - 작성자: 수빈
+	 * @param reportNo
+	 * @param reviewNo
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value="resetReportedComment.ad", produces="application/json; charset=UTF-8")
+	public int resetReportedComment(int reportNo, int reviewNo) {
+		
+		// System.out.println(reportNo);
+		// System.out.println(reviewNo);
+		
+		int result1 = adminService.resetStatusReportedComment(reportNo);
+		
+		int result2 = adminService.resetReportedComment(reviewNo);
+		
+		int result = result1 * result2;
+		
+		// System.out.println(result);
+		
+		return result;
+		
+	}
 }

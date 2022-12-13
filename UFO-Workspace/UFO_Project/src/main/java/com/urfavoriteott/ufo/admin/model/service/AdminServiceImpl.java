@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.urfavoriteott.ufo.admin.model.dao.AdminDao;
+import com.urfavoriteott.ufo.admin.model.vo.Report;
 import com.urfavoriteott.ufo.admin.model.vo.Sales;
 import com.urfavoriteott.ufo.common.model.vo.PageInfo;
 import com.urfavoriteott.ufo.contents.model.vo.Review;
@@ -108,7 +109,6 @@ public class AdminServiceImpl implements AdminService {
 
 	/**
 	 * 관리자 페이지 코멘트 관리를 위한 페이징바 - 작성자: 수빈
-	 * @param reviewNo : 코멘트 번호
 	 * @return
 	 */
 	@Override
@@ -118,7 +118,6 @@ public class AdminServiceImpl implements AdminService {
 
 	/**
 	 * 관리자 페이지에서 코멘트 관리를 위해 모든 코멘트 조회 (select) - 작성자: 수빈
-	 * @param reviewNo : 코멘트 번호
 	 * @return
 	 */
 	@Override
@@ -142,5 +141,78 @@ public class AdminServiceImpl implements AdminService {
 	@Override
 	public ArrayList<Review> searchAdminCommentList(HashMap map, PageInfo pi) {
 		return adminDao.searchAdminCommentList(sqlSession, map, pi);
+	}
+
+
+	/**
+	 * 관리자 페이지 코멘트 관리에서 선택된 코멘트 삭제 (update) - 작성자: 수빈
+	 */
+	@Override
+	public int deleteAdminComment(int checkNum) {
+		return adminDao.deleteAdminComment(sqlSession, checkNum);
+	}
+
+	/**
+	 * 관리자 페이지 신고 관리를 위한 페이징바(select) - 작성자: 수빈
+	 */
+	@Override
+	public int reportedCommentListCount() {
+		return adminDao.reportedCommentListCount(sqlSession);
+	}
+
+	/**
+	 * 관리자 페이지에서 신고 관리를 위해 신고된 모든 코멘트 조회 (select) - 작성자: 수빈
+	 */
+	@Override
+	public ArrayList<Report> reportedCommentList(PageInfo pi) {
+		return adminDao.reportedCommentList(sqlSession, pi);
+	}
+	
+	/**
+	 * 관리자 페이지 신고 관리에서 신고된 코멘트를 삭제(REPORT_STATUS='Y') 하는 메소드 - 작성자: 수빈
+	 */
+	@Override
+	public int changeStatusReportedComment(int reportNo) {
+		return adminDao.changeStatusReportedComment(sqlSession, reportNo);
+	}
+
+	/**
+	 * 관리자 페이지 신고 관리에서 신고된 코멘트를 삭제(REVIEW_STATUS='N') 하는 메소드 - 작성자: 수빈
+	 */
+	@Override
+	public int deleteReportedComment(int reviewNo) {
+		return adminDao.deleteReportedComment(sqlSession, reviewNo);
+	}
+
+	/**
+	 * 관리자 페이지 신고 관리에서 처리된 코멘트 보기 버튼 클릭 시 페이징바(select) - 작성자: 수빈
+	 */
+	@Override
+	public int processedCommentListCount() {
+		return adminDao.processedCommentListCount(sqlSession);
+	}
+
+	/**
+	 * 관리자 페이지 신고 관리에서 처리된 코멘트 보기 버튼 클릭 시 신고 처리된 모든 코멘트 조회 (select) - 작성자: 수빈
+	 */
+	@Override
+	public ArrayList<Report> processedCommentList(PageInfo pi) {
+		return adminDao.processedCommentList(sqlSession, pi);
+	}
+
+	/**
+	 * 관리자 페이지 신고 관리에서 신고된 코멘트를 되돌리는(REPORT_STATUS='N') 메소드 - 작성자: 수빈
+	 */
+	@Override
+	public int resetStatusReportedComment(int reportNo) {
+		return adminDao.resetStatusReportedComment(sqlSession, reportNo);
+	}
+
+	/**
+	 * 관리자 페이지 신고 관리에서 신고된 코멘트를 삭제 상태를 되돌리는(REVIEW_STATUS='Y') 메소드 - 작성자: 수빈
+	 */
+	@Override
+	public int resetReportedComment(int reviewNo) {
+		return adminDao.resetReportedComment(sqlSession, reviewNo);
 	}
 }

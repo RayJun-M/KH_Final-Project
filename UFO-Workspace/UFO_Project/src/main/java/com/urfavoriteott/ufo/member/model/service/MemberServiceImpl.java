@@ -8,6 +8,7 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.HashMap;
+import java.util.ArrayList;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,8 @@ import org.springframework.stereotype.Service;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.urfavoriteott.ufo.common.model.vo.PageInfo;
+import com.urfavoriteott.ufo.contents.model.vo.Review;
 import com.urfavoriteott.ufo.member.model.dao.MemberDao;
 import com.urfavoriteott.ufo.member.model.vo.Member;
 
@@ -179,7 +182,29 @@ public class MemberServiceImpl implements MemberService {
 			}
 	        
 		}
+    
+	/**
+	 * 마이 페이지 별점 및 코멘트 내역 조회를 위한 페이징바(select) - 작성자 : 수빈
+	 */
+	@Override
+	public int selectMyCommentListCount(String loginUserNo) {
+		return memberDao.selectMyCommentListCount(sqlSession, loginUserNo);
+	}
 
+	/**
+	 * 마이 페이지 별점 및 코멘트 내역에서 코멘트 조회 (select) - 작성자 : 수빈
+	 */
+	@Override
+	public ArrayList<Review> selectMyCommentList(PageInfo pi, String loginUserNo) {
+		return memberDao.selectMyCommentList(sqlSession, pi, loginUserNo);
+	}
 
-	
+	/**
+	 * 마이 페이지 별점 및 코멘트 내역에서 선택된 리뷰 삭제 메소드 - 작성자: 수빈
+	 */
+	@Override
+	public int deleteMyComment(int checkNum) {
+		return memberDao.deleteMyComment(sqlSession, checkNum);
+	}
+
 }

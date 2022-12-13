@@ -24,4 +24,9 @@ public class Community {
     private Date comRegisterDate;
     private int comHit;
     private String comStatus;
+    
+    private String userNickname;
+    private String reportReason;
+    private Date reportDate;
+    private String reportStatus;
 }

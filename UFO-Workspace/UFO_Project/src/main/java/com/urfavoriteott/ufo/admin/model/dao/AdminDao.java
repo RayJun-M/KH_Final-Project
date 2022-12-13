@@ -7,6 +7,7 @@ import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.urfavoriteott.ufo.admin.model.vo.Report;
 import com.urfavoriteott.ufo.admin.model.vo.Sales;
 import com.urfavoriteott.ufo.common.model.vo.PageInfo;
 import com.urfavoriteott.ufo.contents.model.vo.Review;
@@ -214,6 +215,108 @@ public class AdminDao {
 		RowBounds rowBounds = new RowBounds(offset, limit);
 		
 		return (ArrayList)sqlSession.selectList("adminMapper.searchAdminCommentList", map, rowBounds);
+	}
+	
+	/**
+	 * 관리자 페이지 코멘트 관리에서 선택된 코멘트 삭제 (update) - 작성자: 수빈
+	 * @param sqlSession
+	 * @param checkNum
+	 * @return
+	 */
+	public int deleteAdminComment(SqlSessionTemplate sqlSession, int checkNum) {
+		return sqlSession.update("adminMapper.deleteAdminComment", checkNum);
+	}
+	
+	/**
+	 * 관리자 페이지 신고 관리를 위한 페이징바(select) - 작성자: 수빈
+	 * @param sqlSession
+	 * @return
+	 */
+	public int reportedCommentListCount(SqlSessionTemplate sqlSession) {
+		return sqlSession.selectOne("adminMapper.reportedCommentListCount");
+	}
+	
+	/**
+	 * 관리자 페이지에서 신고 관리를 위해 신고된 모든 코멘트 조회 (select) - 작성자: 수빈
+	 * @param sqlSession
+	 * @param pi
+	 * @return
+	 */
+	public ArrayList<Report> reportedCommentList(SqlSessionTemplate sqlSession, PageInfo pi) {
+		
+		int limit = pi.getBoardLimit();
+		int offset = (pi.getCurrentPage() -1) * limit;
+		
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		
+		return (ArrayList)sqlSession.selectList("adminMapper.reportedCommentList", null, rowBounds);
+		
+	}
+	
+	/**
+	 * 관리자 페이지 신고 관리에서 신고된 코멘트를 삭제(REPORT_STATUS='Y') 하는 메소드 - 작성자: 수빈
+	 * @param sqlSession
+	 * @param reportNo
+	 * @return
+	 */
+	public int changeStatusReportedComment(SqlSessionTemplate sqlSession, int reportNo) {
+		return sqlSession.update("adminMapper.changeStatusReportedComment", reportNo);
+	}
+	
+	
+	/**
+	 * 관리자 페이지 신고 관리에서 신고된 코멘트를 삭제(REVIEW_STATUS='N') 하는 메소드 - 작성자: 수빈
+	 * @param sqlSession
+	 * @param reportNo
+	 * @return
+	 */
+	public int deleteReportedComment(SqlSessionTemplate sqlSession, int reviewNo) {
+		return sqlSession.update("adminMapper.deleteReportedComment", reviewNo);
+	}
+	
+	/**
+	 * 관리자 페이지 신고 관리에서 처리된 코멘트 보기 버튼 클릭 시 페이징바(select) - 작성자: 수빈
+	 * @param sqlSession
+	 * @return
+	 */
+	public int processedCommentListCount(SqlSessionTemplate sqlSession) {
+		return sqlSession.selectOne("adminMapper.processedCommentListCount");
+	}
+	
+	/**
+	 * 관리자 페이지 신고 관리에서 처리된 코멘트 보기 버튼 클릭 시 신고 처리된 모든 코멘트 조회 (select) - 작성자: 수빈
+	 * @param sqlSession
+	 * @param pi
+	 * @return
+	 */
+	public ArrayList<Report> processedCommentList(SqlSessionTemplate sqlSession, PageInfo pi) {
+		
+		int limit = pi.getBoardLimit();
+		int offset = (pi.getCurrentPage() -1) * limit;
+		
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		
+		return (ArrayList)sqlSession.selectList("adminMapper.processedCommentList", null, rowBounds);
+		
+	}
+	
+	/**
+	 * 관리자 페이지 신고 관리에서 신고된 코멘트를 되돌리는(REPORT_STATUS='N') 메소드 - 작성자: 수빈
+	 * @param sqlSession
+	 * @param reportNo
+	 * @return
+	 */
+	public int resetStatusReportedComment(SqlSessionTemplate sqlSession, int reviewNo) {
+		return sqlSession.update("adminMapper.resetStatusReportedComment", reviewNo);
+	}
+	
+	/**
+	 * 관리자 페이지 신고 관리에서 신고된 코멘트를 삭제 상태를 되돌리는(REVIEW_STATUS='Y') 메소드 - 작성자: 수빈
+	 * @param sqlSession
+	 * @return
+	 */
+	public int resetReportedComment(SqlSessionTemplate sqlSession, int reviewNo) {
+		return sqlSession.update("adminMapper.resetReportedComment", reviewNo);
 	}
 
 }

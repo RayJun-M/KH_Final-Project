@@ -1,5 +1,8 @@
 package com.urfavoriteott.ufo.member.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -13,6 +16,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.urfavoriteott.ufo.common.model.vo.PageInfo;
+import com.urfavoriteott.ufo.common.template.Pagination;
+import com.urfavoriteott.ufo.contents.model.vo.Review;
 import com.urfavoriteott.ufo.member.model.service.MemberService;
 import com.urfavoriteott.ufo.member.model.vo.Member;
 
@@ -219,19 +225,7 @@ public class MemberController {
 		
 		return "member/userPasswordUpdate";
 	}
-	
-	@RequestMapping("myPage.me")
-	public String myPage() {
 		
-		return "member/myPage";
-	}
-	
-	@RequestMapping("updateForm.me")
-	public String updateForm() {
-		
-		return "member/memberUpdateForm";
-	}
-	
 	/**
 	 * 회원 비밀번호 재설정 메소드 - 작성자 : 동민
 	 * @param userId1 : 사용자 이메일 @ 앞주소(사용자 체크용)
@@ -380,5 +374,60 @@ public class MemberController {
 			session.setAttribute("alertMsg", "비밀번호를 잘못 입력하였습니다. 확인해주세요.");
 			return "redirect:/myPage.me";
 		}
+	}
+	
+	/**
+	 * 마이 페이지 별점 및 코멘트 내역에서 사용할 페이징 바, 기본 접속 시 내가 쓴 전체 코멘트 조회 - 작성자 : 수빈
+	 * @param currentPage
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value="myComment.me")
+	public String selectMyCommentList(@RequestParam(value="cpage", defaultValue="1") int currentPage, String loginUserNo, Model model) {
+		
+		// System.out.println("loginUserNo:" + loginUserNo);
+		
+		// int loginUser = Integer.parseInt(loginUserNo);
+		//System.out.println(loginUser);
+		
+		int listCount = memberService.selectMyCommentListCount(loginUserNo);
+		
+		// System.out.println("listCount: " + listCount);
+		
+		int pageLimit = 10;
+		int boardLimit = 10;
+			
+		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, pageLimit, boardLimit);
+		
+		ArrayList<Review> list = memberService.selectMyCommentList(pi, loginUserNo);
+		
+		model.addAttribute("pi", pi);
+		model.addAttribute("list", list);
+		
+		return "member/myPageComment";
+	}
+	
+	/**
+	 * 마이 페이지 별점 및 코멘트 내역에서 선택된 리뷰 삭제 메소드 - 작성자: 수빈
+	 * @param reviewNoArr
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value="deleteComment.me", produces="application/json; charset=UTF-8")
+	public int deleteMyComment(@RequestParam(value="reviewNoArr[]") List<String> reviewNoArr) {
+		
+		// System.out.println(reviewNoArr); // 체크박스에 담긴 리뷰 번호가 [4, 3] 와 같이 찍힘
+		
+		int result = 0;
+		int checkNum = 0; // 리뷰번호는 1부터 시작함
+		
+		for(String str : reviewNoArr) {
+			checkNum = Integer.parseInt(str);
+			// System.out.println(checkNum); // 4, 3이 차례로 찍힘
+			memberService.deleteMyComment(checkNum);
+			result++;
+		}
+		
+		return result;
 	}
 }

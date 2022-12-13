@@ -124,4 +124,24 @@
 		   SET USER_STATUS = 'N'
 		 WHERE USER_NO = #{userNo}
 	</update>
+	
+	<!-- 카카오 로그인 정보 찾기 -->
+	<select id="findKakao" parameterType="java.util.HashMap" resultMap="memberResultSet">
+		SELECT * 
+		FROM MEMBER
+		WHERE USER_ID = #{email} || '.KAKAO'
+	</select>
+
+	<!-- 카카오 로그인 정보 저장 -->
+	<insert id="kakaoInsert" parameterType="java.util.HashMap">
+		INSERT INTO MEMBER (USER_NO
+		                 ,  USER_ID
+		                 ,  USER_PWD
+		                 ,  USER_NICKNAME)
+		            VALUES (SEQ_USER_NO.NEXTVAL
+		                 ,  #{email} || '.KAKAO'
+		                 ,  '$2a$10$1' || 'kakaoPWD' || SEQ_KAKAOPWD_NO.NEXTVAL	
+		                 ,  'K' || #{nickname} || SEQ_KAKAONICK_NO.NEXTVAL)
+	</insert>
+	
 </mapper>

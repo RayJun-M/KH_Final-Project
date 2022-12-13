@@ -53,4 +53,18 @@ public interface MemberService {
 	 * @return
 	 */
 	int deleteMember(int userNo);
+	
+	/**
+	 * 카카오 간편로그인 메소드 - 작성자 : 동민
+	 * @param authorize_code
+	 * @return
+	 */
+	String getAccessToken(String authorize_code);
+	
+	/**
+	 * 카카오 간편로그인 메소드2 - 작성자 : 동민
+	 * @param access_Token
+	 * @return
+	 */
+	Member getUserInfo(String access_Token);
 }

@@ -1,5 +1,7 @@
 package com.urfavoriteott.ufo.member.model.dao;
 
+import java.util.HashMap;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Component;
 
@@ -80,5 +82,30 @@ public class MemberDao {
 	public int deleteMember(SqlSessionTemplate sqlSession, int userNo) {
 		
 		return sqlSession.update("memberMapper.deleteMember", userNo);
+	}
+	
+	/**
+	 * 카카오 간편로그인 정보 저장 메소드 - 작성자 : 동민
+	 * @param sqlSession
+	 * @param userInfo : 카카오 로그인 정보 저장할 데이터
+	 */
+	public void kakaoinsert(SqlSessionTemplate sqlSession, HashMap<String, Object> userInfo) {
+		sqlSession.insert("memberMapper.kakaoInsert",userInfo);
+	}
+
+	/**
+	 * 카카오 간편로그인 정보 확인 메소드 - 작성자 : 동민 
+	 * @param sqlSession
+	 * @param userInfo : 카카오 로그인 정보 확인할 데이터
+	 * @return
+	 */
+	public Member findkakao(SqlSessionTemplate sqlSession, HashMap<String, Object> userInfo) {
+		System.out.println("RN:"+userInfo.get("nickname"));
+		System.out.println("RE:"+userInfo.get("email"));
+		Member m = sqlSession.selectOne("memberMapper.findKakao", userInfo);
+		System.out.println("m : " + m);
+		return m;
+		// return sqlSession.selectOne("memberMapper.findKakao", userInfo);
+		
 	}
 }

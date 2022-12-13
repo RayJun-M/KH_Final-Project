@@ -36,6 +36,20 @@ public interface MemberService {
 	 * @return
 	 */
 	int passwordUpdate(Member m);
+  
+  /**
+	 * 카카오 간편로그인 메소드 - 작성자 : 동민
+	 * @param authorize_code
+	 * @return
+	 */
+	String getAccessToken(String authorize_code);
+	
+	/**
+	 * 카카오 간편로그인 메소드2 - 작성자 : 동민
+	 * @param access_Token
+	 * @return
+	 */
+	Member getUserInfo(String access_Token);
 	
 	/**
 	 * 사용자 - 닉네임 중복체크용 메소드 - 작성자 : 장희연
@@ -57,8 +71,8 @@ public interface MemberService {
 	 * @return
 	 */
 	int deleteMember(int userNo);
-	
-	/**
+  
+  /**
 	 * 마이 페이지 별점 및 코멘트 내역 조회를 위한 페이징바(select) - 작성자 : 수빈
 	 * @param loginUserNo
 	 * @return

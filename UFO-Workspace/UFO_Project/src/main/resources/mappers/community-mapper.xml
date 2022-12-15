@@ -12,16 +12,6 @@
 		<result column="COM_STATUS" property="comStatus" />
 		<result column="USER_NICKNAME" property="userNickname" />
 		<result column="USER_NO" property="userNo" />
-	</resultMap>	
-	
-	<resultMap id="replyResultSet" type="reply">
-		<result column="COM_RPL_NO" property="comRplNo" />
-		<result column="COM_NO" property="comNo" />
-		<result column="COM_RPL_CONTENT" property="comRplContent" />
-		<result column="COM_RPL_REGISTER_DATE" property="comRplRegisterDate" />
-		<result column="COM_RPL_STATUS" property="comRplStatus" />
-		<result column="USER_NO" property="userNo" />
-		<result column="USER_NICKNAME" property="userNickname" />
 	</resultMap>
 	
 	<!-- 커뮤니티 게시글 수 조회 쿼리문 -->

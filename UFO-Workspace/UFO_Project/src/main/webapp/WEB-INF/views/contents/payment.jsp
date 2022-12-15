@@ -27,6 +27,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
       #provides i {
         margin-bottom: 20px;
       }
+
       ul{
         list-style:none;
       }
@@ -34,9 +35,11 @@ uri="http://java.sun.com/jsp/jstl/core" %>
       #content_header {
         margin-top: 100px;
       }
+
       #content_header, #content_main{
         padding: 0 20%;
       }
+
       #regOpt, #payOpt {
         float:left;
         width:50%;
@@ -306,7 +309,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
 
           payBtn.addEventListener('click', () => {
             $.ajax({
-              url: 'regRequest.pay',
+              url: 'onetimeRequest.pay', // 일회성 결제요청 -> 
               data: {
                 pg:'html5_inicis.INIBillTst',
                 merchant_uid: 'reg_'+new Date().getTime(),
@@ -315,9 +318,9 @@ uri="http://java.sun.com/jsp/jstl/core" %>
                 expiry: $('#expiry').val(),
                 birth: $('#birth').val(),
                 pwd_2digit: $('#pwd_2digit').val(),
-                customer_uid: userId.substr(0,userId.indexOf('@')),
+                customer_uid: userId.substr(0,userId.indexOf('@'))+new Date().getTime(),
                 name: '정기구독권',
-                buyer_email: '${loginUser.userId}',
+                buyer_name: userId.substr(0,userId.indexOf('@')),
               },
               error: (() => {console.log('결제요청 불가능')})
             }).done((rsp) => {

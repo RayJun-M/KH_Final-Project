@@ -1,4 +1,4 @@
-package com.urfavoriteott.urfavoriteott.member.controller;
+package com.urfavoriteott.ufo.member.controller;
 
 import java.util.Random;
 

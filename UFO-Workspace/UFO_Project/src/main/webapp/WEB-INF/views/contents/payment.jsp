@@ -70,6 +70,87 @@ uri="http://java.sun.com/jsp/jstl/core" %>
       #content_footer > ul {
         margin-top: 10px
       }
+
+      #cardInfo > p {
+        color: #64FFDA;
+      }
+
+      #cardInfo>table>tbody>tr>th{
+        color: rgb(108, 114, 118);
+      }
+      
+      #expiry, #pwd_2digit, #birthday {
+        width: 100%;
+      }
+      /* 모달창 */
+      #modal.modal-overlay {
+          width: 100%;
+          height: 100%;
+          position: absolute;
+          left: 0;
+          top: 0;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          background: rgba(255, 255, 255, 0.25);
+          box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+          backdrop-filter: blur(1.5px);
+          -webkit-backdrop-filter: blur(1.5px);
+          border-radius: 10px;
+          border: 1px solid rgba(255, 255, 255, 0.18);
+        }
+
+        #modal .modal-window {
+          background: #48EDC6;
+          box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+          backdrop-filter: blur( 13.5px );
+          -webkit-backdrop-filter: blur( 13.5px );
+          border-radius: 10px;
+          border: 1px solid rgba( 255, 255, 255, 0.18 );
+          width: 900px;
+          height: 450px;
+          position: relative;
+          top: -100px;
+          padding: 10px;
+        }
+
+        #modal .title {
+          padding-left: 10px;
+          display: inline;
+          text-shadow: 1px 1px 2px gray;
+          color: white;
+        }
+
+        #modal .title h2 {
+          display: inline;
+          font-size: 40px;
+        }
+
+        #modal .close-area {
+          display: inline;
+          float: right;
+          padding-right: 10px;
+          cursor: pointer;
+          text-shadow: 1px 1px 2px gray;
+          color: white;
+        }
+
+        #modal .content {
+          margin-top: 20px;
+          padding: 0px 10px;
+          text-shadow: 1px 1px 2px gray;
+          color: white;
+          font-size: 25px;
+        }
+
+        .content>table{
+          margin-top:50px;
+        }
+
+        .content>table>tbody>tr {
+          height: 50px;
+        }
     </style>
   </head>
   <body>
@@ -133,6 +214,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
 
         <script>
       IMP.init('imp22332526');
+      let userId = '${loginUser.userId}';
 
       // 탭 색깔 바꾸는 함수
       const changeColor = (el, backgroundColor, fontColor) =>  {
@@ -161,6 +243,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
         const regOpt = document.getElementById('regOpt'); // 정기결제 탭
         const payBtn = document.getElementById('payBtn'); // 결제하기 버튼
 
+
         payOpt.addEventListener('click',() => {
           if($(regOpt).css('backgroundColor','#64FFDA')){
             changeColor(regOpt,'','white');
@@ -168,6 +251,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
           changeColor(payOpt, '#64FFDA', 'black');
           $(payBtn).attr('disabled',false);
 
+          /* 일반결제 */
           payBtn.addEventListener('click', () => {
             // IMP.request_pay(param, callback) 결제창 호출
             IMP.request_pay({
@@ -210,7 +294,9 @@ uri="http://java.sun.com/jsp/jstl/core" %>
           });
         });
         
+        /* 정기결제 */
         regOpt.addEventListener('click',() => {
+          modalOn();
           if($(payOpt).css('backgroundColor','#64FFDA')){
             changeColor(payOpt,'','white');
           }
@@ -219,26 +305,26 @@ uri="http://java.sun.com/jsp/jstl/core" %>
           $(payBtn).attr('disabled',false);
 
           payBtn.addEventListener('click', () => {
-            IMP.request_pay({
-              pg : 'html5_inicis.INIBillTst', // 실제 계약 후에는 실제 상점아이디로 변경, 정기결제, 비인증결제
-              pay_method : 'card', // 'card'만 지원됩니다.
-              merchant_uid: 'reg_'+new Date().getTime(), // 상점에서 관리하는 주문 번호
-              name : '정기결제',
-              amount : 200,
-              buyer_email : 'iamport@siot.do',
-              buyer_name : '성현',
-              buyer_tel : '010-1234-5678',
-              buyer_addr : '서울특별시 강남구 삼성동',
-              buyer_postcode : '123-456'
-            },function(rsp) {
-                if (rsp.success) {
-                  console.log(rsp);
-                } else {
-                  console.log(rsp.error_msg);
-                }
-              });
+            $.ajax({
+              url: 'regRequest.pay',
+              data: {
+                pg:'html5_inicis.INIBillTst',
+                merchant_uid: 'reg_'+new Date().getTime(),
+                amount: 100,
+                card_number: $('#cardNum1').val()+'-'+$('#cardNum2').val()+'-'+$('#cardNum3').val()+'-'+$('#cardNum4').val(),
+                expiry: $('#expiry').val(),
+                birth: $('#birth').val(),
+                pwd_2digit: $('#pwd_2digit').val(),
+                customer_uid: userId.substr(0,userId.indexOf('@')),
+                name: '정기구독권',
+                buyer_email: '${loginUser.userId}',
+              },
+              error: (() => {console.log('결제요청 불가능')})
+            }).done((rsp) => {
+              console.log(rsp);
+            });
           });
-        })
+        });
       };
         </script>
         <!-- 결제 약관 -->
@@ -258,5 +344,107 @@ uri="http://java.sun.com/jsp/jstl/core" %>
       <!-- 푸터 영역 -->
       <jsp:include page="../common/footer.jsp" />
     </div>
+
+    <!-- 모달창 시작 -->
+    <div id="modal" class="modal-overlay" style="display:none;">
+      <div class="modal-window">
+        <div class="title">
+          <h2>카드정보 입력(필수)</h2>
+        </div>
+        <div class="close-area">X</div>
+        <div class="content">
+          <table>
+              <tr>
+                <th>카드번호</th>
+                <td><input type="text" id="cardNum1" placeholder="0000" oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');" maxlength="4"></td>
+                <td><input type="text" id="cardNum2" placeholder="0000" oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');" maxlength="4"></td>
+                <td><input type="text" id="cardNum3" placeholder="0000" oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');" maxlength="4"></td>
+                <td><input type="text" id="cardNum4" placeholder="0000" oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');" maxlength="4"></td>
+              </tr>
+              <tr>
+                <th>유효기간</th>
+                <td colspan="4"><input type="text" id="expiry" placeholder="YYYY/MM" oninput="this.value = this.value.replace(/[^0-9/]/g, '').replace(/(\..*)\./g, '$1');"maxlength="7"></td>
+              </tr>
+              <tr>
+                <th>비밀번호</th>
+                <td colspan="4"><input type="password" id="pwd_2digit" oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');" placeholder="비밀번호 앞 2자리" maxlength="2"></td>
+              </tr>
+              <tr>
+                <th>생년월일</th>
+                <td colspan="4"><input type="text" id="birthday" placeholder="YYMMDD(6자리)" oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');" maxlength="6"></td>
+              </tr>
+            </table>
+
+            <div style="margin-top:20px; margin-right:30px; float:right;">
+              <p id="emptySpace" style="color:red; display:none; font-size: 15px;">* 작성되지 않은 공간이 있습니다.</p>
+              <button id="cardConfirm" type="button" class="btn text-black" style="background-color: #64FFDA; font-weight: bolder;">확인</button>
+              <button id="cardCancel" type="button" class="btn text-white" style="background-color: rgb(62, 77, 104); font-weight: bolder;">취소</button>
+            </div>
+        </div>
+      </div>
+    </div>
+    <!-- 모달창 종료 -->
+
+    <script>
+			const modal = document.getElementById("modal")
+			const cardConfirm = document.getElementById('cardConfirm');
+      const cardCancel = document.getElementById('cardCancel');
+      const cardInfo = [
+                       document.getElementById('cardNum1'),
+                       document.getElementById('cardNum2'),
+                       document.getElementById('cardNum3'),
+                       document.getElementById('cardNum4'),
+                       document.getElementById('expiry'),
+                       document.getElementById('pwd_2digit'),
+                       document.getElementById('birthday')
+      ];
+      const emptySpace = document.getElementById('emptySpace');
+
+			function modalOn() {
+			  modal.style.display = "flex"
+			}
+			
+			function isModalOn() {
+			  return modal.style.display === "flex"
+			}
+			
+			function modalOff() {
+			  modal.style.display = "none"
+			}
+			
+      const emptySpaceChecker = (cardInfo) => {
+        for(let i=0; i<cardInfo.length; i++) {
+          if(cardInfo[i].value === "" || cardInfo[i].value === null){
+            emptySpace.style.display = 'flex';
+            cardInfo[i].focus();
+            break;
+          }else{
+            modalOff();
+          }
+        }
+      };
+
+			const btnModal = document.getElementById("btn-modal")
+			
+			const closeBtn = modal.querySelector(".close-area")
+			
+			closeBtn.addEventListener("click", e => {
+			  modalOff();
+			})
+			
+			modal.addEventListener("click", e => {
+			  const evTarget = e.target
+			  
+			  if(evTarget.classList.contains("modal-overlay")) {
+			    modalOff()
+			  }
+			})
+
+      cardConfirm.addEventListener('click', () => {
+        emptySpaceChecker(cardInfo);
+      })
+
+      cardCancel.addEventListener('click', modalOff);
+	</script>
   </body>
 </html>

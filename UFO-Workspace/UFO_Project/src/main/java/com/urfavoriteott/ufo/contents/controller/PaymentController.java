@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.siot.IamportRestClient.IamportClient;
 import com.siot.IamportRestClient.exception.IamportResponseException;
+import com.siot.IamportRestClient.request.OnetimePaymentData;
 import com.siot.IamportRestClient.response.IamportResponse;
 import com.urfavoriteott.ufo.contents.model.service.PaymentService;
 import com.urfavoriteott.ufo.contents.model.vo.Payment;
@@ -31,8 +32,8 @@ public class PaymentController {
     	this.RESTAPI = new IamportClient("3817751562357623", "YJTkrsBfrE8koNNcoJLJqu8vcsqN6omgkYxW91ojs5newEjLVC7YR7Vt3A5L913mF0o26nHrkpLrZudV");
     }
     /**
-     * 작성자: 성현
-     * @return: 이용권 결제 페이지로 포워딩
+     * 작성자: 성현 / 이용권 결제 페이지로 이동하는 메소드
+     * @return
      */
     @RequestMapping("payment.pay")
 	public String paymentView() {
@@ -41,12 +42,12 @@ public class PaymentController {
 	}
     
     /**
-     * 작성자: 성현
+     * 작성자: 성현 / 이용권 결제 후 아임포트 서버에 저장된 결제정보 불러오는 메소드 
      * @param imp_uid: 사용자가 결제에 성공했을 때 발급받는 결제번호
-     * @param model: 
+     * @param model 
      * @param locale
      * @param httpSession
-     * @return: 아임포트 서버에 저장된 결제 정보를 리턴해줍니다.
+     * @return
      * @throws IamportResponseException
      * @throws IOException
      */
@@ -57,11 +58,10 @@ public class PaymentController {
     																					Model model,
     																					Locale locale,
     																					HttpSession httpSession) throws IamportResponseException, IOException {
-    	
     	return RESTAPI.paymentByImpUid(imp_uid);
     }
     /**
-     * 작성자: 성현
+     * 작성자: 성현 / 아임포트 서버에 저장된 데이터와 이용권 결제시에 받아온 데이터가 일치할 경우 DB에 INSERT하는 메소드
      * @param payment
      * @return : 성공 / 실패 여부 리턴
      */
@@ -80,10 +80,7 @@ public class PaymentController {
     	}
 		return str;
 	}
-	
-	@RequestMapping(value="insert.reg", produces="text/html; charset=utf-8")
-	public String insertReg() {
-		
-		return "";
-	}
+    @ResponseBody
+    @RequestMapping(value="regRequest.pay", produces="application/json; charset=utf-8")
+    public IamportResponse<Payment> regRequest()
 }

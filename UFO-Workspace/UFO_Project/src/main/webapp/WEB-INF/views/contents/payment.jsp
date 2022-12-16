@@ -258,7 +258,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
           payBtn.addEventListener('click', () => {
             // IMP.request_pay(param, callback) 결제창 호출
             IMP.request_pay({
-            pg : 'html5_inicis.INIpayTest', // 일반결제, 인증결제
+            pg : 'html5_inicis', // 일반결제, 인증결제
             pay_method : 'card',
             merchant_uid: 'pay_'+new Date().getTime(), // 상점에서 관리하는 주문 번호
             name : '일반 이용권',
@@ -266,32 +266,38 @@ uri="http://java.sun.com/jsp/jstl/core" %>
             buyer_email: '${loginUser.userId}',
           }, rsp => {
               if (rsp.success) { // 결제되고 돈 빠져나갔으면 아임포트 서버와 대조하여 검증해야 함
-                console.log('rsp 불러와집니다요')
+                console.log(rsp)
                 $.ajax({
                   url: 'verify.pay/'+ rsp.imp_uid,
                   type: 'POST'
                 }).done(data => {
-                  console.log('data 불러와집니다요');
+                  console.log(data);
                   if(rsp.paid_amount === data.response.amount){
                       $.ajax({
                         url:'insert.pay',
                         method:'get',
-                        data: {payNo: rsp.imp_uid,
-                              payOrderNo: rsp.merchant_uid,
-                              userNo: ${loginUser.userNo},
-                              payment: rsp.paid_amount,
-                              payUrl: rsp.receipt_url}
-                      }).done(data => { // insert.pay로 요청 보내서 데이터 insert 성공하면 돌릴 로직
-                        alert('결제가 성공적으로 완료되었습니다.')
-                        location.href="/ufo"
-                        console.log('data :'+data);
-                        });
+                        data: {
+                          payNo: rsp.imp_uid,
+                          payOrderNo: rsp.merchant_uid,
+                          userNo: ${loginUser.userNo},
+                          payment: rsp.paid_amount,
+                          payUrl: rsp.receipt_url
+                        },
+                        success: (rsp) => {
+                          alert(rsp);
+                          location.href="/ufo";
+                        },
+                        error: (rsp) => {
+                          console.log('insert.pay 호출 실패');
+                          console.log(rsp.error_msg);
+                        }
+                      })
                   } else {
                     alert('결제정보 검증 처리 중 문제가 발생했습니다.');
                   }
                 })
               } else {
-                console.log(rsp.error_msg);
+                console.log(rsp.error_code+rsp.error_msg)
               }
             });
           });
@@ -339,24 +345,25 @@ uri="http://java.sun.com/jsp/jstl/core" %>
               if(rsp.success){
                 $.ajax({
                   url:'insert.reg',
-                  data: {apply_num: rsp.apply_num,
-                         buyer_email: rsp.buyer_email,
-                         customer_uid: rsp.customer_uid,
-                         imp_uid: rsp.imp_uid,
-                         merchant_uid: rsp.merchant_uid,
-                         amount: rsp.paid_amount,
-                         receipt_url: rsp.receipt_url
-                        },
+                  data: {
+                    // apply_num: rsp.apply_num,
+                    payNo: rsp.imp_uid,
+                    payOrderNo: rsp.merchant_uid,
+                    userNo: ${loginUser.userNo},
+                    payment: rsp.paid_amount,
+                    payUrl: rsp.receipt_url,
+                    billingKey: rsp.customer_uid
+                  },
                   type: 'POST',
-                })
-                .done(() => {console.log('insert.reg 호출성공');
-
-                })
-                .fail(() => {
-
+                  success: rsp => {
+                    console.log(rsp)
+                  },
+                  error : rej => {
+                    console.log(rej)
+                  }
                 })
               }else{
-                alert(rsp.error_msg)
+                console.log(rsp.error_code+rsp.error_msg);
               }
             })
       });

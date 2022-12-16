@@ -14,9 +14,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.siot.IamportRestClient.IamportClient;
 import com.siot.IamportRestClient.exception.IamportResponseException;
-import com.siot.IamportRestClient.request.BillingCustomerData;
-import com.siot.IamportRestClient.request.OnetimePaymentData;
-import com.siot.IamportRestClient.response.BillingCustomer;
 import com.siot.IamportRestClient.response.IamportResponse;
 import com.urfavoriteott.ufo.contents.model.service.PaymentService;
 import com.urfavoriteott.ufo.contents.model.vo.Payment;
@@ -34,7 +31,7 @@ public class PaymentController {
 		this.RESTAPI = new IamportClient("3817751562357623",
 				"YJTkrsBfrE8koNNcoJLJqu8vcsqN6omgkYxW91ojs5newEjLVC7YR7Vt3A5L913mF0o26nHrkpLrZudV");
 	}
-
+	
 	/**
 	 * 작성자: 성현 / 이용권 결제 페이지로 이동하는 메소드
 	 * 
@@ -71,28 +68,37 @@ public class PaymentController {
 	 * @param payment
 	 * @return : 성공 / 실패 여부 리턴
 	 */
+	
 	@ResponseBody
 	@RequestMapping(value = "insert.pay", produces = "text/html; charset=utf-8")
 	public String insertPay(Payment payment) {
 
 		int result = paymentService.insertPay(payment);
-
+		
 		String str = "";
-
-		if (result > 0) { // 성공
-			str = "ok";
-		} else {
-			str = "failed";
+		if(result > 0) {
+			str = "일반이용권 결제가 완료되었습니다.";
+		}else {
+			str = "결제가 실패하였습니다.";
 		}
+		
 		return str;
 	}
 	
 	@ResponseBody
-	@RequestMapping(value="insert.reg")
+	@RequestMapping(value="insert.reg", produces="text/html; charset=utf-8")
 	public String insertReg(Payment payment) {
 		
 		int result = paymentService.insertReg(payment);
 		
-		return 
+		String str = "";
+		
+		if(result > 0 ) {
+			str = "정기구독권 결제가 완료되었습니다.";
+		}else {
+			str = "결제가 실패하였습니다.";
+		}
+		
+		return str;
 	}
 }

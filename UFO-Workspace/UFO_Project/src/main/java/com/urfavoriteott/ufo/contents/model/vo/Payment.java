@@ -23,4 +23,5 @@ public class Payment {
     private Date payEndDate;
     private String payStatus;
     private String payUrl;
+    private String billingKey;
 }

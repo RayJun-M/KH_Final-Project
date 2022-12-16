@@ -1,7 +1,6 @@
 package com.urfavoriteott.ufo.contents.controller;
 
 import java.io.IOException;
-import java.math.BigDecimal;
 import java.util.Locale;
 
 import javax.servlet.http.HttpSession;
@@ -15,8 +14,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.siot.IamportRestClient.IamportClient;
 import com.siot.IamportRestClient.exception.IamportResponseException;
-import com.siot.IamportRestClient.request.CardInfo;
+import com.siot.IamportRestClient.request.BillingCustomerData;
 import com.siot.IamportRestClient.request.OnetimePaymentData;
+import com.siot.IamportRestClient.response.BillingCustomer;
 import com.siot.IamportRestClient.response.IamportResponse;
 import com.urfavoriteott.ufo.contents.model.service.PaymentService;
 import com.urfavoriteott.ufo.contents.model.vo.Payment;
@@ -88,9 +88,11 @@ public class PaymentController {
 	}
 	
 	@ResponseBody
-	@RequestMapping("onetimeRequest.pay")
-	public IamportResponse<com.siot.IamportRestClient.response.Payment> onetimeRequest(OnetimePaymentData onetimeData) throws IamportResponseException, IOException {
+	@RequestMapping(value="insert.reg")
+	public String insertReg(Payment payment) {
 		
-		return RESTAPI.onetimePayment(onetimeData);
+		int result = paymentService.insertReg(payment);
+		
+		return 
 	}
 }

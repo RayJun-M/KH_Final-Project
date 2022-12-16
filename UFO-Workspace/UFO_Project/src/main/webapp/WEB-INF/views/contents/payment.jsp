@@ -285,8 +285,8 @@ uri="http://java.sun.com/jsp/jstl/core" %>
                         alert('결제가 성공적으로 완료되었습니다.')
                         location.href="/ufo"
                         console.log('data :'+data);
-                });
-                  }else {
+                        });
+                  } else {
                     alert('결제정보 검증 처리 중 문제가 발생했습니다.');
                   }
                 })
@@ -296,10 +296,10 @@ uri="http://java.sun.com/jsp/jstl/core" %>
             });
           });
         });
-        
+      };
         /* 정기결제 */
         regOpt.addEventListener('click',() => {
-          modalOn();
+          // modalOn();
           if($(payOpt).css('backgroundColor','#64FFDA')){
             changeColor(payOpt,'','white');
           }
@@ -308,27 +308,59 @@ uri="http://java.sun.com/jsp/jstl/core" %>
           $(payBtn).attr('disabled',false);
 
           payBtn.addEventListener('click', () => {
-            $.ajax({
-              url: 'onetimeRequest.pay', // 일회성 결제요청 -> 
-              data: {
-                pg:'html5_inicis.INIBillTst',
-                merchant_uid: 'reg_'+new Date().getTime(),
-                amount: 100,
-                card_number: $('#cardNum1').val()+'-'+$('#cardNum2').val()+'-'+$('#cardNum3').val()+'-'+$('#cardNum4').val(),
-                expiry: $('#expiry').val(),
-                birth: $('#birth').val(),
-                pwd_2digit: $('#pwd_2digit').val(),
-                customer_uid: userId.substr(0,userId.indexOf('@'))+new Date().getTime(),
-                name: '정기구독권',
-                buyer_name: userId.substr(0,userId.indexOf('@')),
-              },
-              error: (() => {console.log('결제요청 불가능')})
-            }).done((rsp) => {
-              console.log(rsp);
-            });
-          });
-        });
-      };
+            // $.ajax({
+            //   url: 'onetimeRequest.pay', // 일회성 결제요청 -> 
+            //   data: {
+            //     pg:'INIBillTst',
+            //     merchant_uid: 'reg_'+new Date().getTime(),
+            //     amount: 100,
+            //     card_number: $('#cardNum1').val()+'-'+$('#cardNum2').val()+'-'+$('#cardNum3').val()+'-'+$('#cardNum4').val(),
+            //     expiry: $('#expiry').val(),
+            //     birth: $('#birth').val(),
+            //     pwd_2digit: $('#pwd_2digit').val(),
+            //     customer_uid: userId.substr(0,userId.indexOf('@'))+new Date().getTime(),
+            //     name: '정기구독권',
+            //     buyer_name: userId.substr(0,userId.indexOf('@')),
+            //   },
+            // }).done((rsp) => {
+            //   console.log('rsp:' + rsp);
+            // }).fail((rej) => {
+            //   console.log('rej: ' +rej);
+            // });
+            IMP.request_pay({
+              pg: 'danal_tpay',
+              pay_method: 'card',
+              merchant_uid: 'reg_'+new Date().getTime(),
+              name: '정기구독권',
+              amount:100,
+              customer_uid: userId.substr(0,userId.indexOf('@'))+new Date().getTime(),
+              buyer_email: userId
+            }, rsp => {
+              if(rsp.success){
+                $.ajax({
+                  url:'insert.reg',
+                  data: {apply_num: rsp.apply_num,
+                         buyer_email: rsp.buyer_email,
+                         customer_uid: rsp.customer_uid,
+                         imp_uid: rsp.imp_uid,
+                         merchant_uid: rsp.merchant_uid,
+                         amount: rsp.paid_amount,
+                         receipt_url: rsp.receipt_url
+                        },
+                  type: 'POST',
+                })
+                .done(() => {console.log('insert.reg 호출성공');
+
+                })
+                .fail(() => {
+
+                })
+              }else{
+                alert(rsp.error_msg)
+              }
+            })
+      });
+    });
         </script>
         <!-- 결제 약관 -->
         <div id="content_footer">
@@ -348,7 +380,8 @@ uri="http://java.sun.com/jsp/jstl/core" %>
       <jsp:include page="../common/footer.jsp" />
     </div>
 
-    <!-- 모달창 시작 -->
+    <!--
+    // 모달창 시작
     <div id="modal" class="modal-overlay" style="display:none;">
       <div class="modal-window">
         <div class="title">
@@ -386,9 +419,11 @@ uri="http://java.sun.com/jsp/jstl/core" %>
         </div>
       </div>
     </div>
-    <!-- 모달창 종료 -->
+    // 모달창 종료 
 
+    -->
     <script>
+      /*
 			const modal = document.getElementById("modal")
 			const cardConfirm = document.getElementById('cardConfirm');
       const cardCancel = document.getElementById('cardCancel');
@@ -448,6 +483,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
       })
 
       cardCancel.addEventListener('click', modalOff);
+      */
 	</script>
   </body>
 </html>

@@ -38,6 +38,8 @@
 		<result column="REPORT_DATE" property="reportDate" />
 		<result column="REPORT_STATUS" property="reportStatus" />
 	</resultMap>
+<<<<<<< HEAD
+=======
 
 	<!-- 관리자 한달이용권 월별 매출 - 작성자 : 장희연  -->
 	<select id="selectSalesPerMonthOnce" resultMap="salesResultSet">
@@ -395,4 +397,5 @@
 		WHERE REVIEW_NO = #{reviewNo}
 	</update>
 
+>>>>>>> f86d6fb887f605acd48d7db876f88086b2d8c1ab
 </mapper>

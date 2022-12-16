@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "mybatis-3-mapper.dtd" >
+<mapper namespace="paymentMapper">
+<<<<<<< HEAD
+
+	<!-- 일반결제 resultset -->
+=======
+>>>>>>> f86d6fb887f605acd48d7db876f88086b2d8c1ab
+    <resultMap id="paymentResultSet" type="payment">
+		<result column="PAY_NO" property="payNo" />
+		<result column="PAY_ORDER_NO" property="payOrderNo" />
+		<result column="USER_NO" property="userNo" />
+		<result column="PAYMENT" property="payment" />
+		<result column="PAY_DATE" property="payDate" />
+		<result column="PAY_END_DATE" property="payEndDate" />
+		<result column="PAY_STATUS" property="payStatus" />
+		<result column="PAY_URL" property="payUrl" />
+	</resultMap>
+	
+<<<<<<< HEAD
+	<!-- 정기결제 resultset -->
+	<resultMap id="regPayResultSet" type="payment">
+		<result column="REG_NO" property="payNo" />
+		<result column="REG_ORDER_NO" property="payOrderNo" />
+		<result column="USER_NO" property="userNo" />
+=======
+	<resultMap id="regPayResultSet" type="payment">
+		<result column="REG_NO" property="payNo" />
+		<result column="REG_ORDER_NO" property="payOrderNo" />
+		<result column="USERNO" property="userNo" />
+>>>>>>> f86d6fb887f605acd48d7db876f88086b2d8c1ab
+		<result column="REG_PAYMENT" property="payment" />
+		<result column="REG_DATE" property="payDate" />
+		<result column="REG_END_DATE" property="payEndDate" />
+		<result column="REG_STATUS" property="payStatus" />
+		<result column="REG_URL" property="payUrl" />
+<<<<<<< HEAD
+		<result column="BILLINGKEY" property="billingKey" />
+	</resultMap>
+	
+	<!-- 작성자: 성현 / 일반결제 insert -->
+=======
+	</resultMap>
+	
+>>>>>>> f86d6fb887f605acd48d7db876f88086b2d8c1ab
+	<insert id="insertPay" parameterType="payment">
+		INSERT INTO PAYMENT(PAY_NO,
+							PAY_ORDER_NO,
+							USER_NO,
+							PAYMENT,
+							PAY_URL)
+		VALUES (#{payNo},
+				#{payOrderNo},
+				#{userNo},
+				#{payment},
+				#{payUrl})
+	</insert>
+	
+<<<<<<< HEAD
+	<!-- 작성자: 성현 / 정기결제 insert -->
+	<insert id="insertReg" parameterType="payment">
+		INSERT INTO PAYMENT_REGULAR (REG_NO,
+									 REG_ORDER_NO,
+									 USER_NO,
+									 REG_PAYMENT,
+									 REG_URL,
+									 BILLINGKEY)
+							 VALUES (#{payNo},
+							 		 #{payOrderNo},
+							 		 #{userNo},
+							 		 #{payment},
+							 		 #{payUrl},
+							 		 #{billingKey}
+							 		 )
+=======
+	<insert id="insertReg" parameterType="payment">
+>>>>>>> f86d6fb887f605acd48d7db876f88086b2d8c1ab
+	</insert>
+</mapper>

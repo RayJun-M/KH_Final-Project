@@ -12,6 +12,8 @@
 		<result column="COM_STATUS" property="comStatus" />
 		<result column="USER_NICKNAME" property="userNickname" />
 		<result column="USER_NO" property="userNo" />
+<<<<<<< HEAD
+=======
 	</resultMap>	
 	
 	<resultMap id="replyResultSet" type="reply">
@@ -22,6 +24,7 @@
 		<result column="COM_RPL_STATUS" property="comRplStatus" />
 		<result column="USER_NO" property="userNo" />
 		<result column="USER_NICKNAME" property="userNickname" />
+>>>>>>> f86d6fb887f605acd48d7db876f88086b2d8c1ab
 	</resultMap>
 	
 	<!-- 커뮤니티 게시글 수 조회 쿼리문 -->

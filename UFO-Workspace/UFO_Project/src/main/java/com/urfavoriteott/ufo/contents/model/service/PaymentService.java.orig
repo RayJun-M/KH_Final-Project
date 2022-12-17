@@ -1,0 +1,13 @@
+package com.urfavoriteott.ufo.contents.model.service;
+
+import com.urfavoriteott.ufo.contents.model.vo.Payment;
+
+public interface PaymentService {
+
+    int insertPay(Payment payment);
+<<<<<<< HEAD
+
+	int insertReg(Payment payment);
+=======
+>>>>>>> f86d6fb887f605acd48d7db876f88086b2d8c1ab
+}

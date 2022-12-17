@@ -23,4 +23,12 @@ public class PaymentServiceImpl implements PaymentService {
 		
 		return result;
 	}
+
+	@Override
+	public int insertReg(Payment payment) {
+		
+		int result = paymentDao.insertReg(sqlSession, payment);
+		
+		return result;
+	}
 }

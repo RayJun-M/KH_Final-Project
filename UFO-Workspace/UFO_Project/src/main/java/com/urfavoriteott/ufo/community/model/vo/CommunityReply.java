@@ -21,4 +21,9 @@ public class CommunityReply {
     private String comRplContent;
     private Date comRplRegisterDate;
     private String comRplStatus;
+    
+    private String userNickname;
+    private String reportReason;
+    private Date reportDate;
+    private String reportStatus;
 }

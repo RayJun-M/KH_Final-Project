@@ -1,0 +1,296 @@
+@charset "UTF-8";
+
+/* -------------------- 헤더 영역 -------------------- */
+
+/* ========== 공통 설정 ========== */
+/* 표시 유형 */
+#header_container, #header-mainmenu_container, #header-search_container,
+.header-myprofile_li { display: flex; }
+#header-submenu-cs_container, #header-search_input, #header-search-esc_btn, #header-search-result_container,
+#header-color-mode_cb, #header-submenu-login_container,
+#header-profile_container, .header-submenu-profile_container { display: none; }
+/* 위치 */
+#header_container, #header-search-result_container { position: fixed; }
+#header_container, #header_container *:not(#header-search-result_container) { z-index: 9 !important; }
+#header-search-result_container, #header-search-result_container * { z-index: 8; }
+/* 내부 여백 */
+#header-search_container button, #header-color-mode_btn, .header-myprofile_ul { padding: 0; }
+/* 텍스트 색상 */
+.header-mainmenu_link, .header-submenu_link, #header-search_input, #header-myinfo-name_txt { color: var(--headerMenuLinkColor); }
+.header-mainmenu_link, .header-submenu_link,
+#header-search_swiper .swiper-button-prev, #header-search_swiper .swiper-button-next {
+    /* 투명도 */
+    opacity: 0.6;
+    /* 속성 변화 속도 */
+    transition: opacity .1s;
+}
+
+
+/* ========== Button + Input 설정 ========== */
+#header-search_container button, #header-color-mode_btn {
+    /* 커서 형태 */
+    cursor: pointer;
+    /* 텍스트 색상 */
+    color: var(--headerBtnColor);
+    /* 텍스트 크기 */
+    font-size: 1.5rem;
+}
+#header-search_container button, #header-search_input, #header-color-mode_btn {
+    /* 배경 색상 */
+    background-color: transparent;
+    /* 테두리 */
+    border: 0;
+}
+
+
+/* ========== 헤더 영역 설정 ========== */
+#header_container {
+    /* 위치 */
+    top: 0rem;
+    /* 가로 세로 크기 */
+    width: 100%;
+    height: 5rem;
+    /* 최소 가로 크기 */
+    min-width: 1200px;
+    /* 정렬 */
+    justify-content: flex-start;
+    align-items: center;
+    /* 배경 그라데이션 색상 */
+    background: linear-gradient(to bottom, var(--headerBackColor1), var(--headerBackColor2));
+}
+
+
+/* ========== 로고 영역 설정 ========== */
+/* 세로 크기 */
+#header-logo_link, #header-logo_container { height: 100%; }
+/* 외부 여백 */
+#header-logo_link { margin-left: 4rem; }
+#header-logo_container {
+    /* 가로 크기 */
+    width: 7rem;
+    /* 배경 이미지 */
+    background-image: var(--mainLogoUrl);
+    /* 배경 이미지 크기 */
+    background-size: 70% auto;
+    /* 배경 이미지 반복 여부 */
+    background-repeat: no-repeat;
+    /* 배경 이미지 위치 */
+    background-position: center center;
+}
+
+
+/* ========== 메인 + 서브 메뉴 영역 설정 ========== */
+/* 위치 */
+#header-mainmenu-login_container,
+#header-submenu-cs_container, #header-submenu-login_container,
+.header-submenu-profile_container { position: absolute; }
+/* 텍스트 라인 */
+.header-mainmenu_link, .header-submenu_link { text-decoration: none; }
+
+/* ~~~~~ 메인 + 서브 메뉴 호버 ~~~~~ */
+/* 투명도 */
+.header-mainmenu_link:hover, .header-submenu_link:hover,
+#header_container.hover-cs #header-mainmenu-cs_link,
+#header_container.hover-login #header-mainmenu-login_link { opacity: 1; }
+
+
+/* ========== 메인 메뉴 영역 설정 ========== */
+.header-mainmenu_link {
+    /* 왼쪽 외부 여백 */
+    margin-left: 2.3rem;
+    /* 텍스트 크기 */
+    font-size: 1.3rem;
+}
+.header-mainmenu_txt {
+    /* 외부 여백 */
+    margin: 0.4rem;
+    margin-top: 0.6rem;
+    margin-bottom: 0.6rem;
+}
+
+
+/* ========== 서브 메뉴 영역 설정 ========== */
+/* 위치 */
+#header-submenu-cs_container { left: 36rem; }
+/* 내부 여백 */
+.header-submenu_txt { padding: 1.5rem; }
+.header-submenu_txt.notice, .header-submenu_txt.login,
+.header-submenu_txt.mypage, .header-submenu_txt.adminpage { padding-bottom: 0.7rem; }
+.header-submenu_txt.faq, #header-submenu-login_container .header-submenu_txt.payment,
+.header-submenu_txt.logout { padding-top: 0.7rem; }
+/* 텍스트 크기 */
+.header-submenu_link { font-size: 1rem; }
+#header-submenu-cs_container, #header-submenu-login_container,
+.header-submenu-profile_container {
+    /* 위치 */
+    top: 4rem;
+    /* 가로 크기 */
+    width: 9rem;
+    /* 배경 색상 */
+    background-color: var(--headerSubmenuBackColor);
+    /* 테두리 그림자 */
+    box-shadow: 2px 2px 4px 2px rgb(0, 0, 0, .6);
+}
+
+/* ~~~~~ 서브 메뉴 호버 ~~~~~ */
+/* 표시 유형 */
+#header_container.hover-cs #header-submenu-cs_container,
+#header_container.hover-login #header-submenu-login_container,
+#header_container.hover-profile .header-submenu-profile_container { display: block; }
+
+
+/* ========== 검색 + 검색 결과 영역 설정 ========== */
+
+/* ~~~~~ 검색 버튼 클릭 ~~~~~ */
+/* 표시 유형 */
+#header_container.search #header-search_input, #header_container.search #header-search-esc_btn,
+#header_container.search #header-search-result_container { display: block; }
+/* 배경 색상 */
+#header_container.search, #header_container.search #header-search-result-content_container { background-color: var(--headerSearchBackColor); }
+
+
+/* ========== 검색 영역 설정 ========== */
+#header-search_container {
+    /* 외부 여백 */
+    margin-left: 15rem;
+    /* 최소 가로 크기 */
+    min-width: 36rem;
+}
+/* 속성 변화 속도 */
+.empty_container, #header-search_input { transition: width .2s ease-out; }
+.empty_container {
+    /* 가로 세로 크기 */
+    width: 95%;
+    height: 2.5rem;
+}
+/* 가로 크기 */
+#header-search_container button { width: 5%; }
+#header-search_input {
+    /* 외부 여백 */
+    margin-left: 1%;
+    margin-right: 1%;
+    /* 내부 여백 */
+    padding-left: 1%;
+    /* 가로 크기 */
+    width: 0rem;
+    /* 아래쪽 테두리 */
+    border-bottom: 2px solid var(--headerBtnColor);
+    /* 텍스트 크기 */
+    font-size: 1.4rem;
+    /* 텍스트 간격 */
+    letter-spacing: 2px;
+}
+
+/* ~~~~~ 검색 버튼 클릭 ~~~~~ */
+/* 가로 크기 */
+#header_container.search .empty_container { width: 0rem; }
+#header_container.search #header-search_input { width: 88%; }
+
+/* ~~~~~ 검색창 포커스 ~~~~~ */
+/* 외곽선 */
+#header-search_input:focus { outline: none; }
+
+
+/* ========== 검색 결과 영역 설정 ========== */
+#header-search-result_container {
+    /* 위치 */
+    bottom: 0rem;
+    /* 가로 세로 크기 */
+    width: 100%;
+    height: 100%;
+    /* 배경 색상 */
+    background-color: var(--headerSearchResultBackColor);
+}
+#header-search-result-content_container {
+    /* 세로 크기 */
+    height: 53rem;
+    /* 테두리 그림자 */
+    box-shadow: 0px 6px 10px 0px rgb(0, 0, 0, .6);
+}
+
+/* ~~~~~ 검색 결과 슬라이드 ~~~~~ */
+#header-search_swiper {
+    /* 위치 */
+    top: 8rem;
+    /* 외부 여백 */
+    margin-left: 9rem;
+    margin-right: 9rem;
+}
+#header-search_swiper .swiper-slide {
+    /* 외부 여백 */
+    margin-bottom: 1.5rem;
+    /* 텍스트 정렬 */
+    text-align: center;
+    display: inline;
+    width: auto;
+}
+/* 가로 크기 */
+#header-search_swiper img { width: 12rem; }
+/* 위치 */
+#header-search_swiper .swiper-pagination { bottom: 0rem; }
+#header-search_swiper .swiper-pagination span {
+    /* 가로 세로 크기 */
+    width: 0.8rem;
+    height: 0.8rem;
+    /* 배경 색상 */
+    background-color: var(--ufoColor);
+}
+/* 텍스트 색상 */
+#header-search_swiper .swiper-button-prev, #header-search_swiper .swiper-button-next { color: var(--ufoColor); }
+/* 위치 */
+#header-search_swiper .swiper-button-prev { left: 0rem; }
+#header-search_swiper .swiper-button-next { right: 0rem; }
+
+/* ~~~~~ 검색 결과 슬라이드 호버 ~~~~~ */
+/* 투명도 */
+#header-search_swiper .swiper-button-prev:hover, #header-search_swiper .swiper-button-next:hover { opacity: 1; }
+
+
+/* ========== 다크/라이트 모드 선택 영역 설정 ========== */
+/* 외부 여백 */
+#header-color-mode_container { margin-left: 1rem; }
+#header-color-mode_btn {
+    /* 가로 세로 크기 */
+    width: 2rem;
+    height: 2rem;
+}
+
+
+/* ========== 로그인 메인 + 서브 메뉴 영역 설정 ========== */
+/* 위치 */
+#header-mainmenu-login_container, #header-submenu-login_container,
+.header-submenu-profile_container { right: 5rem; }
+/* 내부 여백 */
+#header-mainmenu-login_txt { padding-bottom: 2rem; }
+#header-profile_container {
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+}
+/* 테두리 둥글게 */
+#header-profile_container img, .header-submenu-profile_container img { border-radius: 2px; }
+#header-profile_container img {
+    /* 가로 크기 */
+    width: 2rem;
+    /* 커서 형태 */
+    cursor: pointer;
+}
+/* 가로 크기 */
+.header-submenu-profile_container { width: 18rem; }
+.header-myprofile_li img {
+    /* 외부 여백 */
+    margin-top: 1.5rem;
+    margin-left: 1.5rem;
+    /* 가로 크기 */
+    width: 4rem;
+}
+/* 외부 여백 */
+.header-myprofile_ul { margin: 0; }
+.header-myinfo_container { margin-left: 0.8rem; }
+#header-myinfo-name_txt {
+    /* 외부 여백 */
+    margin-bottom: 0rem;
+    /* 내부 여백 */
+    padding-top: 0.5rem;
+    /* 텍스트 크기 */
+    font-size: 1.2rem;
+}

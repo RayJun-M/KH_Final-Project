@@ -9,6 +9,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Component;
 
 import com.urfavoriteott.ufo.common.model.vo.PageInfo;
+import com.urfavoriteott.ufo.contents.model.vo.Payment;
 import com.urfavoriteott.ufo.contents.model.vo.Review;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Component;
@@ -151,5 +152,33 @@ public class MemberDao {
 	 */
 	public int deleteMyComment(SqlSessionTemplate sqlSession, int checkNum) {
 		return sqlSession.update("memberMapper.deleteMyComment", checkNum);
+	}
+
+	/**
+	 * 작성자: 성현 / 마이페이지 결제내역 페이징처리에 필요한 listCount 조회
+	 * @param sqlSession
+	 * @param loginUserNo
+	 * @return
+	 */
+	public int selectMyPaymentListCount(SqlSessionTemplate sqlSession, int loginUserNo) {
+		
+		return sqlSession.selectOne("memberMapper.selectMyPaymentListCount", loginUserNo);
+	}
+
+	/**
+	 * 작성자: 성현 / 마이페이지 결제내역 조회
+	 * @param sqlSession
+	 * @param pi
+	 * @param loginUserNo
+	 * @return
+	 */
+	public ArrayList<Payment> selectMyPaymentList(SqlSessionTemplate sqlSession, PageInfo pi, int loginUserNo) {
+		
+		int limit = pi.getBoardLimit();
+		int offset = (pi.getCurrentPage() - 1) * limit;
+		
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		
+		return (ArrayList)sqlSession.selectList("memberMapper.selectMyPaymentList", loginUserNo, rowBounds);
 	}
 }

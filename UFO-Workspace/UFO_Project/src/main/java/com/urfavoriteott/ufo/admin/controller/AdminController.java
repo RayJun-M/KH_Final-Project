@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
 import com.urfavoriteott.ufo.admin.model.service.AdminService;
@@ -19,6 +20,7 @@ import com.urfavoriteott.ufo.admin.model.vo.Report;
 import com.urfavoriteott.ufo.admin.model.vo.Sales;
 import com.urfavoriteott.ufo.common.model.vo.PageInfo;
 import com.urfavoriteott.ufo.common.template.Pagination;
+import com.urfavoriteott.ufo.contents.model.vo.Payment;
 import com.urfavoriteott.ufo.contents.model.vo.Review;
 import com.urfavoriteott.ufo.member.model.vo.Member;
 
@@ -430,5 +432,25 @@ public class AdminController {
 		
 		return result;
 		
+	}
+	
+	@RequestMapping("adminPayment.ad")
+	public ModelAndView adminPayment(@RequestParam(value = "cpage",defaultValue = "1")int currentPage, ModelAndView mv) {
+		
+		int listCount = adminService.selectAdminPaymentListCount();
+		
+		int pageLimit = 10;
+		int boardLimit = 10;
+		
+		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, pageLimit, boardLimit);
+		System.out.println(pi);
+		
+		mv.addObject("pi",pi);
+		
+		ArrayList<Payment> list = adminService.selectAdminPaymentList(pi);
+		
+		mv.addObject("list", list);
+		mv.setViewName("admin/adminPayment");
+		return mv;
 	}
 }

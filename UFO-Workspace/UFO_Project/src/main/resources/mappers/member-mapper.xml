@@ -27,6 +27,30 @@
 		<result column="USER_NICKNAME" property="userNickname" />
 	</resultMap>
 	
+	<!-- 일반결제 resultset -->
+    <resultMap id="paymentResultSet" type="payment">
+		<result column="PAY_NO" property="payNo" />
+		<result column="PAY_ORDER_NO" property="payOrderNo" />
+		<result column="USER_NO" property="userNo" />
+		<result column="PAYMENT" property="payment" />
+		<result column="PAY_DATE" property="payDate" />
+		<result column="PAY_END_DATE" property="payEndDate" />
+		<result column="PAY_STATUS" property="payStatus" />
+		<result column="PAY_URL" property="payUrl" />
+	</resultMap>
+	
+	<!-- 정기결제 resultset -->
+	<resultMap id="regPayResultSet" type="payment">
+		<result column="REG_NO" property="payNo" />
+		<result column="REG_ORDER_NO" property="payOrderNo" />
+		<result column="USER_NO" property="userNo" />
+		<result column="REG_PAYMENT" property="payment" />
+		<result column="REG_DATE" property="payDate" />
+		<result column="REG_END_DATE" property="payEndDate" />
+		<result column="REG_STATUS" property="payStatus" />
+		<result column="REG_URL" property="payUrl" />
+		<result column="BILLINGKEY" property="billingKey" />
+	</resultMap>
 	<!-- 로그인용 쿼리문(암호화작업 완료) -->
 	<select id="loginMember" parameterType="member" resultMap="memberResultSet">
 		SELECT *
@@ -191,4 +215,30 @@
 		   SET REVIEW_STATUS = 'N'
 		WHERE REVIEW_NO = ${checkNum}
 	</update>
+	
+	<!-- 결제내역 리스트 페이징 처리 - 작성자: 성현 -->
+	<select id="selectMyPaymentListCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM PAYMENT
+		FULL JOIN PAYMENT_REGULAR USING (USER_NO)
+		WHERE USER_NO = #{loginUserNo}
+	</select>
+	
+	<select id="selectMyPaymentList" parameterType="_int" resultMap="paymentResultSet">
+		SELECT * 
+		FROM	(SELECT PAY_ORDER_NO,
+		                    PAYMENT,
+		                    PAY_DATE,
+		                    PAY_END_DATE
+		                    FROM PAYMENT
+		                    WHERE USER_NO = #{loginUserNo}
+		                    UNION
+		                    SELECT REG_ORDER_NO AS PAY_ORDER_NO,
+		                    REG_PAYMENT AS PAYMENT, 
+		                    REG_START_DATE AS PAY_DATE,
+		                    REG_END_DATE AS PAY_END_DATE
+		                    FROM PAYMENT_REGULAR
+		                    WHERE USER_NO = #{loginUserNo})
+		ORDER BY PAY_DATE DESC
+	</select>
 </mapper>

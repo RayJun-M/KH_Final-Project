@@ -6,6 +6,7 @@ import java.util.HashMap;
 import com.urfavoriteott.ufo.admin.model.vo.Report;
 import com.urfavoriteott.ufo.admin.model.vo.Sales;
 import com.urfavoriteott.ufo.common.model.vo.PageInfo;
+import com.urfavoriteott.ufo.contents.model.vo.Payment;
 import com.urfavoriteott.ufo.contents.model.vo.Review;
 import com.urfavoriteott.ufo.member.model.vo.Member;
 
@@ -184,5 +185,10 @@ public interface AdminService {
 	 * @return
 	 */
 	int resetReportedComment(int reviewNo);
+	
+	int selectAdminPaymentListCount();
+	
+	ArrayList<Payment> selectAdminPaymentList(PageInfo pi);
+	
 
 }

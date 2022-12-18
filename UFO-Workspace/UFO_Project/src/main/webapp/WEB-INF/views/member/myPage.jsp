@@ -181,7 +181,7 @@
 		    <div id="mypage_navi">
 		        <div><a href="">시청 내역</a></div>
 		        <div><a href="">볼래요</a></div>
-		        <div><a href="">이용권 내역</a></div>       
+		        <div><a href="myPayment.me">이용권 내역</a></div>       
 		        <div><a href="">별점 및 코멘트 내역</a></div>
 		        <div><a href="">커뮤니티 글 내역</a></div>
 		        <div><a href="">커뮤니티 댓글 내역</a></div>

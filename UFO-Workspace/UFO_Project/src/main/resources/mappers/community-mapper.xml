@@ -14,7 +14,7 @@
 		<result column="USER_NO" property="userNo" />
 	</resultMap>	
 	
-	<resultMap id="replyResultSet" type="reply">
+	<resultMap id="replyResultSet" type="communityReply">
 		<result column="COM_RPL_NO" property="comRplNo" />
 		<result column="COM_NO" property="comNo" />
 		<result column="COM_RPL_CONTENT" property="comRplContent" />

@@ -11,6 +11,7 @@ import com.urfavoriteott.ufo.admin.model.dao.AdminDao;
 import com.urfavoriteott.ufo.admin.model.vo.Report;
 import com.urfavoriteott.ufo.admin.model.vo.Sales;
 import com.urfavoriteott.ufo.common.model.vo.PageInfo;
+import com.urfavoriteott.ufo.contents.model.vo.Payment;
 import com.urfavoriteott.ufo.contents.model.vo.Review;
 import com.urfavoriteott.ufo.member.model.vo.Member;
 
@@ -214,5 +215,17 @@ public class AdminServiceImpl implements AdminService {
 	@Override
 	public int resetReportedComment(int reviewNo) {
 		return adminDao.resetReportedComment(sqlSession, reviewNo);
+	}
+
+	@Override
+	public int selectAdminPaymentListCount() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public ArrayList<Payment> selectAdminPaymentList(PageInfo pi) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

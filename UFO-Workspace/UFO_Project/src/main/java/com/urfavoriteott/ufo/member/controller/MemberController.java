@@ -23,7 +23,7 @@ import com.urfavoriteott.ufo.common.template.Pagination;
 import com.urfavoriteott.ufo.contents.model.vo.Review;
 import com.urfavoriteott.ufo.member.model.service.MemberService;
 import com.urfavoriteott.ufo.member.model.vo.Member;
-
+import com.urfavoriteott.ufo.contents.model.vo.Payment;
 
 @Controller
 public class MemberController {
@@ -459,5 +459,39 @@ public class MemberController {
 		}
 		
 		return result;
+	}
+	
+	/**
+	 * 작성자: 성현 / 마이페이지 결제내역 호출 메소드
+	 * @param currentPage: 현재 페이지(맨 처음 호출시엔 기본값 1)
+	 * @param session (로그인한 사용자의 번호 컨트롤러에서 호출)
+	 * @param mv (페이지에 쏴줄 결제내역과 페이징 객체)
+	 * @return (myPayment.jsp로 포워딩)
+	 */
+	@RequestMapping("myPayment.me")
+	public ModelAndView myPament(@RequestParam(value = "cpage", defaultValue = "1")int currentPage, HttpSession session, ModelAndView mv) {
+		
+		// view에서
+		int loginUserNo = ((Member)session.getAttribute("loginUser")).getUserNo();
+
+		int listCount = memberService.selectMyPaymentListCount(loginUserNo);
+		
+		int pageLimit = 10;
+		int boardLimit = 10;
+		
+		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, pageLimit, boardLimit);
+		
+		System.out.println(pi);
+		mv.addObject("pi", pi);
+		
+		ArrayList<Payment> list = memberService.selectMyPaymentList(pi, loginUserNo);
+		
+		System.out.println(list);
+		
+		mv.addObject("list", list);
+		
+		mv.setViewName("member/myPayment");
+		
+		return mv;
 	}
 }

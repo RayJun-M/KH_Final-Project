@@ -235,7 +235,7 @@
 		                    UNION
 		                    SELECT REG_ORDER_NO AS PAY_ORDER_NO,
 		                    REG_PAYMENT AS PAYMENT, 
-		                    REG_START_DATE AS PAY_DATE,
+		                    REG_DATE AS PAY_DATE,
 		                    REG_END_DATE AS PAY_END_DATE
 		                    FROM PAYMENT_REGULAR
 		                    WHERE USER_NO = #{loginUserNo})

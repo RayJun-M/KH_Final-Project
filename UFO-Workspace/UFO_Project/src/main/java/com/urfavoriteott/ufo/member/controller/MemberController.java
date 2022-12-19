@@ -1,6 +1,7 @@
 package com.urfavoriteott.ufo.member.controller;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.Cookie;
@@ -20,10 +21,10 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.urfavoriteott.ufo.common.model.vo.PageInfo;
 import com.urfavoriteott.ufo.common.template.Pagination;
+import com.urfavoriteott.ufo.contents.model.vo.Payment;
 import com.urfavoriteott.ufo.contents.model.vo.Review;
 import com.urfavoriteott.ufo.member.model.service.MemberService;
 import com.urfavoriteott.ufo.member.model.vo.Member;
-import com.urfavoriteott.ufo.contents.model.vo.Payment;
 
 @Controller
 public class MemberController {
@@ -479,15 +480,15 @@ public class MemberController {
 		int pageLimit = 10;
 		int boardLimit = 10;
 		
+		Date today = new Date();
+		mv.addObject("today", today);
+		
 		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, pageLimit, boardLimit);
 		
-		System.out.println(pi);
 		mv.addObject("pi", pi);
 		
 		ArrayList<Payment> list = memberService.selectMyPaymentList(pi, loginUserNo);
-		
 		System.out.println(list);
-		
 		mv.addObject("list", list);
 		
 		mv.setViewName("member/myPayment");

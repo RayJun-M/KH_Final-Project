@@ -146,9 +146,9 @@
 		    <div id="admin_mypage_navi">
 		        <div id="selected_tab"><a href="admin_list.me">회원 관리</a></div>
 		        <div><a href="">콘텐츠 관리</a></div>
-		        <div><a href="">코멘트 관리</a></div>
+		        <div><a href="commentList.ad">코멘트 관리</a></div>
 		        <div><a href="">이용권 관리</a></div>       
-		        <div><a href="">신고 관리</a></div>
+		        <div><a href="reportManagement.ad">신고 관리</a></div>
 		        <div><a href="admin_stat.st">통계 관리</a></div>
 			</div>
 			
@@ -282,7 +282,7 @@
                 					<li class="page-item"><a class="page-link" href="admin_list.me?cpage=${ pi.currentPage - 1 }">&laquo;</a></li>
                 				</c:when>
                 				<c:otherwise>
-                					<li class="page-item"><a class="page-link" href="admin_list.me?cpage=${ pi.currentPage - 1 }&keyword=${ keyword }&searchword=${ searchword }">&laquo;</a></li>
+                					<li class="page-item"><a class="page-link" href="admin_search.me?cpage=${ pi.currentPage - 1 }&keyword=${ keyword }&searchword=${ searchword }">&laquo;</a></li>
                 				</c:otherwise>
                 			</c:choose>
                 		</c:otherwise>
@@ -294,7 +294,7 @@
 								<li class="page-item"><a class="page-link" href="admin_list.me?cpage=${ p }">${ p }</a></li>
 							</c:when>
 							<c:otherwise>
-								<li class="page-item"><a class="page-link" href="admin_list.me?cpage=${ p }&keyword=${ keyword }&searchword=${ searchword }">${ p }</a></li>
+								<li class="page-item"><a class="page-link" href="admin_search.me?cpage=${ p }&keyword=${ keyword }&searchword=${ searchword }">${ p }</a></li>
 							</c:otherwise>
 						</c:choose>
 					</c:forEach>
@@ -316,7 +316,7 @@
 									<li class="page-item"><a class="page-link" href="admin_list.me?cpage=${ pi.currentPage + 1 }">&raquo;</a></li>
 								</c:when>
 								<c:otherwise>
-									<li class="page-item"><a class="page-link" href="admin_list.me?cpage=${ pi.currentPage + 1 }&keyword=${ keyword }&searchword=${ searchword }">&raquo;</a></li>
+									<li class="page-item"><a class="page-link" href="admin_search.me?cpage=${ pi.currentPage + 1 }&keyword=${ keyword }&searchword=${ searchword }">&raquo;</a></li>
 								</c:otherwise>
 							</c:choose>
 						</c:otherwise>

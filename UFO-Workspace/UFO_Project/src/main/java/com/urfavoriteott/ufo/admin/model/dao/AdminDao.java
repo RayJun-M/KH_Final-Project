@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import com.urfavoriteott.ufo.admin.model.vo.Report;
 import com.urfavoriteott.ufo.admin.model.vo.Sales;
 import com.urfavoriteott.ufo.common.model.vo.PageInfo;
+import com.urfavoriteott.ufo.contents.model.vo.Payment;
 import com.urfavoriteott.ufo.contents.model.vo.Review;
 import com.urfavoriteott.ufo.member.model.vo.Member;
 
@@ -317,6 +318,20 @@ public class AdminDao {
 	 */
 	public int resetReportedComment(SqlSessionTemplate sqlSession, int reviewNo) {
 		return sqlSession.update("adminMapper.resetReportedComment", reviewNo);
+	}
+
+	public int selectAdminPaymentListCount(SqlSessionTemplate sqlSession) {
+		
+		return sqlSession.selectOne("adminMapper.selectAdminPaymentListCount");
+	}
+
+	public ArrayList<Payment> selectAdminPaymentList(SqlSessionTemplate sqlSession, PageInfo pi) {
+		
+		int limit = pi.getBoardLimit();
+		int offset = (pi.getCurrentPage()-1) * limit;
+		
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		return (ArrayList)sqlSession.selectList("adminMapper.selectAdminPaymentList",null, rowBounds);
 	}
 
 }

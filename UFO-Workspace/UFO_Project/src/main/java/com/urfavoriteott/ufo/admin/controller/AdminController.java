@@ -434,7 +434,7 @@ public class AdminController {
 		
 	}
 	
-	@RequestMapping("adminPayment.ad")
+	@RequestMapping("adminPaymentList.ad")
 	public ModelAndView adminPayment(@RequestParam(value = "cpage",defaultValue = "1")int currentPage, ModelAndView mv) {
 		
 		int listCount = adminService.selectAdminPaymentListCount();
@@ -448,9 +448,10 @@ public class AdminController {
 		mv.addObject("pi",pi);
 		
 		ArrayList<Payment> list = adminService.selectAdminPaymentList(pi);
-		
+		System.out.println(list);
 		mv.addObject("list", list);
 		mv.setViewName("admin/adminPayment");
+		
 		return mv;
 	}
 }

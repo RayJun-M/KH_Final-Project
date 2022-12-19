@@ -262,7 +262,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
             pay_method : 'card',
             merchant_uid: 'pay_'+new Date().getTime(), // 상점에서 관리하는 주문 번호
             name : '일반 이용권',
-            amount : 200,
+            amount : 5900,
             buyer_email: '${loginUser.userId}',
           }, rsp => {
               if (rsp.success) { // 결제되고 돈 빠져나갔으면 아임포트 서버와 대조하여 검증해야 함
@@ -338,7 +338,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
               pay_method: 'card',
               merchant_uid: 'reg_'+new Date().getTime(),
               name: '정기구독권',
-              amount:100,
+              amount:3900,
               customer_uid: userId.substr(0,userId.indexOf('@'))+new Date().getTime(),
               buyer_email: userId
             }, rsp => {

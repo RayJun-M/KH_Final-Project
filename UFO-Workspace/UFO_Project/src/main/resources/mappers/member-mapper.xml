@@ -224,6 +224,7 @@
 		WHERE USER_NO = #{loginUserNo}
 	</select>
 	
+	<!-- 결제내역 리스트 조회 - 작성자: 성현 -->
 	<select id="selectMyPaymentList" parameterType="_int" resultMap="paymentResultSet">
 		SELECT * 
 		FROM	(SELECT PAY_ORDER_NO,

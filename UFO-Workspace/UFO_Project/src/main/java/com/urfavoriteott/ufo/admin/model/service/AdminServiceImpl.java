@@ -217,15 +217,22 @@ public class AdminServiceImpl implements AdminService {
 		return adminDao.resetReportedComment(sqlSession, reviewNo);
 	}
 
+	/**
+	 * 관리자 페이지에서 보이는 유저들 결제내역 수 - 작성자: 성현
+	 * @return
+	 */
 	@Override
 	public int selectAdminPaymentListCount() {
-		// TODO Auto-generated method stub
-		return 0;
+		return adminDao.selectAdminPaymentListCount(sqlSession);
 	}
 
+	/**
+	 * 관리자 페이지에서 보이는 유저들 결제내역 상세 - 작성자: 성현
+	 * @param pi
+	 * @return
+	 */
 	@Override
 	public ArrayList<Payment> selectAdminPaymentList(PageInfo pi) {
-		// TODO Auto-generated method stub
-		return null;
+		return adminDao.selectAdminPaymentList(sqlSession, pi);
 	}
 }

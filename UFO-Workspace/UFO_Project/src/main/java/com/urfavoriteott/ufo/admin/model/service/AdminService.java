@@ -186,8 +186,17 @@ public interface AdminService {
 	 */
 	int resetReportedComment(int reviewNo);
 	
+	/**
+	 * 관리자 페이지에서 보이는 유저들 결제내역 수 - 작성자: 성현
+	 * @return
+	 */
 	int selectAdminPaymentListCount();
 	
+	/**
+	 * 관리자 페이지에서 보이는 유저들 결제내역 상세 - 작성자: 성현
+	 * @param pi
+	 * @return
+	 */
 	ArrayList<Payment> selectAdminPaymentList(PageInfo pi);
 	
 

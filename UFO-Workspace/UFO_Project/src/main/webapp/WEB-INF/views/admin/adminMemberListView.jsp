@@ -146,7 +146,7 @@
 		        <div id="selected_tab"><a href="admin_list.me">회원 관리</a></div>
 		        <div><a href="">콘텐츠 관리</a></div>
 		        <div><a href="">코멘트 관리</a></div>
-		        <div><a href="">이용권 관리</a></div>       
+		        <div><a href="adminPaymentList.ad">이용권 관리</a></div>       
 		        <div><a href="">신고 관리</a></div>
 		        <div><a href="admin_stat.st">통계 관리</a></div>
 			</div>

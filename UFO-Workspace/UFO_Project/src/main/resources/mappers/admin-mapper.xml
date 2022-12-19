@@ -39,6 +39,18 @@
 		<result column="REPORT_STATUS" property="reportStatus" />
 	</resultMap>
 
+	<!-- 일반결제 resultSet 작성자: 성현 -->
+    <resultMap id="paymentResultSet" type="payment">
+		<result column="PAY_NO" property="payNo" />
+		<result column="PAY_ORDER_NO" property="payOrderNo" />
+		<result column="USER_NO" property="userNo" />
+		<result column="PAYMENT" property="payment" />
+		<result column="PAY_DATE" property="payDate" />
+		<result column="PAY_END_DATE" property="payEndDate" />
+		<result column="PAY_STATUS" property="payStatus" />
+		<result column="PAY_URL" property="payUrl" />
+	</resultMap>
+	
 	<!-- 관리자 한달이용권 월별 매출 - 작성자 : 장희연
 	<select id="selectSalesPerMonthOnce" resultMap="salesResultSet">
 		SELECT SUM(PAYMENT) "TOTAL"
@@ -394,5 +406,31 @@
 		   SET REVIEW_STATUS = 'Y'
 		WHERE REVIEW_NO = #{reviewNo}
 	</update>
-
+	
+	<select id="selectAdminPaymentListCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM PAYMENT
+		FULL JOIN PAYMENT_REGULAR USING (USER_NO)
+	</select>
+	
+	<select id="selectAdminPaymentList" resultMap="paymentResultSet">
+		SELECT *
+		FROM(SELECT PAY_ORDER_NO,
+		          USER_ID AS USER_NO,
+		          PAYMENT,
+		          PAY_DATE,
+		          PAY_END_DATE
+				FROM PAYMENT
+				JOIN MEMBER USING (USER_NO)
+		
+		UNION
+		SELECT REG_ORDER_NO AS PAY_ORDER_NO,
+		        USER_ID AS USER_NO,
+		        REG_PAYMENT AS PAYMENT,
+		        REG_START_DATE AS PAY_DATE,
+		        REG_END_DATE AS PAY_END_DATE
+		FROM PAYMENT_REGULAR
+		JOIN MEMBER USING (USER_NO))
+		ORDER BY PAY_DATE
+	</select>
 </mapper>

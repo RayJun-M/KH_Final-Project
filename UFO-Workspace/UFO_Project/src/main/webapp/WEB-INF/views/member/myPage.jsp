@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -92,44 +93,15 @@
 	        <table id="user_profile">
 	            <tr>
 	                <td rowspan="2" width="220">
-	                	<c:choose>
-	                		<c:when test="${ loginUser.userProfile eq 1 }">
-	                			<img src="resources/image/member/profile1.png" width="170" height="170">
-	                		</c:when>
-	                		<c:when test="${ loginUser.userProfile eq 2 }">
-	                			<img src="resources/image/member/profile2.png" width="170" height="170">
-	                		</c:when>
-	                		<c:when test="${ loginUser.userProfile eq 3 }">
-	                			<img src="resources/image/member/profile3.png" width="170" height="170">
-	                		</c:when>
-	                		<c:when test="${ loginUser.userProfile eq 4 }">
-	                			<img src="resources/image/member/profile4.png" width="170" height="170">
-	                		</c:when>
-	                		<c:when test="${ loginUser.userProfile eq 5 }">
-	                			<img src="resources/image/member/profile5.png" width="170" height="170">
-	                		</c:when>
-	                		<c:when test="${ loginUser.userProfile eq 6 }">
-	                			<img src="resources/image/member/profile6.png" width="170" height="170">
-	                		</c:when>
-	                		<c:when test="${ loginUser.userProfile eq 7 }">
-	                			<img src="resources/image/member/profile7.png" width="170" height="170">
-	                		</c:when>
-	                		<c:when test="${ loginUser.userProfile eq 8 }">
-	                			<img src="resources/image/member/profile8.jpg" width="170" height="170">
-	                		</c:when>
-	                		<c:when test="${ loginUser.userProfile eq 9 }">
-	                			<img src="resources/image/member/profile9.jpg" width="170" height="170">
-	                		</c:when>
-	                		<c:otherwise>
-	                			<img src="resources/image/member/profile10.png" width="170" height="170">
-	                		</c:otherwise>
-	                	</c:choose>
+	                	<img src="resources/image/member/profile${ loginUser.userProfile }.png" width="170" height="170">
 	                </td>
 	                <td colspan="2" width="380" style="font-size:35px; font-weight:900;">${ loginUser.userNickname }</td>
 	                <td>
 	                	<button type="button" onclick="location.href='updateForm.me'">회원정보 수정</button>
-	                	<button type="button" onclick="location.href='myPageupdatePwdForm.me'">비밀번호 변경</button>
-	                	<button type="button" data-toggle="modal" data-target="#deleteModal">회원 탈퇴</button>
+	                	<c:if test="${ fn:indexOf(loginUser.userId, '.NAVER') eq '-1' and fn:indexOf(loginUser.userId, '.KAKAO') eq '-1' }">
+	                		<button type="button" onclick="location.href='myPageupdatePwdForm.me'">비밀번호 변경</button>
+	                		<button type="button" data-toggle="modal" data-target="#deleteModal">회원 탈퇴</button>
+	                	</c:if>
 	                </td> 
 	            </tr>
 					

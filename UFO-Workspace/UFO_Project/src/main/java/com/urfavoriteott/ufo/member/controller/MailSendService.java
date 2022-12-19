@@ -1,4 +1,4 @@
-package com.urfavoriteott.urfavoriteott.member.controller;
+package com.urfavoriteott.ufo.member.controller;
 
 import java.util.Random;
 
@@ -20,6 +20,9 @@ public class MailSendService {
 	@Autowired
 	private JavaMailSenderImpl mailSender;
 	private int authNumber; 
+	// 새 비밀번호를 위한 변수
+	private int newPwd;
+	
 	// 난수 발생
 	
 		public void makeRandomNumber() {
@@ -64,5 +67,36 @@ public class MailSendService {
 			}
 		}
 		
-	
+		/**
+		 * 관리자 - 회원의 비밀번호 초기화를 위한 새 비밀번호 만들기 - 작성자 : 장희연
+		 */
+		public void makeNewPwd() {
+			// 난수의 범위 11111111 ~ 99999999 (8자리 난수)
+			Random r = new Random();
+			int checkNum = r.nextInt(88888888) + 11111111;
+			System.out.println("새비밀번호: " + checkNum);
+			newPwd = checkNum;
+		}
+		
+		/**
+		 * 관리자 - 회원 비밀번호 초기화 이메일 양식
+		 * @param email
+		 * @return
+		 */
+		public int updatePwdEmail(String email) {
+			
+			makeNewPwd();
+			String setFrom = ".com"; // email-config에 설정한 자신의 이메일 주소를 입력 
+			String toMail = email;
+			String title = "urfavoriteott 홈페이지 비밀번호 초기화 이메일 입니다."; // 이메일 제목 
+			String content = 
+					"홈페이지를 방문해주셔서 감사합니다." + 	
+	                "<br><br>" + 
+				    "새 비밀번호는 " + newPwd + "입니다." + 
+				    "<br>" + 
+				    "로그인 후 마이페이지에서 반드시 비밀번호를 변경해주세요"; //이메일 내용 삽입
+			mailSend(setFrom, toMail, title, content);
+			
+			return newPwd;
+		}
 }

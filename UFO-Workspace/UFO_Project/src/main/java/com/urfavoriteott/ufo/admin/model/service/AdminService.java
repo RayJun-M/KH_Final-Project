@@ -17,6 +17,7 @@ public interface AdminService {
 	 * @return
 	 */
 	int selectListCount();
+	
 	/**
 	 * 관리자 - 회원 리스트 조회용 메소드 - 작성자 : 장희연
 	 * 회원 리스트 조회
@@ -47,7 +48,7 @@ public interface AdminService {
 	 * @param userNo : 비밀번호를 초기화할 회원의 회원번호
 	 * @return
 	 */
-	int updatePwd(int userNo);
+	int updatePwd(HashMap<String, Integer> map);
 	
 	/**
 	 * 관리자 - 회원 탈퇴 처리용 메소드 - 작성자 : 장희연
@@ -92,8 +93,18 @@ public interface AdminService {
 	 */
 	ArrayList<Sales> selectSalesPerYear();
 	
+	/**
+	 * 관리자 - TV프로그램 장르별 시청수 메소드 - 작성자 : 장희연
+	 * @param genre : TV프로그램 장르
+	 * @return
+	 */
 	ArrayList<Integer> selectViewsTV(String genre);
 	
+	/**
+	 * 관리자 - 영화 장르별 시청수 메소드 - 작성자 : 장희연
+	 * @param genre : 영화 장르
+	 * @return
+	 */
 	ArrayList<Integer> selectViewsMovie(String genre);
 	
 	/**

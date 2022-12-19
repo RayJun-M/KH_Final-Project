@@ -41,11 +41,6 @@ public class MemberDao {
 		return sqlSession.insert("memberMapper.insertMember", m);
 	}
 	
-	public int nicknameCheck(SqlSessionTemplate sqlSession, String checkNickname) {
-		
-		return sqlSession.selectOne("memberMapper.nicknameCheck", checkNickname);
-	}
-	
 	/**
 	 * 아이디 중복체크용 메소드 - 작성자 : 동민
 	 * @param sqlSession
@@ -92,6 +87,38 @@ public class MemberDao {
 		return m;
 		// return sqlSession.selectOne("memberMapper.findKakao", userInfo);
   }
+	
+	/**
+	 * 네이버 간편로그인 정보 확인용 메소드 - 작성자 : 장희연
+	 * @param sqlSession
+	 * @param userId
+	 * @return
+	 */
+	public Member findNaver(SqlSessionTemplate sqlSession, String userId) {
+		
+		return sqlSession.selectOne("memberMapper.findNaver", userId);
+	}
+	
+	/**
+	 * 네이버 간편로그인 정보 저장용 메소드 - 작성자 : 장희연
+	 * @param m
+	 * @return
+	 */
+	public int insertNaver(SqlSessionTemplate sqlSession, Member m) {
+		
+		return sqlSession.insert("memberMapper.insertNaver", m);
+	}
+	
+	/**
+	 * 사용자 - 닉네임 중복체크용 메소드 - 작성자 : 장희연
+	 * @param sqlSession
+	 * @param checkNickname : 중복체크할 사용자의 닉네임
+	 * @return
+	 */
+	public int nicknameCheck(SqlSessionTemplate sqlSession, String checkNickname) {
+		
+		return sqlSession.selectOne("memberMapper.nicknameCheck", checkNickname);
+	}
 	
 	/**
 	 * 사용자 - 회원 정보 수정용 메소드 - 작성자 : 장희연

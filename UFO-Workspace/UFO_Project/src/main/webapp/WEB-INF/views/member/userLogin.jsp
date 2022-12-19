@@ -126,7 +126,7 @@
                         <hr>
                         
                         <div style="margin-left:245px;">
-                        <a href=""><img src="resources/image/user/profile/naver.png" style="width:390px; height:60px;"></a>
+                        <a href="${ naver_url }"><img src="resources/image/user/profile/naver.png" style="width:390px; height:60px;"></a>
                         </div>
                         
                         

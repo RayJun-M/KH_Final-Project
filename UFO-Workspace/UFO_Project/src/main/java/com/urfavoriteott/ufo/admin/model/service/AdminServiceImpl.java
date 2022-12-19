@@ -23,84 +23,152 @@ public class AdminServiceImpl implements AdminService {
     @Autowired
     private AdminDao adminDao;
     
+    /**
+	 * 관리자 - 회원 리스트 조회용 메소드 - 작성자 : 장희연
+	 * 전체 회원 수 조회
+	 * @return
+	 */
     @Override
 	public int selectListCount() {
 		
 		return adminDao.selectListCount(sqlSession);
 	}
 
+    /**
+	 * 관리자 - 회원 리스트 조회용 메소드 - 작성자 : 장희연
+	 * 회원 리스트 조회
+	 * @param pi : 페이징 처리를 위한 페이지 정보
+	 * @return
+	 */
 	@Override
 	public ArrayList<Member> selectList(PageInfo pi) {
 		
 		return adminDao.selectList(sqlSession, pi);
 	}
 
+	/**
+	 * 관리자 - 회원 검색 조회용 메소드 - 작성자 : 장희연
+	 * 검색 조건에 부합하는 회원 수 조회
+	 * @param map : keyword(아이디, 닉네임), searchword(검색어)가 담긴 HashMap
+	 * @return
+	 */
 	@Override
 	public int selectSearchCount(HashMap<String, String> map) {
 		
 		return adminDao.selectSearchCount(sqlSession, map);
 	}
 
+	/**
+	 * 관리자 - 회원 검색 조회용 메소드 - 작성자 : 장희연
+	 * 검색된 회원 리스트 조회
+	 * @param map : keyword(아이디, 닉네임), searchword(검색어)가 담긴 HashMap
+	 * @param pi : 페이징 처리를 위한 페이지 정보
+	 * @return
+	 */
 	@Override
 	public ArrayList<Member> selectSearchList(HashMap<String, String> map, PageInfo pi) {
 		
 		return adminDao.selectSearchList(sqlSession, map, pi);
 	}
 
+	/**
+	 * 관리자 - 비밀번호 초기화용 메소드 - 작성자 : 장희연
+	 * @param userNo : 비밀번호를 초기화할 회원의 회원번호
+	 * @return
+	 */
 	@Override
-	public int updatePwd(int userNo) {
+	public int updatePwd(HashMap<String, Integer> map) {
 		
-		return adminDao.updatePwd(sqlSession, userNo);
+		return adminDao.updatePwd(sqlSession, map);
 	}
 
+	/**
+	 * 관리자 - 회원 탈퇴 처리용 메소드 - 작성자 : 장희연
+	 * @param userNo : 탈퇴 처리할 회원의 회원번호
+	 * @return
+	 */
 	@Override
 	public int deleteMember(int userNo) {
 		
 		return adminDao.deleteMember(sqlSession, userNo);
 	}
 	
+	/**
+	 * 관리자 - 한달이용권 월별 매출 메소드 - 작성자 : 장희연
+	 * @return
+	 */
 	@Override
 	public ArrayList<Sales> selectSalesPerMonthOnce() {
 		
 		return adminDao.selectSalesPerMonthOnce(sqlSession);
 	}
 
+	/**
+	 * 관리자 - 월간구독권 월별 매출 메소드 - 작성자 : 장희연
+	 * @return
+	 */
 	@Override
 	public ArrayList<Sales> selectSalesPerMonthSub() {
 		
 		return adminDao.selectSalesPerMonthSub(sqlSession);
 	}
 	
+	/**
+	 * 관리자 - 월별 매출 메소드 - 작성자 : 장희연
+	 * @return
+	 */
 	@Override
 	public ArrayList<Sales> selectSalesPerMonth() {
 		
 		return adminDao.selectSalesPerMonth(sqlSession);
 	}
 	
+	/**
+	 * 관리자 - 한달이용권 연도별 매출 메소드 - 작성자 : 장희연
+	 * @return
+	 */
 	@Override
 	public ArrayList<Sales> selectSalesPerYearOnce() {
 		
 		return adminDao.selectSalesPerYearOnce(sqlSession);
 	}
 
+	/**
+	 * 관리자 - 월간구독권 연도별 매출 메소드 - 작성자 : 장희연
+	 * @return
+	 */
 	@Override
 	public ArrayList<Sales> selectSalesPerYearSub() {
 		
 		return adminDao.selectSalesPerYearSub(sqlSession);
 	}
 
+	/**
+	 * 관리자 - 연도별 매출 메소드 - 작성자 : 장희연
+	 * @return
+	 */
 	@Override
 	public ArrayList<Sales> selectSalesPerYear() {
 		
 		return adminDao.selectSalesPerYear(sqlSession);
 	}
-	
+
+	/**
+	 * 관리자 - TV프로그램 장르별 시청수 메소드 - 작성자 : 장희연
+	 * @param genre : TV프로그램 장르
+	 * @return
+	 */
 	@Override
 	public ArrayList<Integer> selectViewsTV(String genre) {
 		
 		return adminDao.selectViewsTV(sqlSession, genre);
 	}
-	
+
+	/**
+	 * 관리자 - 영화 장르별 시청수 메소드 - 작성자 : 장희연
+	 * @param genre : 영화 장르
+	 * @return
+	 */
 	@Override
 	public ArrayList<Integer> selectViewsMovie(String genre) {
 		

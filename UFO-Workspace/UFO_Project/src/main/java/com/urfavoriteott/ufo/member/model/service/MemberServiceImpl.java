@@ -55,18 +55,55 @@ public class MemberServiceImpl implements MemberService {
 		return memberDao.passwordUpdate(sqlSession, m);
 	}
 	
+	/**
+	 * 네이버 간편로그인 정보 확인용 메소드 - 작성자 : 장희연
+	 * @param userId : 네이버 간편로그인을 통해 얻어온 아이디(이메일값)
+	 * @return
+	 */
+	@Override
+	public Member findNaver(String userId) {
+		
+		return memberDao.findNaver(sqlSession, userId);
+	}
+	
+	/**
+	 * 네이버 간편로그인 정보 저장용 메소드 - 작성자 : 장희연
+	 * @param m
+	 * @return
+	 */
+	@Override
+	public int insertNaver(Member m) {
+		
+		return memberDao.insertNaver(sqlSession, m);
+	}
+	
+	/**
+	 * 사용자 - 닉네임 중복체크용 메소드 - 작성자 : 장희연
+	 * @param checkNickname : 중복체크할 사용자의 닉네임
+	 * @return
+	 */
 	@Override
 	public int nicknameCheck(String checkNickname) {
 		
 		return memberDao.nicknameCheck(sqlSession, checkNickname);
 	}
 
+	/**
+	 * 사용자 - 회원 정보 수정용 메소드 - 작성자 : 장희연
+	 * @param m : 사용자의 수정할 회원 정보(아이디, 회원번호, 프로필, 닉네임)
+	 * @return
+	 */
 	@Override
 	public int updateMember(Member m) {
 		
 		return memberDao.updateMember(sqlSession, m);
 	}
 	
+	/**
+	 * 사용자 - 회원 탈퇴 처리용 메소드 - 작성자 : 장희연
+	 * @param userNo : 로그인한 사용자(탈퇴할 회원)의 회원 번호
+	 * @return
+	 */
 	@Override
 	public int deleteMember(int userNo) {
 		

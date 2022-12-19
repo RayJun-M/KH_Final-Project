@@ -52,6 +52,20 @@ public interface MemberService {
 	Member getUserInfo(String access_Token);
 	
 	/**
+	 * 네이버 간편로그인 정보 확인용 메소드 - 작성자 : 장희연
+	 * @param userId : 네이버 간편로그인을 통해 얻어온 아이디(이메일값)
+	 * @return
+	 */
+	Member findNaver(String userId);
+	
+	/**
+	 * 네이버 간편로그인 정보 저장용 메소드 - 작성자 : 장희연
+	 * @param m
+	 * @return
+	 */
+	int insertNaver(Member m);
+	
+	/**
 	 * 사용자 - 닉네임 중복체크용 메소드 - 작성자 : 장희연
 	 * @param checkNickname : 중복체크할 사용자의 닉네임
 	 * @return

@@ -357,7 +357,21 @@
 							var chartPie = new Chart(ctxMovie, {
 								type: "pie",
 								data: chartdataMovie,
-								options: { responsive : false }
+								options: { 
+									responsive : false, 
+									legend: {
+							            position: "right"
+							        },
+							        title: {
+							            display: true,
+							            text: "영화 통계"
+							        },
+							        plugins: {
+							            datalabels: {
+							              display: false
+							            }
+							        }
+								}
 							});
 						},
 						error : function() {
@@ -394,7 +408,21 @@
 							var chartPie = new Chart(ctxTV, {
 								type: "pie",
 								data: chartdataTV,
-								options: { responsive : false }
+								options: { 
+									responsive : false, 
+									legend: {
+							            position: "right"
+							        },
+							        title: {
+							            display: true,
+							            text: "TV 프로그램 통계"
+							        },
+							        plugins: {
+							            datalabels: {
+							              display: false
+							            }
+							        }
+								}
 							});
 						},
 						error : function() {
@@ -477,7 +505,19 @@
 					            }
 					        ]
 					    },
-					    responsive: false
+					    responsive: false,
+					    title: {
+				            display: true,
+				            text: "월별 매출 통계",
+				        },
+				        plugins: {
+				            datalabels: {
+				              color: 'navy',
+				              font: {
+				                weight: 'bold'
+				              }
+				            }
+				        }
 					};
 					
 					// 차트데이터(연도별)
@@ -550,13 +590,26 @@
 					            }
 					        ]
 					    },
-					    responsive: false
+					    responsive: false,
+					    title: {
+				            display: true,
+				            text: "연도별 매출 통계",
+				        },
+				        plugins: {
+				            datalabels: {
+				              color: 'navy',
+				              font: {
+				                weight: 'bold'
+				              }
+				            }
+				        }
 					};
 					
 					// ------ 시청 통계 차트 ------
 					var ctxMovie = document.getElementById("char1"); // 영화
 					var ctxTV = document.getElementById("char2") // TV
 					
+					// 차트데이터(영화)
 					var chartdataMovie = {
 						labels : [],
 					  datasets: [{
@@ -566,7 +619,7 @@
 					        					  '#0000CD', '#8A2BE2', '#FFB6C1', '#9370DB', '#EE82EE', '#F5DEB3', '#F5FFFA']
 					        }]
 					}
-					
+					// 차트데이터(드라마)
 					var chartdataTV = {
 						labels : [],
 					  datasets: [{

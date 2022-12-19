@@ -39,6 +39,9 @@
 	<!-- base-package 속성으로 설정한 패키지 내부의 모든 클래스 중 어노테이션 기술한 클래스 bean 등록 -->
 	<context:component-scan base-package="com.urfavoriteott.ufo" />
 
+	<!-- NaverLoginBO Class에 대한 Bean설정 추가 -->
+	<beans:bean class="com.urfavoriteott.ufo.member.model.vo.NaverLoginBO" id="naverLoginBO" />
+	
 	<!-- DispatcherServlet 과 Controller 사이의 특정 요청을 Interceptor 를 통하도록 설정 -->
 	<interceptors>
 		<interceptor>

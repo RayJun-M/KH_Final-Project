@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -191,8 +192,15 @@
 								<td>${ m.userNickname }</td>
 								<td>${ m.userEnrollDate }</td>
 								<td>${ m.userStatus }</td>
-								<td><button onclick="resetPwd(${ m.userNo });">비밀번호 초기화</button></td>
-								<td><button onclick="deleteMem(${ m.userNo });">탈퇴처리</button></td>
+								<c:choose>
+									<c:when test="${ (fn:indexOf(m.userId, '.NAVER') eq '-1') and (fn:indexOf(m.userId, '.KAKAO') eq '-1') }">
+										<td><button onclick="resetPwd(${ m.userNo }, '${ m.userId }');">비밀번호 초기화</button></td>
+										<td><button onclick="deleteMem(${ m.userNo });">탈퇴처리</button></td>
+									</c:when>
+									<c:otherwise>
+										<td colspan="2">간편로그인 회원입니다.</td>
+									</c:otherwise>
+								</c:choose>
 							</tr>
 						</c:forEach>
 					</tbody>
@@ -200,13 +208,17 @@
 			</div>
 			
 			<script>
-			function resetPwd(userNo) {
+			function resetPwd(userNo, userId) {
+				console.log(userNo);
+				console.log(userId);
+				
 				$.ajax({
-					url : "admin_updatePwd.me",
-					type : "post",
+					url : "admin_resetPwd.me",
 					data : { 
-						userNo : userNo 
+						userNo : userNo,
+						email : userId
 					},
+					type : "get",
 					success : function(result) {
 						
 						console.log(result);
@@ -241,7 +253,7 @@
 							location.href = "admin_list.me";
 						} else {
 
-							alert("회워탈퇴에 실패했습니다.");
+							alert("회원탈퇴에 실패했습니다.");
 						}
 					},
 					error : function() {

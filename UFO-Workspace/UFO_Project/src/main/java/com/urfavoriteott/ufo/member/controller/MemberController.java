@@ -1,5 +1,6 @@
 package com.urfavoriteott.ufo.member.controller;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,6 +8,9 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -18,11 +22,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.github.scribejava.core.model.OAuth2AccessToken;
 import com.urfavoriteott.ufo.common.model.vo.PageInfo;
 import com.urfavoriteott.ufo.common.template.Pagination;
 import com.urfavoriteott.ufo.contents.model.vo.Review;
 import com.urfavoriteott.ufo.member.model.service.MemberService;
 import com.urfavoriteott.ufo.member.model.vo.Member;
+import com.urfavoriteott.ufo.member.model.vo.NaverLoginBO;
 
 
 @Controller
@@ -30,6 +36,11 @@ public class MemberController {
 
 	@Autowired
 	private MemberService memberService;
+	
+	/* NaverLoginBO */
+	@Autowired
+	private NaverLoginBO naverLoginBO;
+	private String apiResult = null;
 	
 	// 비밀번호 암호화를 위한 변수
 	@Autowired
@@ -41,12 +52,23 @@ public class MemberController {
 		
 	/**
 	 * 회원 로그인창을 띄워주는 메소드 - 작성자 : 동민
+	 * 네이버 간편 로그인 화면 요청 메소드 - 작성자 : 장희연
 	 * @return
 	 */
 	@RequestMapping("loginForm.me")
-	public String loginForm() {
+	public ModelAndView loginForm(HttpSession session) {
 		
-		return "member/userLogin";
+		ModelAndView mv = new ModelAndView();
+		
+		/* 네이버아이디로 인증 URL을 생성하기 위하여 naverLoginBO클래스의 getAuthorizationUrl메소드 호출 */
+		String naverAuthUrl = naverLoginBO.getAuthorizationUrl(session);
+		
+		// 네이버 로그인
+		mv.addObject("naver_url", naverAuthUrl);
+		
+		mv.setViewName("member/userLogin");
+		
+		return mv;
 	}
 	
 	/**
@@ -305,17 +327,97 @@ public class MemberController {
 		return "redirect:/";
    }
 	
+	/**
+	 * 마이페이지 화면을 띄우는 메소드 - 작성자 : 장희연
+	 * @return
+	 */
 	@RequestMapping("myPage.me")
 	public String myPage() {
 		
 		return "member/myPage";
 	}
 	
+	/**
+	 * 회원정보 수정 화면을 띄우는 메소드 - 작성자 : 장희연
+	 * @return
+	 */
 	@RequestMapping("updateForm.me")
 	public String updateForm() {
 		
 		return "member/memberUpdateForm";
 	}
+	
+	/**
+     * 네이버 로그인 성공시 callback호출 메소드 - 작성자 : 장희연
+     * @param model
+     * @param code
+     * @param state
+     * @param session
+     * @return
+     * @throws IOException
+     * @throws ParseException 
+     */
+    @RequestMapping("callback")
+    public String callback(Model model, String code, String state, HttpSession session) throws IOException, ParseException {
+        
+		OAuth2AccessToken oauthToken;
+		oauthToken = naverLoginBO.getAccessToken(session, code, state);
+		
+		//1. 로그인 사용자 정보를 읽어온다.
+		apiResult = naverLoginBO.getUserProfile(oauthToken); //String형식의 json데이터
+		// System.out.println("apiResult: " + apiResult);
+		/** apiResult json 구조
+		{"resultcode":"00",
+		"message":"success",
+		"response":{"id":"33666449","nickname":"****", "email":"bbbb@naver.com"}}
+		**/
+		
+		//2. String형식인 apiResult를 json형태로 바꿈
+		JSONParser parser = new JSONParser();
+		Object obj = parser.parse(apiResult);
+		JSONObject jsonObj = (JSONObject) obj;
+		
+		//3. 데이터 파싱
+		//Top레벨 단계 _response 파싱
+		JSONObject response_obj = (JSONObject)jsonObj.get("response");
+		//response의 nickname, email값 파싱
+		String userNickname = (String)response_obj.get("nickname");
+		String userId = (String)response_obj.get("email");
+		
+		// System.out.println("userNickname:" + userNickname);
+		// System.out.println("userId:" + userId);
+		
+		// 멤버 객체에 변수들 set
+		Member m = new Member();
+		m.setUserId(userId);
+		m.setUserNickname(userNickname);
+		
+		// 네이버 간편로그인 정보 확인 - 정보가 존재하면 로그인 처리
+		Member mem = memberService.findNaver(userId);
+		
+		if(mem == null) { // 해당 정보가 없음 => 정보를 DB에 저장
+			
+			int result = memberService.insertNaver(m);
+			
+			if(result > 0) { // 정보저장 성공
+				
+				mem = memberService.findNaver(userId); // 정보확인
+				session.setAttribute("loginUser", mem);
+				// session.setAttribute("alertMsg", "로그인에 성공하였습니다.");
+				return "redirect:/";
+			} else { // 정보저장 실패
+				
+				model.addAttribute("errorMsg", "로그인 실패");
+				return "common/errorPage";
+			}
+		} else { // 해당 정보가 존재 => 정보에 해당하는 사용자를 return
+			
+			session.setAttribute("loginUser", mem);
+			// session.setAttribute("alertMsg", "로그인에 성공하였습니다.");
+	        return "redirect:/";
+		}
+    }
+    
 	
 	/**
 	 * 사용자 - 닉네임 중복체크용 메소드 - 작성자 : 장희연

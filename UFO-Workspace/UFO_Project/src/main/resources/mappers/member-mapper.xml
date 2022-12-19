@@ -12,6 +12,22 @@
 		<result column="USER_PROFILE" property="userProfile" />
 	</resultMap>
 	
+	<!-- 리뷰 관련 resultSet, 작성자: 수빈 -->
+	<resultMap id="reviewResultSet" type="review">
+		<result column="REVIEW_NO" property="reviewNo" />
+		<result column="USER_NO" property="userNo" />
+		<result column="MOVIE_ID" property="movieId" />
+		<result column="MOVIE_TITLE" property="movieTitle" />
+		<result column="TV_ID" property="tvId" />
+		<result column="TV_NAME" property="tvName" />
+		<result column="REVIEW_STAR" property="reviewStar" />
+		<result column="REVIEW_CONTENT" property="reviewContent" />
+		<result column="REVIEW_REGISTER_DATE" property="reviewDate" />
+		<result column="REVIEW_STATUS" property="reviewStatus" />
+		<result column="USER_ID" property="userId" />
+		<result column="USER_NICKNAME" property="userNickname" />
+	</resultMap>
+	
 	<!-- 로그인용 쿼리문(암호화작업 완료) -->
 	<select id="loginMember" parameterType="member" resultMap="memberResultSet">
 		SELECT *
@@ -65,14 +81,33 @@
 		                 ,  'K' || #{nickname} || SEQ_KAKAONICK_NO.NEXTVAL)
 	</insert>
 	
-	<!-- 사용자 - 닉네임 중복확인용 쿼리문 -->
+	<!-- 사용자 - 네이버 간편로그인 정보 찾기용 쿼리문  - 작성자 : 장희연 -->
+	<select id="findNaver" parameterType="string" resultMap="memberResultSet">
+		SELECT *
+		  FROM MEMBER
+		 WHERE USER_ID = #{userId} || '.NAVER'
+	</select>
+	
+	<!-- 사용자 - 네이버 간편로그인 정보 저장용 쿼리문  - 작성자 : 장희연 -->
+	<insert id="insertNaver" parameterType="member">
+		INSERT INTO MEMBER (USER_NO
+		                 ,  USER_ID
+		                 ,  USER_PWD
+		                 ,  USER_NICKNAME)
+		            VALUES (SEQ_USER_NO.NEXTVAL
+		                 ,  #{userId} || '.NAVER'
+		                 ,  '$2a$10$1' || 'naverPWD' || SEQ_NAVERPWD_NO.NEXTVAL	
+		                 ,  'N' || #{userNickname} || SEQ_NAVERNICK_NO.NEXTVAL) 
+	</insert>
+	
+	<!-- 사용자 - 닉네임 중복확인용 쿼리문  - 작성자 : 장희연 -->
 	<select id="nicknameCheck" parameterType="string" resultType="_int">
 		SELECT COUNT(*)
 		  FROM MEMBER
 		 WHERE USER_NICKNAME = #{checkNickname}
 	</select>
 	
-	<!-- 사용자 - 회원정보 수정용 쿼리문 -->
+	<!-- 사용자 - 회원정보 수정용 쿼리문 - 작성자 : 장희연 -->
 	<update id="updateMember" parameterType="member">
 		UPDATE MEMBER
 		   SET USER_PROFILE = #{userProfile}
@@ -80,13 +115,13 @@
 		 WHERE USER_NO = #{userNo}
 	</update>
 	
-	<!-- 관리자 - 회원 수 확인용 쿼리문 -->
+	<!-- 관리자 - 회원 수 확인용 쿼리문 - 작성자 : 장희연 -->
 	<select id="selectListCount" resultType="_int">
 		SELECT COUNT(*)
 		  FROM MEMBER
 	</select>
 	
-	<!-- 관리자 - 회원 리스트 전체 조회용 쿼리문 -->
+	<!-- 관리자 - 회원 리스트 전체 조회용 쿼리문 - 작성자 : 장희연 -->
 	<select id="selectList" resultMap="memberResultSet">
 		SELECT USER_NO
 			 , USER_ID
@@ -97,7 +132,7 @@
 	  ORDER BY USER_NO DESC
 	</select>
 	
-	<!-- 관리자 - 검색된 회원 수 확인용 쿼리문 -->
+	<!-- 관리자 - 검색된 회원 수 확인용 쿼리문 - 작성자 : 장희연 -->
 	<select id="selectSearchCount" parameterType="hashmap" resultType="_int">
 		SELECT COUNT(*)
 		  FROM MEMBER
@@ -111,7 +146,7 @@
 		 LIKE '%' || #{searchword} || '%'
 	</select>
 	
-	<!-- 관리자 - 검색된 회원 리스트 전체 조회용 쿼리문 -->
+	<!-- 관리자 - 검색된 회원 리스트 전체 조회용 쿼리문 - 작성자 : 장희연 -->
 	<select id="selectSearchList" parameterType="hashmap" resultMap="memberResultSet">
 		SELECT USER_NO
 			 , USER_ID
@@ -130,14 +165,14 @@
 		 ORDER BY USER_NO DESC
 	</select>
 	
-	<!-- 관리자 - 비밀번호 초기화 쿼리문 -->
-	<update id="updatePwd" parameterType="_int">
+	<!-- 관리자 - 비밀번호 초기화 쿼리문 - 작성자 : 장희연 -->
+	<update id="updatePwd" parameterType="hashmap">
 		UPDATE MEMBER
-		   SET USER_PWD = '000000'
+		   SET USER_PWD = #{newPwd}
 		 WHERE USER_NO = #{userNo}
 	</update>
 	
-	<!-- 관리자 - 회원 탈퇴 처리용 쿼리문 -->
+	<!-- 관리자&사용자 - 회원 탈퇴 처리용 쿼리문 - 작성자 : 장희연 -->
 	<update id="deleteMember" parameterType="_int">
 		UPDATE MEMBER
 		   SET USER_STATUS = 'N'

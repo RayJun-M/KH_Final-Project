@@ -9,6 +9,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -20,6 +21,7 @@ import com.urfavoriteott.ufo.admin.model.vo.Sales;
 import com.urfavoriteott.ufo.common.model.vo.PageInfo;
 import com.urfavoriteott.ufo.common.template.Pagination;
 import com.urfavoriteott.ufo.contents.model.vo.Review;
+import com.urfavoriteott.ufo.member.controller.MailSendService;
 import com.urfavoriteott.ufo.member.model.vo.Member;
 
 @Controller
@@ -28,6 +30,14 @@ public class AdminController {
 	@Autowired
 	private AdminService adminService;
 	
+	// 이메일 인증을 위한 변수
+	@Autowired
+	private MailSendService mailService;
+		
+	/**
+	 * 관리자 - 통계화면 띄우는 메소드  - 작성자 : 장희연
+	 * @return
+	 */
 	@RequestMapping("admin_stat.st")
 	public String statistics() {
 		
@@ -88,17 +98,25 @@ public class AdminController {
 	}
 	
 	/**
-	 * 관리자 - 비밀번호 초기화용 메소드 - 작성자 : 장희연
-	 * @param userNo : 비밀번호를 초기화할 회원의 회원번호
-	 * @param model 
-	 * @param session
+	 * 관리자 - 비밀번호 초기화 및 재설정용 메소드 - 작성자 : 장희연
+	 * @param email : 이메일 주소
 	 * @return
 	 */
-	
-	@RequestMapping("admin_updatePwd.me")
-	public String updatePwd(int userNo) {
+	@GetMapping("admin_resetPwd.me")
+	@ResponseBody
+	public String mailCheck(int userNo, String email) {
 		
-		int result = adminService.updatePwd(userNo);
+		// 비밀번호 초기화 메일 발송
+		System.out.println("비밀번호 초기화 메일을 발송할 이메일 : " + email);
+		int newPwd = mailService.updatePwdEmail(email);
+		System.out.println("새 비밀번호 : " + newPwd);
+		
+		HashMap<String, Integer> map = new HashMap<>();
+		map.put("userNo", userNo);
+		map.put("newPwd", newPwd);
+		
+		// 초기화된 비밀번호로 재설정
+		int result = adminService.updatePwd(map);
 		
 		return (result > 0) ? "success" : "fail";
 	}
@@ -197,6 +215,11 @@ public class AdminController {
 		return new Gson().toJson(list);
 	}
 	
+	/**
+	 * 관리자 - TV프로그램 장르별 시청수 메소드 - 작성자 : 장희연
+	 * @param genre : TV프로그램 장르
+	 * @return
+	 */
 	@ResponseBody
 	@RequestMapping("viewsOfTVPerGenre.st")
 	public HashMap<String, Integer> selectViewsTV(String[] genre) {
@@ -218,10 +241,15 @@ public class AdminController {
 			map.put(genre[i], views);
 		}
 		
-		System.out.println(map);
+		// System.out.println(map);
 		return map;
 	}
 	
+	/**
+	 * 관리자 - 영화 장르별 시청수 메소드 - 작성자 : 장희연
+	 * @param genre : 영화 장르
+	 * @return
+	 */
 	@ResponseBody
 	@RequestMapping("viewsOfMoviePerGenre.st")
 	public HashMap<String, Integer> selectViewsMovie(String[] genre) {
@@ -243,7 +271,7 @@ public class AdminController {
 			map.put(genre[i], views);
 		}
 		
-		System.out.println(map);
+		// System.out.println(map);
 		return map;
 	}
 	

@@ -78,9 +78,9 @@ public class AdminDao {
 	 * @param userNo
 	 * @return
 	 */
-	public int updatePwd(SqlSessionTemplate sqlSession, int userNo) {
+	public int updatePwd(SqlSessionTemplate sqlSession, HashMap<String, Integer> map) {
 
-		return sqlSession.update("memberMapper.updatePwd", userNo);
+		return sqlSession.update("memberMapper.updatePwd", map);
 	}
 	
 	/**
@@ -154,11 +154,23 @@ public class AdminDao {
 		return (ArrayList)sqlSession.selectList("adminMapper.selectSalesPerYear");
 	}
 	
+	/**
+	 * 관리자 - TV프로그램 장르별 시청수 메소드 - 작성자 : 장희연
+	 * @param sqlSession
+	 * @param genre : TV프로그램 장르
+	 * @return
+	 */
 	public ArrayList<Integer> selectViewsTV(SqlSessionTemplate sqlSession, String genre) {
 		
 		return (ArrayList)sqlSession.selectList("adminMapper.selectViewsTV", genre);
 	}
 	
+	/**
+	 * 관리자 - 영화 장르별 시청수 메소드 - 작성자 : 장희연
+	 * @param sqlSession
+	 * @param genre : 영화 장르
+	 * @return
+	 */
 	public ArrayList<Integer> selectViewsMovie(SqlSessionTemplate sqlSession, String genre) {
 		
 		return (ArrayList)sqlSession.selectList("adminMapper.selectViewsMovie", genre);

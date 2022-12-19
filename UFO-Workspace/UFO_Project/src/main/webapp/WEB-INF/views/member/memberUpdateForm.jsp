@@ -76,8 +76,8 @@
 		            <tr>
 		            	<td><img src="resources/image/member/profile6.png" value="6" width="170" height="170"></td>
 		            	<td><img src="resources/image/member/profile7.png" value="7" width="170" height="170"></td>
-		            	<td><img src="resources/image/member/profile8.jpg" value="8" width="170" height="170"></td>
-		            	<td><img src="resources/image/member/profile9.jpg" value="9" width="170" height="170"></td>
+		            	<td><img src="resources/image/member/profile8.png" value="8" width="170" height="170"></td>
+		            	<td><img src="resources/image/member/profile9.png" value="9" width="170" height="170"></td>
 		            	<td><img src="resources/image/member/profile10.png" value="10" width="170" height="170"></td>
 		            </tr>
 		        </table>

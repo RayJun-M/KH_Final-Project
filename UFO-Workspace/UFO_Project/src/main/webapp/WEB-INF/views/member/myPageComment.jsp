@@ -34,7 +34,7 @@
        		</form>
 	        <table id="user_profile">
 	            <tr>
-	                <td rowspan="2" width="220"><img src="" width="170" height="170"></td>
+	                <td rowspan="2" width="220"><img src="resources/image/member/1580797858564.gif" width="170" height="170"></td>
 	                <td colspan="2" width="380" style="font-size:35px; font-weight:900;">${ loginUser.userNickname }</td>
 	                <td>
 	                	<button type="button" onclick="location.href='updateForm.me'">회원정보 수정</button>
@@ -121,7 +121,7 @@
 									<button type="button" onclick="location.href='#';" disabled>»</button>
 								</c:when>
 								<c:otherwise>
-									<button type="button" onclick="location.href='myComment.me?cpage=${ pi.currentPage + 1}';">${ p }</button>
+									<button type="button" onclick="location.href='myComment.me?cpage=${ pi.currentPage + 1}';">»</button>
 								</c:otherwise>
 							</c:choose>
 						</div>

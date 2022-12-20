@@ -1,6 +1,7 @@
 package com.urfavoriteott.ufo.community.model.dao;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -68,6 +69,16 @@ public class CommunityDao {
 	public Community selectCommunity(SqlSessionTemplate sqlSession, int comNo) {
 		
 		return sqlSession.selectOne("communityMapper.selectCommunity", comNo);
+	}
+	
+	/**
+	 * 커뮤니티 댓글 신고를 눌렀을 때 사용할 메소드 - 작성자: 수빈
+	 * @param sqlSession
+	 * @param map
+	 * @return
+	 */
+	public int reportReply(SqlSessionTemplate sqlSession, HashMap map) {
+		return sqlSession.insert("communityMapper.reportReply", map);
 	}
 	
 }

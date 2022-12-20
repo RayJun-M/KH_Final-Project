@@ -48,7 +48,7 @@
 }
 
 /*------------- 개별 구현 영역 -------------*/
-#commentManagementArea {
+#reportReplyManagement {
     text-align : center;
 }
 
@@ -57,19 +57,21 @@
     margin : auto;
 }
 
+
+
 /* 테이블을 감싼 div */
-#commentListAll {
+#replyListAll {
     width : 100%;
 }
 
 /* 코멘트 테이블 영역 */
-#commentTable {
+#replyTable {
     width : 90%;
     margin : auto;
     text-align : center;
 }
 
-#comment_head {
+#reply_head {
     height : 80px;
     vertical-align: center;
     font-size : 20px;
@@ -80,11 +82,11 @@
     border-radius: 10px;
 }
 
-.comment_head1 {
+.reply_head1 {
     text-align : center;
 }
 
-.personalComment {
+.personalReply {
     height : 50px;
 }
 

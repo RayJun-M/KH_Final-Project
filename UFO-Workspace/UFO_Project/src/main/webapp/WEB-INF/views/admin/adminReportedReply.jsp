@@ -9,7 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>관리자 신고 관리</title>
 
-	<link href="resources/css/adminReported.css" rel="stylesheet">
+	<link href="resources/css/adminReportedReply.css" rel="stylesheet">
 
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css">
 	<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
@@ -47,52 +47,54 @@
 		        <div><a href="">콘텐츠 관리</a></div>
 				<div><a href="commentList.ad">코멘트 관리</a></div>
 		        <div><a href="">이용권 관리</a></div>       
-		        <div id="selected_tab"><a href="reportManagement.ad">신고 관리</a></div>
+		        <div id="selected_tab"><a href="reportedComment.ad">신고 관리</a></div>
 		        <div><a href="admin_stat.st">통계 관리</a></div>
 			</div>
 
 			<!-- 이곳부터 본인 화면 구현 -->
-			<div id="reportManagement">
+			<div id="reportReplyManagement">
 				<br>
 				<div id="reportCategory">
+					<div style="float : left;">
 					<!-- 구현하는 페이지 option에 옵션 selected 넣을 것 -->
-					<select id="reportPageTab">
-						<option>커뮤니티 글</option>
-						<option>커뮤니티 댓글</option>
-						<option value="comment" name="comment" selected>코멘트</option>
-					</select>
-					<div style="text-align:right; color: white; font-size:bold;"><button type="button" onclick="processedCommentList();">처리된 코멘트 보기</button></div>
+						<select id="reportPageTab" name="reportCategory" onchange="changeSelect()">
+							<option value="community" name="community">커뮤니티 글</option>
+							<option value="communityReply" name="communityReply" selected>커뮤니티 댓글</option>
+							<option value="comment" name="comment">코멘트</option>
+						</select>
+					</div>
+					<div style="text-align:right; color: white; font-size:bold;"><button type="button" onclick="processedReplyList();">처리된 댓글 보기</button></div>
 				</div>
 				
-					<div id="commentListAll">
+					<div id="replyListAll">
 						<br>
 					<c:choose>
-						<c:when test="${ not empty list }">
-							<table id="commentTable">
+						<c:when test="${ not empty replyList }">
+							<table id="replyTable">
 								<thead>
-									<tr id="comment_head" class="line">
-										<th class="comment_head1" width="10%;">작성자</th>
-										<th class="comment_head1" width="10%;">작성일</th>
-										<th class="comment_head1" width="10%;">코멘트 번호</th>
-										<th class="comment_head1" width="25%;">코멘트 내용</th>
-										<th class="comment_head1" width="20%;">신고사유</th>
-										<th class="comment_head1" width="8%;">신고처리</th>
-										<th class="comment_head1" width="17%;">삭제상태</th>
+									<tr id="reply_head" class="line">
+										<th class="reply_head1" width="10%;">신고자</th>
+										<th class="reply_head1" width="10%;">작성일</th>
+										<th class="reply_head1" width="10%;">댓글번호</th>
+										<th class="reply_head1" width="25%;">댓글내용</th>
+										<th class="reply_head1" width="20%;">신고사유</th>
+										<th class="reply_head1" width="8%;">신고처리</th>
+										<th class="reply_head1" width="17%;">삭제상태</th>
 									</tr>
 								</thead>
 								<tbody>
-									<c:forEach var="r" items="${ list }">
-										<tr class="personalComment">
-											<td id="userMail">${ r.userId }</td>
-											<td id="commentDate">${ r.reviewDate }</td>
-											<td id="commentNo">${ r.reviewNo }</td>
-											<td id="review_content">${ r.reviewContent }</td>
+									<c:forEach var="r" items="${ replyList }">
+										<tr class="personalReply">
+											<td id="userMail">${ r.userNo }</td>
+											<td id="replyDate">${ r.comRplRegisterDate }</td>
+											<td id="comRplNo">${ r.comRplNo }</td>
+											<td id="reply_Content">${ r.comRplContent }</td>
 											<td id="reportedReason">${ r.reportReason }</td>
-											<td id="reportedCount">${ r.reportStatus }</td>
+											<td id="reportStatus">${ r.reportStatus }</td>
 											<td>
-												<input type="hidden" id="commentReportNo" name="commentReportNo" value=${ r.reportNo }>
-												<input type="hidden" id="commentReviewNo" name="commentReviewNo" value=${ r.reviewNo }>
-												<button type="button" class="btn btn-danger" id="deleteReportedComment">삭제</button>
+												<input type="hidden" id="replyReportNo" name="replyReportNo" value=${ r.reportNo }>
+												<input type="hidden" id="comRplNo" name="comRplNo" value=${ r.comRplNo }>
+												<button type="button" class="btn btn-danger" id="deleteReportedReply">삭제</button>
 											</td>
 										</tr>
 									</c:forEach>
@@ -107,12 +109,12 @@
 										<button type="button" onclick="location.href='#';" disabled>«</button>
 									</c:when>
 									<c:otherwise>
-										<button type="button" onclick="location.href='reportManagement.ad?cpage=${ pi.currentPage - 1}';">«</button>
+										<button type="button" onclick="location.href='reportedReply.ad?cpage=${ pi.currentPage - 1}';">«</button>
 									</c:otherwise>
 								</c:choose>
 								
 								<c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }" step="1">
-									<button type="button" onclick="location.href='reportManagement.ad?cpage=${ p }';">${ p }</button>
+									<button type="button" onclick="location.href='reportedReply.ad?cpage=${ p }';">${ p }</button>
 								</c:forEach>
 								
 								<c:choose>
@@ -120,7 +122,7 @@
 										<button type="button" onclick="location.href='#';" disabled>»</button>
 									</c:when>
 									<c:otherwise>
-										<button type="button" onclick="location.href='reportManagement.ad?cpage=${ pi.currentPage + 1}';">${ p }</button>
+										<button type="button" onclick="location.href='reportedReply.ad?cpage=${ pi.currentPage + 1}';">»</button>
 									</c:otherwise>
 								</c:choose>
 							</div>
@@ -130,24 +132,42 @@
 							</c:otherwise>
 							</c:choose>
 								
-				</div> <!-- commentListAll 영역 끝 -->
+				</div> <!-- communityListAll 영역 끝 -->
+				
+				<!-- 신고관리 option category select시 url 이동 -->
+				<script> 
+					function changeSelect(){ 
+	
+						var selectList = document.getElementById("reportPageTab")
+						
+						if(selectList.value == "community"){
+							location.href = "reportedCommunity.ad";
+						}
+						if(selectList.value == "communityReply"){
+							location.href = "reportedReply.ad";
+						}
+						if(selectList.value == "comment"){
+							location.href = "reportedComment.ad";
+						}
+					}
+				</script>
 				
 				<script>
-					$("#commentListAll").on("click", "#deleteReportedComment", function(){
+					$("#replyListAll").on("click", "#deleteReportedReply", function(){
 						
-						const reportNo = $(this).siblings("#commentReportNo").val();
-						const reviewNo = $(this).siblings("#commentReviewNo").val();
+						const reportNo = $(this).siblings("#replyReportNo").val();
+						const comRplNo = $(this).siblings("#comRplNo").val();
 						
 						// console.log(reportNo);
 						// console.log(reviewNo);
 						
-						if(confirm("해당 코멘트를 삭제 처리하시겠습니까?")) {
+						if(confirm("해당 게시글을 삭제 처리하시겠습니까?")) {
 							
 							$.ajax({
-								url : "deleteReportedComment.ad",
+								url : "deleteReportedReply.ad",
 								type : "get",
 								data : { reportNo : reportNo,
-										 reviewNo : reviewNo
+										 comRplNo : comRplNo
 									   },
 								success : function(result) {
 									
@@ -158,7 +178,7 @@
 									
 								},
 								error : function() {
-									console.log("신고된 댓글 삭제용 ajax 통신 실패!");
+									console.log("신고된 글 삭제용 ajax 통신 실패!");
 								}
 								
 							});
@@ -166,8 +186,8 @@
 					
 					});
 					
-					function processedCommentList() {
-						location.href="processedCommentList.ad";
+					function processedReplyList() {
+						location.href="processedReplyList.ad";
 					}
 				</script>
 

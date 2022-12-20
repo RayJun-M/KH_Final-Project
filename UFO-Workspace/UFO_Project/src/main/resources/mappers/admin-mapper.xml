@@ -38,6 +38,21 @@
 		<result column="REPORT_DATE" property="reportDate" />
 		<result column="REPORT_STATUS" property="reportStatus" />
 	</resultMap>
+	
+	<!-- COMMUNITY_REPLY 테이블로부터 조회된 내용을 communityReply 타입으로 가공해주는 ResultMap - 작성자: 황혜진 -->
+	<resultMap id="replyResultSet" type="communityReply">
+		<result column="COM_RPL_NO" property="comRplNo" />
+		<result column="COM_NO" property="comNo" />
+		<result column="COM_RPL_CONTENT" property="comRplContent" />
+		<result column="COM_RPL_REGISTER_DATE" property="comRplRegisterDate" />
+		<result column="COM_RPL_STATUS" property="comRplStatus" />
+		<result column="USER_NICKNAME" property="userNickname" />
+		<result column="USER_NO" property="userNo" />
+		<result column="REPORT_NO" property="reportNo" />
+		<result column="REPORT_REASON" property="reportReason" />
+		<result column="REPORT_DATE" property="reportDate" />
+		<result column="REPORT_STATUS" property="reportStatus" />
+	</resultMap>
 
 	<!-- 관리자 한달이용권 월별 매출 - 작성자 : 장희연  -->
 	<select id="selectSalesPerMonthOnce" resultMap="salesResultSet">
@@ -319,11 +334,12 @@
 		WHERE REVIEW_NO = ${checkNum}
 	</update>
 	
-	<!-- 관리자 페이지 신고 관리를 위한 페이징바(select) - 작성자: 수빈 -->
+	<!-- 관리자 페이지 코멘트 신고 관리를 위한 페이징바(select) - 작성자: 수빈 -->
 	<select id="reportedCommentListCount" resultType="_int">
 		SELECT COUNT(*)
 		FROM REPORT
 		WHERE REPORT_STATUS = 'N'
+		  AND REVIEW_NO IS NOT NULL
 	</select>
 	
 	<!-- 관리자 페이지에서 신고 관리를 위해 신고된 모든 코멘트 조회 (select) - 작성자: 수빈 -->
@@ -393,6 +409,84 @@
 		UPDATE REVIEW
 		   SET REVIEW_STATUS = 'Y'
 		WHERE REVIEW_NO = #{reviewNo}
+	</update>
+	
+	<!-- 관리자 페이지 댓글 신고 관리를 위한 페이징바(select) - 작성자: 수빈 -->
+	<select id="reportedReplyListCount" resultType="_int">
+		SELECT COUNT(*)
+	    FROM REPORT
+	    WHERE REPORT_STATUS = 'N'
+	      AND COM_RPL_NO IS NOT NULL
+	</select>
+	
+	<!-- 관리자 페이지에서 신고 관리를 위해 신고된 모든 댓글 조회 (select) - 작성자: 수빈 -->
+	<select id="reportedReplyList" resultMap="replyResultSet">
+		SELECT M.USER_ID AS "USER_NO"
+			 , REPORT_NO
+		     , COM_RPL_NO
+		     , COM_RPL_REGISTER_DATE
+		     , COM_RPL_CONTENT
+		     , REPORT_REASON
+		     , REPORT_STATUS
+		FROM REPORT RP
+		LEFT JOIN COMMUNITY_REPLY CR USING (COM_RPL_NO)
+		LEFT JOIN MEMBER M ON (M.USER_NO = RP.USER_NO)
+		WHERE REPORT_STATUS = 'N'
+		  AND COM_RPL_STATUS = 'Y'
+		ORDER BY REPORT_DATE DESC
+	</select>
+	
+		<!-- 관리자 페이지 신고 관리에서 신고된 댓글 삭제(REPORT_STATUS='Y') 하는 메소드 - 작성자: 수빈 -->
+	<update id="changeStatusReportedReply" parameterType="_int">
+		UPDATE REPORT
+		   SET REPORT_STATUS = 'Y'
+		WHERE REPORT_NO = #{reportNo}
+	</update>
+	
+	<!-- 관리자 페이지 신고 관리에서 신고된 댓글을 삭제(REVIEW_STATUS='N') 하는 메소드 - 작성자: 수빈 -->
+	<update id="deleteReportedReply" parameterType="_int">
+		UPDATE COMMUNITY_REPLY
+		   SET COM_RPL_STATUS = 'N'
+		WHERE COM_RPL_NO = #{comRplNo}
+	</update>
+	
+		<!-- 관리자 페이지 신고 관리에서 처리된 댓글 보기 버튼 클릭 시 페이징바(select) - 작성자: 수빈 -->
+	<select id="processedReplyListCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM REPORT
+		WHERE REPORT_STATUS = 'Y'
+		  AND COM_RPL_NO IS NOT NULL
+	</select>
+	
+	<!-- 관리자 페이지 신고 관리에서 처리된 댓글 보기 버튼 클릭 시 신고 처리된 모든 댓글 조회 (select) - 작성자: 수빈 -->
+	<select id="processedReplyList" resultMap="replyResultSet">
+		SELECT M.USER_ID AS "USER_NO"
+			 , REPORT_NO
+		     , COM_RPL_NO
+		     , COM_RPL_REGISTER_DATE
+		     , COM_RPL_CONTENT
+		     , REPORT_REASON
+		     , REPORT_STATUS
+		FROM REPORT RP
+		LEFT JOIN COMMUNITY_REPLY CR USING (COM_RPL_NO)
+		LEFT JOIN MEMBER M ON (M.USER_NO = RP.USER_NO)
+		WHERE REPORT_STATUS = 'Y'
+		  AND COM_RPL_STATUS = 'N'
+		ORDER BY REPORT_DATE DESC
+	</select>
+	
+	<!-- 관리자 페이지 신고 관리에서 신고된 댓글을 되돌리는(REPORT_STATUS='N') 메소드 - 작성자: 수빈 -->
+	<update id="resetStatusReportedReply" parameterType="_int">
+		UPDATE REPORT
+		   SET REPORT_STATUS = 'N'
+		WHERE REPORT_NO = #{reportNo}
+	</update>
+	
+	<!-- 관리자 페이지 신고 관리에서 신고된 댓글 삭제 상태를 되돌리는(REVIEW_STATUS='Y') 메소드 - 작성자: 수빈 -->
+	<update id="resetReportedReply" parameterType="_int">
+		UPDATE COMMUNITY_REPLY
+		   SET COM_RPL_STATUS = 'Y'
+		WHERE COM_RPL_NO = #{comRplNo}
 	</update>
 
 </mapper>

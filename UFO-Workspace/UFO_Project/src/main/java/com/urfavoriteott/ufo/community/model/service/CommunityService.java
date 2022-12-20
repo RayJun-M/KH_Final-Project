@@ -1,6 +1,7 @@
 package com.urfavoriteott.ufo.community.model.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import com.urfavoriteott.ufo.common.model.vo.PageInfo;
 import com.urfavoriteott.ufo.community.model.vo.Community;
@@ -44,4 +45,11 @@ public interface CommunityService {
 	 * @return
 	 */
 	Community selectCommunity(int comNo);
+	
+	/**
+	 * 커뮤니티 댓글 신고를 눌렀을 때 사용할 메소드 - 작성자: 수빈
+	 * @param map
+	 * @return
+	 */
+	int reportReply(HashMap map);
 }

@@ -63,7 +63,7 @@
 							<option value="comment" name="comment" selected>코멘트</option>
 						</select>
 					</div>
-					<div style="text-align:right; color: white; font-size:bold;"><button type="button" onclick="reportedCommentList();">처리되지 않은 코멘트 보기</button></div>
+					<div style="text-align:right; color: white; font-size:bold;"><button type="button" onclick="processedCommentList();">처리된 코멘트 보기</button></div>
 				</div>
 				
 					<div id="commentListAll">
@@ -94,7 +94,7 @@
 											<td>
 												<input type="hidden" id="commentReportNo" name="commentReportNo" value=${ r.reportNo }>
 												<input type="hidden" id="commentReviewNo" name="commentReviewNo" value=${ r.reviewNo }>
-												<button type="button" class="btn btn-danger" id="deleteReportedComment">되돌리기</button>
+												<button type="button" class="btn btn-danger" id="deleteReportedComment">삭제</button>
 											</td>
 										</tr>
 									</c:forEach>
@@ -109,12 +109,12 @@
 										<button type="button" onclick="location.href='#';" disabled>«</button>
 									</c:when>
 									<c:otherwise>
-										<button type="button" onclick="location.href='processedCommentList.ad?cpage=${ pi.currentPage - 1}';">«</button>
+										<button type="button" onclick="location.href='reportedComment.ad?cpage=${ pi.currentPage - 1}';">«</button>
 									</c:otherwise>
 								</c:choose>
 								
 								<c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }" step="1">
-									<button type="button" onclick="location.href='processedCommentList.ad?cpage=${ p }';">${ p }</button>
+									<button type="button" onclick="location.href='reportedComment.ad?cpage=${ p }';">${ p }</button>
 								</c:forEach>
 								
 								<c:choose>
@@ -122,7 +122,7 @@
 										<button type="button" onclick="location.href='#';" disabled>»</button>
 									</c:when>
 									<c:otherwise>
-										<button type="button" onclick="location.href='processedCommentList.ad?cpage=${ pi.currentPage + 1}';">${ p }</button>
+										<button type="button" onclick="location.href='reportedComment.ad?cpage=${ pi.currentPage + 1}';">»</button>
 									</c:otherwise>
 								</c:choose>
 							</div>
@@ -161,10 +161,10 @@
 						// console.log(reportNo);
 						// console.log(reviewNo);
 						
-						if(confirm("해당 코멘트의 상태를 되돌리시겠습니까?")) {
+						if(confirm("해당 코멘트를 삭제 처리하시겠습니까?")) {
 							
 							$.ajax({
-								url : "resetReportedComment.ad",
+								url : "deleteReportedComment.ad",
 								type : "get",
 								data : { reportNo : reportNo,
 										 reviewNo : reviewNo
@@ -186,8 +186,8 @@
 					
 					});
 					
-					function reportedCommentList() {
-						location.href="reportedComment.ad";
+					function processedCommentList() {
+						location.href="processedCommentList.ad";
 					}
 				</script>
 

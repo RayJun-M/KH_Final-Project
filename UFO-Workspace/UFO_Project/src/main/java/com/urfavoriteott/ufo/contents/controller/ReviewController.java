@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.urfavoriteott.ufo.common.model.vo.PageInfo;
 import com.urfavoriteott.ufo.common.template.Pagination;
@@ -28,7 +29,15 @@ public class ReviewController {
     @RequestMapping(value="commentList.co")
     public String selectCommentList(@RequestParam(value="contentsId", defaultValue="1427") int contentsId, String loginUserNo, Model model) {
     	
-    	System.out.println(loginUserNo);
+    	// System.out.println(loginUserNo);
+    	
+    	HashMap<String, String> map = new HashMap<>();
+    	map.put("contentsId", Integer.toString(contentsId));
+    	map.put("loginUserNo", loginUserNo);
+    	
+    	Review myComment = reviewService.selectMyComment(map);
+    	
+    	// System.out.println(myComment);
     	
     	int listCount = reviewService.selectCommentListCount(contentsId);
     	
@@ -37,6 +46,7 @@ public class ReviewController {
     	// System.out.println(listCount);
     	// System.out.println(list);
     	
+    	model.addAttribute("myComment", myComment);
     	model.addAttribute("listCount", listCount);
     	model.addAttribute("list", list);
     	
@@ -108,5 +118,161 @@ public class ReviewController {
    	    		 + "</script>";
     		
     	}
+    }
+    
+    /**
+     * 컨텐츠 화면에서 나의 코멘트를 삭제하는 메소드 - 작성자: 수빈
+     * @param myReviewNo
+     * @return
+     */
+    @RequestMapping("deleteMyComment.co")
+    public String deleteMyComment(int myReviewNo) {
+    	
+    	int result = reviewService.deleteMyComment(myReviewNo);
+    	
+    	// System.out.println(result); // 성공적으로 삭제 시 1 잘 뽑힘
+    	
+    	if(result > 0) {
+    		
+    		return "redirect:/";
+    		
+    	} else {
+    		
+    		return "<script>"
+        			+ "alert('코멘트 삭제에 실패하였습니다. 잠시 후 다시 시도해 주세요.');"
+        			+ "location.href='commentList.co';"
+        			+ "<script>";
+    		
+    	}
+    	
+    }
+    
+    /**
+     * 컨텐츠 화면에서 나의 코멘트를 작성하는 메소드 - 작성자: 수빈
+     * @param myReviewNo
+     * @param myComment
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping(value="insertMyComment.co", produces="application/json; charset=UTF-8")
+    public int insertMyComment(String myReviewNo, String myComment) {
+    	
+    	// System.out.println("myReviewNo: " + myReviewNo);
+    	// System.out.println("myComment: " + myComment);
+    	
+    	HashMap<String, String> map = new HashMap<>();
+    	map.put("myReviewNo", myReviewNo);
+    	map.put("myComment", myComment);
+    	
+    	int result = reviewService.insertMyComment(map);
+    	
+    	// System.out.println(result);
+    	
+    	return result;
+    }
+    
+    /**
+     * 컨텐츠 화면에서 나의 코멘트를 수정하는 메소드 - 작성자: 수빈
+     * @param myReviewNo
+     * @param updateMyComment
+     * @return
+     */
+    @RequestMapping(value="updateMyComment.co", produces="text/html; charset=UTF-8")
+    public ModelAndView updateMyComment(String myReviewNo, String updateMyComment, ModelAndView mv) {
+    	
+    	// System.out.println("myReviewNo: " + myReviewNo);
+    	// System.out.println("updateMyComment: " + updateMyComment);
+    	
+    	HashMap<String, String> map = new HashMap<>();
+    	map.put("myReviewNo", myReviewNo);
+    	map.put("updateMyComment", updateMyComment);
+    	
+    	int updateResult = reviewService.updateMyComment(map);
+    	
+    	if(updateResult > 0) {
+    		
+    		mv.addObject("Msg", "코멘트 수정이 완료되었습니다.");
+    		
+    	} else {
+    		
+    		mv.addObject("Msg", "코멘트 수정에 실패했습니다. 잠시 후 다시 시도해 주세요.");
+    		
+    	}
+    	
+    	mv.setViewName("contents/commentListView");
+    	
+    	 return mv;
+    	
+    }
+    
+    /**
+     * 콘텐츠에서 별점을 줄 때 사용할(insert or update) 메소드 - 작성자: 수빈
+     * @param loginUserNo
+     * @param contentsId
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("selectCondition.co")
+    public int selectCondition(String loginUserNo, String contentsId) {
+    	
+    	// System.out.println("loginUserNo: " + loginUserNo);
+    	// System.out.println("contentsId: " + contentsId);
+    	
+    	HashMap<String, String> map = new HashMap<>();
+    	map.put("loginUserNo", loginUserNo);
+    	map.put("contentsId", contentsId);
+    	
+    	int selectResult = reviewService.selectCondition(map);
+    	
+    	// System.out.println(selectResult);
+    	
+    	return selectResult;
+    }
+    
+    /**
+     * 콘텐츠에서 있는 별점을 수정할 때 사용할 메소드 - 작성자: 수빈
+     * @param myReviewNo
+     * @param conversionScore
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("updateMyStar.co")
+    public int updateMyStar(String myReviewNo, String conversionScore) {
+    	
+    	// System.out.println(myReviewNo);
+    	// System.out.println(conversionScore);
+    	
+    	HashMap<String, String> map = new HashMap<>();
+    	map.put("myReviewNo", myReviewNo);
+    	map.put("conversionScore", conversionScore);
+    	
+    	int result = reviewService.updateMyStar(map);
+    	
+    	return result;
+    }
+    
+    /**
+     * 콘텐츠에서 없는 별점을 처음 등록할 때 사용할 메소드 - 작성자: 수빈
+     * @param conversionScore
+     * @param loginUserNo
+     * @param contentsId
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("insertMyStar.co")
+    public int insertMyStar(String conversionScore, String loginUserNo, String contentsId) {
+    	
+    	// System.out.println(conversionScore);
+    	// System.out.println(loginUserNo);
+    	// System.out.println(contentsId);
+    	
+    	HashMap<String, String> map = new HashMap<>();
+    	map.put("conversionScore", conversionScore);
+    	map.put("loginUserNo", loginUserNo);
+    	map.put("contentsId", contentsId);
+    	
+    	int result = reviewService.insertMyStar(map);
+    	
+    	return result;
     }
 }

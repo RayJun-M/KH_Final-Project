@@ -12,6 +12,22 @@
 		<result column="USER_PROFILE" property="userProfile" />
 	</resultMap>
 	
+	<!-- 리뷰 관련 resultSet, 작성자: 수빈 -->
+	<resultMap id="reviewResultSet" type="review">
+		<result column="REVIEW_NO" property="reviewNo" />
+		<result column="USER_NO" property="userNo" />
+		<result column="MOVIE_ID" property="movieId" />
+		<result column="MOVIE_TITLE" property="movieTitle" />
+		<result column="TV_ID" property="tvId" />
+		<result column="TV_NAME" property="tvName" />
+		<result column="REVIEW_STAR" property="reviewStar" />
+		<result column="REVIEW_CONTENT" property="reviewContent" />
+		<result column="REVIEW_REGISTER_DATE" property="reviewDate" />
+		<result column="REVIEW_STATUS" property="reviewStatus" />
+		<result column="USER_ID" property="userId" />
+		<result column="USER_NICKNAME" property="userNickname" />
+	</resultMap>
+	
 	<!-- 로그인용 쿼리문(암호화작업 완료) -->
 	<select id="loginMember" parameterType="member" resultMap="memberResultSet">
 		SELECT *
@@ -144,7 +160,7 @@
 		 WHERE USER_NO = #{userNo}
 	</update>
 	
-		<!-- 마이 페이지 별점 및 코멘트 내역 조회를 위한 페이징바(select) - 작성자 : 수빈 -->
+	<!-- 마이 페이지 별점 및 코멘트 내역 조회를 위한 페이징바(select) - 작성자 : 수빈 -->
 	<select id="selectMyCommentListCount" resultType="_int">
 		SELECT COUNT(*)
 		FROM REVIEW

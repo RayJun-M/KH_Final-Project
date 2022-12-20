@@ -153,7 +153,7 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	/**
-	 * 관리자 페이지 신고 관리를 위한 페이징바(select) - 작성자: 수빈
+	 * 관리자 페이지 코멘트 신고 관리를 위한 페이징바(select) - 작성자: 수빈
 	 */
 	@Override
 	public int reportedCommentListCount() {
@@ -214,5 +214,69 @@ public class AdminServiceImpl implements AdminService {
 	@Override
 	public int resetReportedComment(int reviewNo) {
 		return adminDao.resetReportedComment(sqlSession, reviewNo);
+	}
+	
+	/**
+	 * 관리자 페이지 댓글 신고 관리를 위한 페이징바(select) - 작성자: 수빈
+	 */
+	@Override
+	public int reportedReplyListCount() {
+		return adminDao.reportedReplyListCount(sqlSession);
+	}
+
+	/**
+	 * 관리자 페이지에서 신고 관리를 위해 신고된 모든 댓글 조회 (select) - 작성자: 수빈
+	 */
+	@Override
+	public ArrayList<Report> reportedReplyList(PageInfo pi) {
+		return adminDao.reportedReplyList(sqlSession, pi);
+	}
+
+	/**
+	 * 관리자 페이지 신고 관리에서 신고된 댓글 삭제(REPORT_STATUS='Y') 하는 메소드 - 작성자: 수빈
+	 */
+	@Override
+	public int changeStatusReportedReply(int reportNo) {
+		return adminDao.changeStatusReportedReply(sqlSession, reportNo);
+	}
+
+	/**
+	 * 관리자 페이지 신고 관리에서 신고된 댓글을 삭제(REVIEW_STATUS='N') 하는 메소드 - 작성자: 수빈
+	 */
+	@Override
+	public int deleteReportedReply(int comRplNo) {
+		return adminDao.deleteReportedReply(sqlSession, comRplNo);
+	}
+
+	/**
+	 * 관리자 페이지 신고 관리에서 처리된 댓글 보기 버튼 클릭 시 페이징바(select) - 작성자: 수빈
+	 */
+	@Override
+	public int processedReplyListCount() {
+		return adminDao.processedReplyListCount(sqlSession);
+	}
+
+	/**
+	 * 관리자 페이지 신고 관리에서 처리된 댓글 보기 버튼 클릭 시 신고 처리된 모든 댓글 조회 (select) - 작성자: 수빈
+	 */
+	@Override
+	public ArrayList<Report> processedReplyList(PageInfo pi) {
+		return adminDao.processedReplyList(sqlSession, pi);
+	}
+
+	/**
+	 * 관리자 페이지 신고 관리에서 신고된 댓글을 되돌리는(REPORT_STATUS='N') 메소드 - 작성자: 수빈
+	 */
+	@Override
+	public int resetStatusReportedReply(int reportNo) {
+		return adminDao.resetStatusReportedReply(sqlSession, reportNo);
+	}
+
+	/**
+	 * 관리자 페이지 신고 관리에서 신고된 댓글 삭제 상태를 되돌리는(REVIEW_STATUS='Y') 메소드 - 작성자: 수빈
+	 */
+	@Override
+	public int resetReportedReply(int comRplNo) {
+		return adminDao.resetReportedReply(sqlSession, comRplNo);
 	}
 }

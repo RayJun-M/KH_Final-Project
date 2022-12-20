@@ -9,7 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>관리자 신고 관리</title>
 
-	<link href="resources/css/adminReported.css" rel="stylesheet">
+	<link href="resources/css/adminReportedComment.css" rel="stylesheet">
 
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css">
 	<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
@@ -47,7 +47,7 @@
 		        <div><a href="">콘텐츠 관리</a></div>
 				<div><a href="commentList.ad">코멘트 관리</a></div>
 		        <div><a href="">이용권 관리</a></div>       
-		        <div id="selected_tab"><a href="reportManagement.ad">신고 관리</a></div>
+		        <div id="selected_tab"><a href="reportedComment.ad">신고 관리</a></div>
 		        <div><a href="admin_stat.st">통계 관리</a></div>
 			</div>
 
@@ -55,12 +55,14 @@
 			<div id="reportManagement">
 				<br>
 				<div id="reportCategory">
+					<div style="float : left;">
 					<!-- 구현하는 페이지 option에 옵션 selected 넣을 것 -->
-					<select id="reportPageTab">
-						<option>커뮤니티 글</option>
-						<option>커뮤니티 댓글</option>
-						<option value="comment" name="comment" selected>코멘트</option>
-					</select>
+						<select id="reportPageTab" name="reportCategory" onchange="changeSelect()">
+							<option value="community" name="community">커뮤니티 글</option>
+							<option value="communityReply" name="communityReply">커뮤니티 댓글</option>
+							<option value="comment" name="comment" selected>코멘트</option>
+						</select>
+					</div>
 					<div style="text-align:right; color: white; font-size:bold;"><button type="button" onclick="reportedCommentList();">처리되지 않은 코멘트 보기</button></div>
 				</div>
 				
@@ -71,7 +73,7 @@
 							<table id="commentTable">
 								<thead>
 									<tr id="comment_head" class="line">
-										<th class="comment_head1" width="10%;">작성자</th>
+										<th class="comment_head1" width="10%;">신고자</th>
 										<th class="comment_head1" width="10%;">작성일</th>
 										<th class="comment_head1" width="10%;">코멘트 번호</th>
 										<th class="comment_head1" width="25%;">코멘트 내용</th>
@@ -107,12 +109,12 @@
 										<button type="button" onclick="location.href='#';" disabled>«</button>
 									</c:when>
 									<c:otherwise>
-										<button type="button" onclick="location.href='reportManagement.ad?cpage=${ pi.currentPage - 1}';">«</button>
+										<button type="button" onclick="location.href='processedCommentList.ad?cpage=${ pi.currentPage - 1}';">«</button>
 									</c:otherwise>
 								</c:choose>
 								
 								<c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }" step="1">
-									<button type="button" onclick="location.href='reportManagement.ad?cpage=${ p }';">${ p }</button>
+									<button type="button" onclick="location.href='processedCommentList.ad?cpage=${ p }';">${ p }</button>
 								</c:forEach>
 								
 								<c:choose>
@@ -120,7 +122,7 @@
 										<button type="button" onclick="location.href='#';" disabled>»</button>
 									</c:when>
 									<c:otherwise>
-										<button type="button" onclick="location.href='reportManagement.ad?cpage=${ pi.currentPage + 1}';">${ p }</button>
+										<button type="button" onclick="location.href='processedCommentList.ad?cpage=${ pi.currentPage + 1}';">${ p }</button>
 									</c:otherwise>
 								</c:choose>
 							</div>
@@ -131,7 +133,25 @@
 							</c:choose>
 								
 				</div> <!-- commentListAll 영역 끝 -->
-				
+
+				<!-- 신고관리 option category select시 url 이동 -->
+				<script> 
+					function changeSelect(){ 
+	
+						var selectList = document.getElementById("reportPageTab")
+						
+						if(selectList.value == "community"){
+							location.href = "reportedCommunity.ad";
+						}
+						if(selectList.value == "communityReply"){
+							location.href = "reportedReply.ad";
+						}
+						if(selectList.value == "comment"){
+							location.href = "reportedComment.ad";
+						}
+					}
+				</script>
+								
 				<script>
 					$("#commentListAll").on("click", "#deleteReportedComment", function(){
 						
@@ -167,7 +187,7 @@
 					});
 					
 					function reportedCommentList() {
-						location.href="reportManagement.ad";
+						location.href="reportedComment.ad";
 					}
 				</script>
 

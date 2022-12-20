@@ -1,0 +1,38 @@
+@charset "UTF-8";
+
+/* -------------------- 콘텐츠 관리 탭 영역 설정 -------------------- */
+#admin-contents-tab_container {
+    /* 표시 유형 */
+    display: flex;
+    /* 정렬 */
+    align-items: center;
+    text-align: center;
+    /* 외부 여백 */
+    margin-top: 1.5rem;
+    margin-left: 0.5rem;
+    /* 가로 세로 크기 */
+    width: 15rem;
+    height: 3.5rem;
+    /* 텍스트 크기 */
+    font-size: 1.2rem;
+    /* 줄 높이 */
+    line-height: 3rem;
+}
+/* 가로 크기 */
+#admin-contents-tab_container span { width: 1rem; }
+.admin-contents-tab_link, .admin-contents-tab_txt { width: 7rem; }
+/* 세로 크기 */
+#admin-contents-tab_container span, .admin-contents-tab_link, .admin-contents-tab_txt { height: 100%; }
+#admin-contents-tab_container span, .admin-contents-tab_link {
+    /* 텍스트 색상 */
+    color: var(--headerMenuLinkColor);
+    /* 투명도 */
+    opacity: .4;
+}
+/* 속성 변화 속도 */
+.admin-contents-tab_link { transition: opacity .1s; }
+
+/* ~~~~~ 콘텐츠 관리 탭 호버 및 선택 ~~~~~ */
+/* 투명도 */
+.admin-contents-tab_link:hover { opacity: .7; }
+#admin-contents-tab_container a.active { opacity: 1; }

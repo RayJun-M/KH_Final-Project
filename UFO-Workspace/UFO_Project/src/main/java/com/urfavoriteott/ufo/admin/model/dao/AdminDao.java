@@ -238,7 +238,7 @@ public class AdminDao {
 	}
 	
 	/**
-	 * 관리자 페이지에서 신고 관리를 위해 신고된 모든 코멘트 조회 (select) - 작성자: 수빈
+	 * 관리자 페이지에서 코멘트 신고 관리를 위해 신고된 모든 코멘트 조회 (select) - 작성자: 수빈
 	 * @param sqlSession
 	 * @param pi
 	 * @return
@@ -307,8 +307,8 @@ public class AdminDao {
 	 * @param reportNo
 	 * @return
 	 */
-	public int resetStatusReportedComment(SqlSessionTemplate sqlSession, int reviewNo) {
-		return sqlSession.update("adminMapper.resetStatusReportedComment", reviewNo);
+	public int resetStatusReportedComment(SqlSessionTemplate sqlSession, int reportNo) {
+		return sqlSession.update("adminMapper.resetStatusReportedComment", reportNo);
 	}
 	
 	/**
@@ -318,6 +318,92 @@ public class AdminDao {
 	 */
 	public int resetReportedComment(SqlSessionTemplate sqlSession, int reviewNo) {
 		return sqlSession.update("adminMapper.resetReportedComment", reviewNo);
+	}
+	
+	/**
+	 * 관리자 페이지 댓글 신고 관리를 위한 페이징바(select) - 작성자: 수빈
+	 */
+	public int reportedReplyListCount(SqlSessionTemplate sqlSession) {
+		return sqlSession.selectOne("adminMapper.reportedReplyListCount");
+	}
+
+	/**
+	 * 관리자 페이지에서 신고 관리를 위해 신고된 모든 댓글 조회 (select) - 작성자: 수빈
+	 */
+	public ArrayList<Report> reportedReplyList(SqlSessionTemplate sqlSession, PageInfo pi) {
+		
+		int limit = pi.getBoardLimit();
+		int offset = (pi.getCurrentPage() -1) * limit;
+		
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		
+		return (ArrayList)sqlSession.selectList("adminMapper.reportedReplyList", null, rowBounds);
+	}
+	
+	/**
+	 * 관리자 페이지 신고 관리에서 신고된 댓글 삭제(REPORT_STATUS='Y') 하는 메소드 - 작성자: 수빈
+	 * @param sqlSession
+	 * @param reportNo
+	 * @return
+	 */
+	public int changeStatusReportedReply(SqlSessionTemplate sqlSession, int reportNo) {
+		return sqlSession.update("adminMapper.changeStatusReportedReply", reportNo);
+	}
+	
+	/**
+	 * 관리자 페이지 신고 관리에서 신고된 댓글을 삭제(REVIEW_STATUS='N') 하는 메소드 - 작성자: 수빈
+	 * @param sqlSession
+	 * @param comRplNo
+	 * @return
+	 */
+	public int deleteReportedReply(SqlSessionTemplate sqlSession, int comRplNo) {
+		return sqlSession.update("adminMapper.deleteReportedReply", comRplNo);
+	}
+	
+	/**
+	 * 관리자 페이지 신고 관리에서 처리된 댓글 보기 버튼 클릭 시 페이징바(select) - 작성자: 수빈
+	 * @param sqlSession
+	 * @return
+	 */
+	public int processedReplyListCount(SqlSessionTemplate sqlSession) {
+		return sqlSession.selectOne("adminMapper.processedReplyListCount");
+	}
+	
+	/**
+	 * 관리자 페이지 신고 관리에서 처리된 댓글 보기 버튼 클릭 시 신고 처리된 모든 댓글 조회 (select) - 작성자: 수빈
+	 * @param sqlSession
+	 * @param pi
+	 * @return
+	 */
+	public ArrayList<Report> processedReplyList(SqlSessionTemplate sqlSession, PageInfo pi) {
+		
+		int limit = pi.getBoardLimit();
+		int offset = (pi.getCurrentPage() -1) * limit;
+		
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		
+		return (ArrayList)sqlSession.selectList("adminMapper.processedReplyList", null, rowBounds);
+		
+	}
+	
+	/**
+	 * 관리자 페이지 신고 관리에서 신고된 댓글을 되돌리는(REPORT_STATUS='N') 메소드 - 작성자: 수빈
+	 * @param sqlSession
+	 * @param reportNo
+	 * @return
+	 */
+	public int resetStatusReportedReply(SqlSessionTemplate sqlSession, int reportNo) {
+		return sqlSession.update("adminMapper.resetStatusReportedReply", reportNo);
+	}
+	
+	/**
+	 * 관리자 페이지 신고 관리에서 신고된 댓글 삭제 상태를 되돌리는(REVIEW_STATUS='Y') 메소드 - 작성자: 수빈
+	 * @param sqlSession
+	 * @param comRplNo
+	 * @return
+	 */
+	public int resetReportedReply(SqlSessionTemplate sqlSession, int comRplNo) {
+		return sqlSession.update("adminMapper.resetReportedReply", comRplNo);
 	}
 
 	public int selectAdminPaymentListCount(SqlSessionTemplate sqlSession) {

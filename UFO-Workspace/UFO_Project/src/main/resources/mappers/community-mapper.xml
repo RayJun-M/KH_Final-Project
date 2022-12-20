@@ -14,14 +14,18 @@
 		<result column="USER_NO" property="userNo" />
 	</resultMap>	
 	
+	<!-- COMMUNITY_REPLY 테이블로부터 조회된 내용을 communityReply 타입으로 가공해주는 ResultMap -->
 	<resultMap id="replyResultSet" type="communityReply">
 		<result column="COM_RPL_NO" property="comRplNo" />
 		<result column="COM_NO" property="comNo" />
 		<result column="COM_RPL_CONTENT" property="comRplContent" />
 		<result column="COM_RPL_REGISTER_DATE" property="comRplRegisterDate" />
 		<result column="COM_RPL_STATUS" property="comRplStatus" />
-		<result column="USER_NO" property="userNo" />
 		<result column="USER_NICKNAME" property="userNickname" />
+		<result column="USER_NO" property="userNo" />
+		<result column="REPORT_REASON" property="reportReason" />
+		<result column="REPORT_DATE" property="reportDate" />
+		<result column="REPORT_STATUS" property="reportStatus" />
 	</resultMap>
 	
 	<!-- 커뮤니티 게시글 수 조회 쿼리문 -->
@@ -72,5 +76,21 @@
 		FROM COMMUNITY
 		WHERE COM_NO = #{comNo}
 	</select>
+	
+	<!-- 커뮤니티 댓글 신고를 눌렀을 때 사용할 메소드 - 작성자: 수빈 -->
+	<update id="reportReply" parameterType="report">
+		INSERT INTO REPORT (REPORT_NO
+                  , COM_RPL_NO
+                  , USER_NO
+                  , REPORT_REASON
+                  , REPORT_DATE
+                  , REPORT_STATUS)
+            VALUES (SEQ_REPORT_NO.NEXTVAL
+                  , #{comRplNo}
+                  , #{loginUserNo}
+                  , #{reportReason}
+                  , SYSDATE
+                  , 'N')
+	</update>
 
 </mapper>

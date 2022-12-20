@@ -24,7 +24,7 @@
 		
 		<!-- 플로팅 버튼 영역 -->
 	    <jsp:include page="../common/floatingButton.jsp" />
-	
+
 		<!-- 헤더 영역 -->
 	   	<jsp:include page="../common/header.jsp" />
 	   	
@@ -32,38 +32,78 @@
 	   		<jsp:include page="movieDetailView.jsp" />
 	
 		    <div id="commentArea">
+				<form id="loginUserForm" action="" method="post">
+				  	<input type="hidden" name="loginUserNo" id="loginUserNo" value=${ loginUser.userNo }>
+				</form>
 		        <br>
 		        	<c:choose>
 					<c:when test="${ not empty loginUser }">
 						<div id="starForm">
 						<!-- 유저가 쓴 별점/코멘트가 없을 때: 별점 -->
 						<br><br><br>
-							
-							<form id="starScoreArea">
-								<div id="commentTitle"><b>${ loginUser.userNickname }</b> 님, 이 콘텐츠 어떠셨나요?</div>
-								<span class="star">
-										★★★★★
-									<span>★★★★★</span>
-									<input type="range" oninput="drawStar(this)" value="1" step="1" min="0" max="10">
-								</span>
-							</form>
+							<c:choose>
+								<c:when test="${ not empty myComment }">
+									<c:choose>
+										<c:when test="${ empty myComment.reviewContent }">
+											<!-- 유저가 쓴 별점만 있을 때 -->	
+											<form id="starScoreArea" action="" method="get">
+												<div id="commentTitle"><b>${ loginUser.userNickname }</b> 님의 평가입니다!</div>
+												<span class="star"> ★★★★★
+													<span>★★★★★</span>
+													<input type="range" id="starRating" oninput="drawStar(this)" value="${ myComment.reviewStar }" step="0.5" min="0" max="10">
+												</span>
+												<br><br>
+												<div id="loginUserCommentArea">
+													<div id="loginUserComment">
+														<textarea id="myCommentTextarea" name="myCommentTextarea" placeholder="어떻게 보셨나요? 회원님의 이야기를 들려주세요!" style="text-align:center; font-size:20px; background-color:white; color:black;">${ myComment.reviewContent }</textarea>
+													</div>
+													<br>
+													<div>
+														<input type="hidden" name="myReviewNo" id="myReviewNo" value="${ myComment.reviewNo }">
+														<button type="button" onclick="myCommentSubmit(1);">작성</button>
+													</div>
+												</div>
+											</form>
+										</c:when>
+										<c:when test="${ not empty myComment.reviewContent }">
+											<!-- 유저가 쓴 별점/코멘트가 있을 때 -->	
+											<form id="starScoreArea" action="" method="get">
+												<div id="commentTitle"><b>${ loginUser.userNickname }</b> 님의 평가입니다!</div>
+												<span class="star"> ★★★★★
+													<span>★★★★★</span>
+													<input type="range" id="starRating" oninput="drawStar(this)" value="${ myComment.reviewStar }" step="0.5" min="0" max="10">
+												</span>
+												<br><br>
+												<c:if test="${ not empty myComment.reviewStar }">
+													<div id="loginUserCommentArea">
+														<div id="loginUserComment">
+															<textarea id="myCommentTextarea" readonly>${ myComment.reviewContent }</textarea>
+														</div>
+														<br>
+														<div>
+															<input type="hidden" name="myReviewNo" id="myReviewNo" value="${ myComment.reviewNo }">
+															<button type="button" id="updateMyCommentButton" data-toggle="modal" data-target="#myCommentModal">수정</button>
+															&nbsp;&nbsp;&nbsp;&nbsp;<button type="button" onclick="myCommentSubmit(2);">삭제</button>
+														</div>
+													</div>
+												</c:if>
+											</form>
+										</c:when>
+									</c:choose>
+								</c:when>
+								<c:otherwise>
+									<form id="starScoreArea">
+										<div id="commentTitle"><b>${ loginUser.userNickname }</b> 님, 이 콘텐츠 어떠셨나요?</div>
+										<span class="star">
+												★★★★★
+											<span>★★★★★</span>
+											<input type="range" id="starRating" oninput="drawStar(this)" value="0" step="0.5" min="0" max="10">
+										</span>
+									</form>
+								</c:otherwise>
+							</c:choose>
 							<br>
-							<!-- 유저가 쓴 별점/코멘트가 있을 때 -->	
-							<form id="starScoreArea">
-								<div id="commentTitle"><b>${ loginUser.userNickname }</b> 님의 평가입니다!</div>
-								<span class="star"> ★★★★★
-									<span>★★★★★</span>
-									<input type="range" oninput="drawStar(this)" value="1" step="1" min="0" max="10">
-								</span>
-								<br><br>
-								<div id="loginUserCommentArea">
-									<div id="loginUserComment">
-										<textarea id="myCommentTextarea" readonly>이 영화... 대박적이다 대박적이긴 대박적인데 이것도 엄청 길게 테스트를 해 봐야 해서 무슨 말이든 해야 한다 왜냐면 그래야 길게 적었을 때 예쁘게 보일지 알 수 있고 얘도 padding을 줘야 하는 놈인지 알 수 있기 때문이다... 이렇게 코멘트를 길게 쓰는 사람이 있냐고요? 잇을수도 있지 왜 그러세요...</textarea>
-									</div>
-									<br>
-									<button>수정</button>&nbsp;&nbsp;&nbsp;&nbsp;<button>삭제</button>
-								</div>
-							</form>
+							
 						</div>
 	
 					</c:when>
@@ -74,17 +114,205 @@
 					</c:choose>
 						
 					<script>
+					
+						// 별점/코멘트 탭을 눌렀을 때 로그인 유저 정보를 넘기기
+						// $("#content_tab").find("li").on("click", function(){ // 회차만 뽑힘
+						// $(document.querySelectorAll('#content_tab > ul > li')[1]).on("click", function() { // 콘솔에만 찍히고 controller에 안 넘어감
+							
+						// window.onload=function() { // 페이지 무한 리로딩
+						// $(function(){ // 페이지 무한 리로딩
+						// $(document).ready(function(){ // 페이지 무한 리로딩
+							
+						// $("#rating_commentTab").on("click", function(){ // div 만들어서 집어 봄 안 됨
+							
+						$("#content_tab").find("li:eq(1)").on("click", function(){ // movieDetailView에서 a 태그 url mapping값 뺌
+							
+							const loginUserForm = $("#loginUserForm");
+							// console.log(loginUserForm);
+							
+							const loginUserNo = $("#loginUserNo").val();
+				        	// console.log(loginUserNo);
+				            	
+				            $("#loginUserForm").attr("action","commentList.co").submit();
+					
+						});
+						
+        				
+						// 나의 별점 그리기
+						let score = 0;
+						
 				        const drawStar = (target) => {
 				        	
-		                    var score = target.value * 10;
-		
-		                    $(".star span").css({ width: score + "%" });
+		                    var tmp = target.value * 10;
+		                    $(".star span").css({ width: tmp + "%" });
 		                    
+							score = tmp;
 		                    
-		                    
-		                    console.log(score);
+		                    // console.log(tmp); // 움직일 때마다 0~100 10단위
 
+				        };
+				        
+				        // "별점에서 마우스 나갔을 때=움직이다가 멈춘 마지막"의 값을 찍어야 함(데이터 소모 방지)
+				        $("#starRating").mouseup(function() {
+				        	
+				        	const conversionScore = score / 20;
+				        	const loginUserNo = $("#loginUserNo").val();
+				        	const myReviewNo = $("#commentArea").find("#myReviewNo").val();
+				        	
+				        	// console.log("마우스 나갔어용"); // 현재 마우스 나갔을 때 콘솔이 뜸
+				        	// console.log(conversionScore); // 100 단위를 0~5 0.5점 단위로 환산 완료
+				        	// console.log(loginUserNo);
+				        	
+				        	// 별점 등록이 처음이라면 insert, 아니라면 update를 해 줘야 함
+				        	$.ajax({
+				        		url : "selectCondition.co",
+				        		data : { loginUserNo : loginUserNo,
+				        				 contentsId : 1427 
+				        		}, 
+				        		type : "post",
+				        		success : function(result) {
+				        	
+				        			if(result > 0) {
+				        				
+				        				$.ajax({
+				        				
+				        					url: "updateMyStar.co",
+				        					data : { myReviewNo : myReviewNo,
+				        							 conversionScore : conversionScore
+				        					},
+				        					type : "get",
+				        					success : function(result) {
+				        						console.log("별점 업데이트용 ajax 통신 성공!");
+				        						location.reload();
+				        					
+				        					},
+				        					error : function() {
+				        						console.log("별점 업데이트용 ajax 통신 실패!");
+				        					}
+				        					
+				        				});
+				        				
+				        			} else {
+				        				
+				        				$.ajax({
+					        				
+				        					url: "insertMyStar.co",
+				        					data : { conversionScore : conversionScore,
+				        							 loginUserNo : loginUserNo,
+				        							 contentsId : 1427
+				        					},
+				        					type : "get",
+				        					success : function(result) {
+				        						console.log("별점 인서트용 ajax 통신 성공!");
+				        						location.reload();
+				        					
+				        					},
+				        					error : function() {
+				        						console.log("별점 인서트용 ajax 통신 실패!");
+				        					}
+				        					
+				        				});
+				        				
+				        			}
+				        		},
+				        		error : function(){
+				        			console.log("조건 검사용 ajax 통신 실패!");
+				        		}
+				        	
+				        	});
+				        	
+				        	
+				        });
+				        
+				       // 화면이 로드됐을 때 기본 설정
+				        $(document).ready(function() {
+				        	
+				        	// 화면이 로드됐을 때 myComment의 별점만큼 색칠이 되어 있게끔 설정
+		                    const defaultStar = $("#commentArea").find("#starRating").val()*20;
+				        	// console.log(defaultStar);
+		                    $(".star span").css({ width: defaultStar + "%" });
+		
+		                    // 코멘트 수정 모달창이 열렸을 때 textarea에 포커스
+				        	$("#myCommentModal").on("shown.bs.modal", function () {		
+					    		$("#updateMyComment").focus();
+					    	});	
+						});
+				        
+				        function myCommentSubmit(num) {
+				        	
+				        	const myReviewNo = $("#commentArea").find("#myReviewNo").val();
+				        	const myComment = $("#commentArea").find("#myCommentTextarea").val();
+				        	
+				        	// console.log(myReviewNo);
+				        	// console.log(myCommentTextarea);
+				        	
+				        	if(num == 1) {
+				        		
+				        		// console.log("작성 버튼 클릭");
+				        		
+				        		if(confirm("작성한 코멘트를 등록하시겠습니까?")) {
+				        			
+				        			$.ajax({
+					        			
+					        			url : "insertMyComment.co",
+					        			data : {
+					        				myReviewNo : myReviewNo,
+					        				myComment : myComment
+					        			},
+					        			type : "post",
+					        			success : function(result) {
+					        				
+					        				if(result > 0) {
+					        					
+					        					alert("코멘트가 성공적으로 등록되었습니다!");
+					        					location.reload();
+					        				
+					        				} else {
+					        					
+					        					alert("코멘트 작성에 실패하였습니다. 잠시 후 다시 시도해 주세요.");
+					        					location.reload();
+					        					
+					        				}
+					        				
+					        			},
+					        			error : function() {
+					        				
+					        				console.log("코멘트 작성용 ajax 통신 실패!");
+					        				
+					        			}
+					        			
+					        		});
+				        		}
+				        		
+				        	} else if(num == 2) {
+
+				        		console.log("삭제 버튼 클릭");
+				        		
+				        		if(confirm("코멘트를 삭제하시겠습니까?")) {
+				        			
+				        			$("#starScoreArea").attr("action", "deleteMyComment.co").submit();
+				        			
+				        		}
+				        	} else {
+				        		
+				        		console.log("수정 버튼 클릭");
+				        		
+				        		if(confirm("입력한 내용으로 코멘트를 수정하시겠습니까?")) {
+				        			
+				        			$("#updateMyCommentForm").attr("action", "updateMyComment.co").submit();
+				        		
+				        		}
+				        		
+				        	}
+				        		
 				        }
+				        
+				        <c:if test="${ not empty Msg }">
+				        
+				        	alert('${ Msg }');
+				        
+				        </c:if>
+				        
 				    </script>
 		
 		        <br>
@@ -95,10 +323,10 @@
 	                <div id="commentInfo">
 	                	<c:choose>
 		                	<c:when test="${ not empty Movie }">
-		                		<input type="hidden" name="contentsId" id="contentsId" value="1427"> <!-- ${ Movie.movieId } 대신 테스트용으로 향수 번호 넣음 -->
+		                		<input type="hidden" name="contentsId" id="contentsId" value="1427"> <!-- ${ movie.movieId } 대신 테스트용으로 향수 번호 넣음 -->
 		                	</c:when>
 		                	<c:otherwise>
-		                		<input type="hidden" name="contentsId" id="contentsId" value="1427"> <!-- ${ TV.tvId } 대신 테스트용으로 향수 번호 넣음 -->
+		                		<input type="hidden" name="contentsId" id="contentsId" value="1427"> <!-- ${ tv.tvId } 대신 테스트용으로 향수 번호 넣음 -->
 		                	</c:otherwise>
 	                	</c:choose>
 						<div id="commentAll">&nbsp;&nbsp;&nbsp;현재 ${ listCount }명의 UFO 이용자가 코멘트를 남겼습니다.</div>
@@ -123,7 +351,14 @@
 									<th colspan="2"><div class="personalCommentStar">★ ${ r.reviewStar } </div></th>
 								</tr>
 								<tr class="personalCommentContent">
-									<th colspan="2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${ r.reviewContent }</th>
+									<c:choose>
+										<c:when test="${ not empty r.reviewContent }">
+											<th colspan="2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${ r.reviewContent }</th>
+										</c:when>
+										<c:otherwise>
+											<th colspan="2" style="font-size:12px; color:gray;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${ r.userNickname } 님께서는<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;현재 별점만 주신 상태예요!</th>
+										</c:otherwise>
+									</c:choose>
 								</tr>
 							</table>
 						</div>
@@ -204,6 +439,35 @@
                           </div>
                       </div>
                 </form> <!-- 코멘트 신고 모달창 끝 -->
+                
+                <!-- 코멘트 수정 모달창 -->
+                <form id="updateMyCommentForm" action="" method="post" name="updateMyCommentForm">
+				  <div class="modal fade" id="myCommentModal">
+				    <div class="modal-dialog modal-xl">
+				      <div class="modal-content">
+				      
+				        <!-- Modal Header -->
+				        <div class="modal-header">
+				          <h4 class="modal-title" style="color:black;">코멘트 수정</h4>
+				          <button type="button" class="close" data-dismiss="modal">&times;</button>
+				        </div>
+				        
+				        <!-- Modal body -->
+				        <div class="modal-body">
+				          <textarea id="updateMyComment" name="updateMyComment" style="width:1100px; resize:none;" autofocus>${ myComment.reviewContent }</textarea>
+				        </div>
+				        
+				        <!-- Modal footer -->
+				        <div class="modal-footer">
+				       		<input type="hidden" name="myReviewNo" id="myReviewNo" value="${ myComment.reviewNo }">
+				            <button type="button" class="btn btn-info" data-dismiss="modal" onclick="myCommentSubmit(3);">수정</button>
+				            <button type="button" class="btn" data-dismiss="modal">취소</button>
+				        </div>
+				        
+				      </div>
+				    </div>
+				  </div>
+				</form>
 
 		    </div>  <!-- 댓글 영역  끝 -->
 		</div>

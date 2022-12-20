@@ -29,7 +29,7 @@
 		<!-- 헤더 영역 -->
 	   	<jsp:include page="../common/header.jsp" />
 	   	
-        <br><br>
+        <br><br><br><br>
         <div id="commentArea">
         	<c:choose>
         		<c:when test="${ not empty movieId }">
@@ -60,7 +60,14 @@
 	                        <th colspan="2"><div class="personalCommentStar">★ ${ r.reviewStar }</div></th>
 	                    </tr>
 	                    <tr class="personalCommentContentTR">
-	                        <th class="personalCommentContent" colspan="2">${ r.reviewContent }</th>
+	                        <c:choose>
+								<c:when test="${ not empty r.reviewContent }">
+									<th class="personalCommentContent" colspan="2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${ r.reviewContent }</th>
+								</c:when>
+								<c:otherwise>
+									<th class="personalCommentContent" colspan="2" style="font-size:12px; color:gray;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${ r.userNickname } 님께서는<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;현재 별점만 주신 상태예요!</th>
+								</c:otherwise>
+							</c:choose>
 	                    </tr>
 	                </table>
 	            </div>

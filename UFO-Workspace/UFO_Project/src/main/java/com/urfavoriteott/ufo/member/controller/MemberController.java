@@ -426,7 +426,7 @@ public class MemberController {
 		}
 	}
 
-  /**
+	/**
 	 * 마이 페이지 별점 및 코멘트 내역에서 사용할 페이징 바, 기본 접속 시 내가 쓴 전체 코멘트 조회 - 작성자 : 수빈
 	 * @param currentPage
 	 * @param model

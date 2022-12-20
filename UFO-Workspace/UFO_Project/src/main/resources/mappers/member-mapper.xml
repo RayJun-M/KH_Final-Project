@@ -12,6 +12,7 @@
 		<result column="USER_PROFILE" property="userProfile" />
 	</resultMap>
 	
+	<!-- 리뷰 관련 resultSet, 작성자: 수빈 -->
 	<resultMap id="reviewResultSet" type="review">
 		<result column="REVIEW_NO" property="reviewNo" />
 		<result column="USER_NO" property="userNo" />
@@ -51,6 +52,7 @@
 		<result column="REG_URL" property="payUrl" />
 		<result column="BILLINGKEY" property="billingKey" />
 	</resultMap>
+	
 	<!-- 로그인용 쿼리문(암호화작업 완료) -->
 	<select id="loginMember" parameterType="member" resultMap="memberResultSet">
 		SELECT *
@@ -183,7 +185,7 @@
 		 WHERE USER_NO = #{userNo}
 	</update>
 	
-		<!-- 마이 페이지 별점 및 코멘트 내역 조회를 위한 페이징바(select) - 작성자 : 수빈 -->
+	<!-- 마이 페이지 별점 및 코멘트 내역 조회를 위한 페이징바(select) - 작성자 : 수빈 -->
 	<select id="selectMyCommentListCount" resultType="_int">
 		SELECT COUNT(*)
 		FROM REVIEW

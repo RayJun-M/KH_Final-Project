@@ -341,7 +341,7 @@ public class AdminController {
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping("reportManagement.ad")
+	@RequestMapping("reportedComment.ad")
 	public String reportedCommentList(@RequestParam(value="cpage", defaultValue="1") int currentPage, Model model) {
 		
 		int listCount = adminService.reportedCommentListCount();
@@ -356,7 +356,7 @@ public class AdminController {
 		model.addAttribute("pi", pi);
 		model.addAttribute("list", list);
 		
-		return "admin/adminReported";
+		return "admin/adminReportedComment";
 		
 	}
 	
@@ -372,9 +372,9 @@ public class AdminController {
 		// System.out.println(reportNo);
 		// System.out.println(reviewNo);
 		
-		int result1 = adminService.changeStatusReportedComment(reportNo);
+		int result1 = adminService.changeStatusReportedComment(reportNo); // 신고된 코멘트의 상태를 신고 완료 (STATUS='Y')로 변경
 		
-		int result2 = adminService.deleteReportedComment(reviewNo);
+		int result2 = adminService.deleteReportedComment(reviewNo); // 코멘트의 상태를 삭제 상태(STATUS='N')로 변경
 		
 		int result = result1 * result2;
 		
@@ -385,7 +385,7 @@ public class AdminController {
 	}
 	
 	/**
-	 * 관리자 페이지 신고 관리에서 처리된 코멘트 보기 버튼 클릭 시 사용할 페이징 바, 기본 접속 시 신고된 전체 코멘트 조회 - 작성자 : 수빈
+	 * 관리자 페이지 신고 관리에서 처리된 코멘트 보기 버튼 클릭 시 사용할 페이징 바, 기본 접속 시 처리된 전체 코멘트 조회 - 작성자 : 수빈
 	 * @param currentPage
 	 * @param model
 	 * @return
@@ -453,5 +453,104 @@ public class AdminController {
 		mv.setViewName("admin/adminPayment");
 		
 		return mv;
+	}
+	
+	/**
+	 * 관리자 페이지 신고 관리: 페이징바와 신고된 댓글 조회 페이지 - 작성자: 수빈
+	 * @param currentPage
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping("reportedReply.ad")
+	public String reportedReplyList(@RequestParam(value="cpage", defaultValue="1") int currentPage, Model model) {
+		
+		int listCount = adminService.reportedReplyListCount();
+		
+		int pageLimit = 10;
+		int boardLimit = 10;
+		
+		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, pageLimit, boardLimit);
+		
+		ArrayList<Report> replyList = adminService.reportedReplyList(pi);
+		
+		model.addAttribute("pi", pi);
+		model.addAttribute("replyList", replyList);
+		
+		return "admin/adminReportedReply";
+	}
+	
+	/**
+	 * 관리자 페이지 신고 관리에서 신고된 댓글을 삭제하는(STATUS='N') 하는 메소드 - 작성자: 수빈
+	 * @param reportNo
+	 * @param reviewNo
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value= "deleteReportedReply.ad", produces="application/json; charset=UTF-8")
+	public int deleteReportedReply(int reportNo, String comRplNo) {
+		
+		// System.out.println(reportNo);
+		// System.out.println(comRplNo);
+		
+		int result1 = adminService.changeStatusReportedReply(reportNo); // 신고된 댓글의 상태를 신고 완료 (STATUS='Y')로 변경
+		
+		int result2 = adminService.deleteReportedReply(Integer.parseInt(comRplNo)); // 댓글의 상태를 삭제 상태(STATUS='N')로 변경
+		
+		int result = result1 * result2;
+		
+		// System.out.println(result);
+		
+		return result;
+		
+	}
+	
+	/**
+	 * 관리자 페이지 신고 관리에서 처리된 댓글 보기 버튼 클릭 시 사용할 페이징 바, 기본 접속 시 처리된 전체 댓글 조회 - 작성자 : 수빈
+	 * @param currentPage
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping("processedReplyList.ad")
+	public String processedReplyList(@RequestParam(value="cpage", defaultValue="1") int currentPage, Model model) {
+		
+		int listCount = adminService.processedReplyListCount();
+		
+		int pageLimit = 10;
+		int boardLimit = 10;
+		
+		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, pageLimit, boardLimit);
+		
+		ArrayList<Report> replyList = adminService.processedReplyList(pi);
+		
+		model.addAttribute("pi", pi);
+		model.addAttribute("replyList", replyList);
+		
+		return "admin/adminProcessedReply";
+		
+	}
+	
+	/**
+	 * 관리자 페이지 신고 관리에서 신고된 댓글을 되돌리는(STATUS='Y') 하는 메소드 - 작성자: 수빈
+	 * @param reportReplyNo
+	 * @param comRplNo
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value="resetReportedReply.ad", produces="application/json; charset=UTF-8")
+	public int resetReportedReply(int reportNo, int comRplNo) {
+		
+		// System.out.println(reportNo);
+		// System.out.println(comRplNo);
+		
+		int result1 = adminService.resetStatusReportedReply(reportNo);
+		
+		int result2 = adminService.resetReportedReply(comRplNo);
+		
+		int result = result1 * result2;
+		
+		// System.out.println(result);
+		
+		return result;
+		
 	}
 }

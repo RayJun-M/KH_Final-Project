@@ -1,195 +1,517 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" %>
-<%@ page import="java.util.ArrayList, com.urfavoriteott.ufo.contents.model.vo.Movie
-                , com.urfavoriteott.ufo.contents.controller.ContentsController" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%
-    String contextPath = request.getContextPath();
-    ArrayList<Movie> movieHeader = new ContentsController().getMovieTopRated();
-    ArrayList<Movie> moviePopular = new ContentsController().getMoviePopular();
-    ArrayList<Movie> movieLatest = new ContentsController().getMovieLatest();
-    ArrayList<Movie> movieVideo = new ContentsController().getMovieVideo("436270");
-    ArrayList<Movie> movieGenre = new ContentsController().getMovieSimilar("882598");
-    ArrayList<Movie> movieDirector = new ContentsController().getMovieSimilar("76600");
-    ArrayList<Movie> movieCast = new ContentsController().getMovieSimilar("597");
-%>
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
     <title>Ur Favorite OTT</title>
 
-    <!-- jQuery 라이브러리 연결 -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <!-- Swiper 라이브러리 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
 
-    <!-- Bootstrap 프레임워크 연결 -->
-    <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
-    <!-- Popper JS -->
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-    <!-- Latest compiled JavaScript -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
-
-    <!-- CSS 스타일시트 -->
-    <link rel="stylesheet" href="resources/css/mainCss.css">
-
-    <!-- Slick 스타일시트 -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css" integrity="sha512-yHknP1/AwR+yx26cB1y0cjvQUMvEa2PFzt1c9LlS4pRQ5NOTZFWbhBig+X9G9eYW/8m0/4OXNx8pxJ6z57x0dw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css" integrity="sha512-17EgCFERpgZKcm0j0fEq1YCJuyAWdz9KUtv1EjVuaOz8pDnh/0nZxmU6BBXwaaxqoi9PQXnRWqlcDB027hgv9A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <!-- Slick 라이브러리 연결 -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js" integrity="sha512-XtmMtDEcNz2j7ekrtHvOVR4iwwaD6o/FUJe6+Zq+HgcCsk3kj4uSQQR8weQ2QVj1o0Pk6PwYLohm206ZzNfubg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<!-- CSS 스타일시트 -->
+	<link rel="stylesheet" href="resources/css/mainCss.css">
 </head>
 
 <body>
 
     <!-- 전체 영역 -->
-    <div class="wrap">
+	<div class="wrap">
 
 		<!-- 플로팅 버튼 영역 -->
-        <jsp:include page="common/floatingButton.jsp" />
+		<jsp:include page="common/floatingButton.jsp" />
 
 		<!-- 헤더 영역 -->
-        <jsp:include page="common/header.jsp" />
+		<jsp:include page="common/header.jsp" />
 
+		<!-- 컨텐츠 영역 -->
+		<div class="content_container">
 
-        <!-- 컨텐츠 영역 (개별 구현 구역) -->
-        <div id="content_container">
+			<!-- 평균 별점 TOP 5 콘텐츠 영역 -->
+			<div id="main-top-rating_container">
+				<div class="swiper" id="main-top-rating_swiper">
+					<div class="swiper-wrapper"></div>
+					<div class="swiper-pagination"></div>
+					<div class="swiper-button-prev"></div>
+					<div class="swiper-button-next"></div>
+				</div>
+			</div>
+			<div class="shadow"></div>
 
-            <!-- 최고 평점 TOP 5 -->
-            <p class="main_text">최고 평점 TOP 5</p>
-            <button type="button" id="top_rate_center"></button>
-            <div id="top_rate_container">
-            	<% for(Movie m : movieHeader) { %>
-            		<div><img src=<%= m.getBackdropPath() %>></div>
-                <% } %>
-            </div>
+            <!-- 실시간 인기 TOP 20 콘텐츠 영역 -->
+            <h3 class="main_txt first">실시간 인기 TV 프로그램 TOP 20</h3>
+            <div id="main-top-views-tv_container">
+				<div class="swiper" id="main-top-views-tv_swiper">
+					<div class="swiper-wrapper"></div>
+					<div class="swiper-pagination"></div>
+					<div class="swiper-button-prev"></div>
+					<div class="swiper-button-next"></div>
+				</div>
+			</div>
+			<h3 class="main_txt">실시간 인기 영화 TOP 20</h3>
+            <div id="main-top-views-movie_container">
+				<div class="swiper" id="main-top-views-movie_swiper">
+					<div class="swiper-wrapper"></div>
+					<div class="swiper-pagination"></div>
+					<div class="swiper-button-prev"></div>
+					<div class="swiper-button-next"></div>
+				</div>
+			</div>
 
-            <!-- 최신 게임 -->
-            <p class="main_text">가장 인기있는 콘텐츠 TOP 20</p>
-            <div class="new_game_container">
-            	<%
-            		int num = 1;
-                	String num_src;
-                %>
-            	<% for(Movie m : moviePopular) { %>
-            		<% num_src = "resources/image/common/" + num++ + ".png"; %>
-            		<div><a href=""><img class="thumbnail" src=<%= m.getPosterPath() %>></a>
-                    <img class="number" src=<%= num_src %>></div>
-            	<% } %>
-            </div>
+			<!-- 시청하는 콘텐츠 영역 -->
+			<c:if test="${ not empty loginUser }">
+				<h3 class="main_txt record">${ loginUser.userNickname }님이 시청하는 콘텐츠</h3>
+				<div id="main-record_container">
+					<div class="swiper" id="main-record_swiper">
+						<div class="swiper-wrapper"></div>
+					</div>
+				</div>
+			</c:if>
 
-            <!-- 장르 검색 -->
-            <p class="main_text">신작 콘텐츠</p>
-            <div class="genre_search_container">
-            	<% for(Movie m : movieLatest) { %>
-            		<div><a href=""><img class="thumbnail" src=<%= m.getPosterPath() %>></a></div>
-            	<% } %>
-            </div>
+            <!-- 새로 승선한 신작 모아보기 영역 -->
+            <h3 class="main_txt">새로 승선한 신작 모아보기</h3>
+			<div id="main-new_container">
+				<div class="swiper" id="main-new_swiper">
+					<div class="swiper-wrapper"></div>
+					<div class="swiper-pagination"></div>
+					<div class="swiper-button-prev"></div>
+					<div class="swiper-button-next"></div>
+				</div>
+			</div>
 
-            <c:choose>
-                <c:when test="${ not empty loginUser }">
-                	<!-- 최신 게임 -->
-		            <p class="main_text">${ loginUser.userNickname }님이 시청 중인 콘텐츠</p>
-		            <div class="genre_search_container">
-		                <% for(Movie m : movieVideo) { %>
-		            		<div>
-		            			<iframe width="100%" height="350px" src="https://www.youtube.com/embed/<%= m.getVideoKey() %>" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-		            		</div>
-		                <% } %>
-		            </div>
-		
-		            <!-- 장르 검색 -->
-		            <p class="main_text">${ loginUser.userNickname }님이 좋아할만한 공포 장르 콘텐츠</p>
-		            <div class="genre_search_container">
-		                <% for(Movie m : movieGenre) { %>
-		            		<div><a href=""><img class="thumbnail" src=<%= m.getPosterPath() %>></a></div>
-		            	<% } %>
-		            </div>
-		
-		            <!-- 장르 검색 -->
-		            <p class="main_text">${ loginUser.userNickname }님이 좋아할만한 김감독 연출 콘텐츠</p>
-		            <div class="genre_search_container">
-		                <% for(Movie m : movieDirector) { %>
-		            		<div><a href=""><img class="thumbnail" src=<%= m.getPosterPath() %>></a></div>
-		            	<% } %>
-		            </div>
-		
-		            <!-- 장르 검색 -->
-		            <p class="main_text">${ loginUser.userNickname }님이 좋아할만한 김배우 출연 콘텐츠</p>
-		            <div class="genre_search_container">
-		                <% for(Movie m : movieCast) { %>
-		            		<div><a href=""><img class="thumbnail" src=<%= m.getPosterPath() %>></a></div>
-		            	<% } %>
-		            </div>
-                </c:when>
-            </c:choose>
-
-        </div>
-
+		</div>
 
 		<!-- 푸터 영역 -->
-        <jsp:include page="common/footer.jsp" />
+		<jsp:include page="common/footer.jsp" />
 
-    </div>
+		<input id="main-userno_input" type="hidden" name="userNo" value="${ loginUser.userNo }">
 
-
-    <script>
-	    $(function() {
-
-	        /* ===== 최고 평점 TOP 5 ===== */
-
-	        // 슬라이더 설정
-	        $('#top_rate_container').slick({
-	            autoplay: true,                 // 자동 재생
-	            centerMode: true,               // 전후 슬라이드 함께 표시
-	            centerPadding: "9%",           // 중앙 슬라이드 좌우 여백 (9%)
-	            dots: true,                     // 페이징 버튼 표시
-	            focusOnSelect: true             // 옆 슬라이드 클릭 시 센터로 이동시킴
-	        });
+	</div>
 
 
-	        /* ===== 최신 게임 ===== */
+	<script>
+		$(() => {
 
-	        // 슬라이더 설정
-	        $('.new_game_container').slick({
-	            autoplay: true,                 // 자동 재생
-	            autoplaySpeed: 2000,            // 자동 재생 속도 설정 (2초)
-	            dots: true,                     // 페이징 버튼 표시
-	            slidesToShow: 5,                // 표시할 슬라이드 수 (4개)
-	            slidesToScroll: 5,              // 한번에 넘길 슬라이드 수 (4개)
-	            responsive: [                   // 반응형 설정
-	                {
-	                    breakpoint: 1500,       // 화면 가로 크기 1500(px) 될 경우
-	                    settings: {
-	                        slidesToShow: 3,    // 표시할 슬라이드 수 (3개)
-	                        slidesToScroll: 3   // 한번에 넘길 슬라이드 수 (3개)
-	                    }
-	                }
-	            ]
-	        });
+			/* ----- 처음 로딩 시 콘텐츠 조회 함수 실행 ----- */
+			$(document).ready(() => {
+				topRating();
+				topViewsTv();
+				topViewsMovie();
+				newContents();
+
+				// 로그인 후에만 실행
+				if($('#main-userno_input').val() != "") {
+					contentsRecord();
+				}
+			});
+
+			/* ----- 1분마다 콘텐츠 조회 함수 실행 ----- */
+			var topRatingTimer = setInterval(topRating, 60000);
+			var topViewsTvTimer = setInterval(topViewsTv, 60000);
+			var topViewsMovieTimer = setInterval(topViewsMovie, 60000);
+			var newContentsTimer = setInterval(newContents, 60000);
+
+			// 로그인 후에만 실행
+			if($('#main-userno_input').val() != "") {
+				var contentsRecordTimer = setInterval(contentsRecord, 60000);
+			}
 
 
-	        /* ===== 장르 검색 ===== */
+			/* ----- 평균 별점 TOP 5 콘텐츠 조회 함수 ----- */
+			function topRating() {
 
-	        // 슬라이더 설정
-	        $('.genre_search_container').slick({
-	            autoplay: true,                 // 자동 재생
-	            autoplaySpeed: 2000,            // 자동 재생 속도 설정 (2초)
-	            dots: true,                     // 페이징 버튼 표시
-	            slidesToShow: 5,                // 표시할 슬라이드 수 (4개)
-	            slidesToScroll: 5,              // 한번에 넘길 슬라이드 수 (4개)
-	            responsive: [                   // 반응형 설정
-	                {
-	                    breakpoint: 1500,       // 화면 가로 크기 1500(px) 될 경우
-	                    settings: {
-	                        slidesToShow: 3,    // 표시할 슬라이드 수 (3개)
-	                        slidesToScroll: 3   // 한번에 넘길 슬라이드 수 (3개)
-	                    }
-	                }
-	            ]
-	        });
-	    });
-    </script>
+				// 조회 결과 표시할 슬라이드 영역
+				const $topRatingWrapper = $('#main-top-rating_swiper .swiper-wrapper');
+
+				$.ajax({
+					url: "topRating.con",
+					type: "GET",
+					success: result => {
+
+						// 조회 결과 표시할 슬라이드 영역 초기화
+						$topRatingWrapper.empty();
+
+						// 조회 결과 하나씩 슬라이드 생성
+						$.each(result, (i, item) => {
+							if(item.movieId == null) {
+
+								// TV 프로그램일 경우
+								if(item.backdropPath === "resources/image/contents/backdrop_default.png") {
+									$topRatingWrapper.append('<div class="swiper-slide"><a href="detail.con?category=tv&id=' + item.tvId +
+															 '"><img src=' + item.backdropPath + '></a></div>');
+								} else {
+									$topRatingWrapper.append('<div class="swiper-slide"><a href="detail.con?category=tv&id=' + item.tvId +
+															 '"><img src=https://image.tmdb.org/t/p/original' + item.backdropPath + '></a></div>');
+								}
+							} else {
+
+								// 영화인 경우
+								if(item.backdropPath === "resources/image/contents/backdrop_default.png") {
+									$topRatingWrapper.append('<div class="swiper-slide"><a href="datail.con?category=movie&id=' + item.movieId +
+															 '"><img src=' + item.backdropPath + '></a></div>');
+								} else {
+									$topRatingWrapper.append('<div class="swiper-slide"><a href="detail.con?category=movie&id=' + item.movieId +
+															 '"><img src=https://image.tmdb.org/t/p/original' + item.backdropPath + '></a></div>');
+								}
+							}
+
+						});
+
+						const $topRatingSwiper = new Swiper('#main-top-rating_swiper', {
+							// 슬라이드 효과
+							effect: 'fade',
+							// 무한 반복
+							loop: true,
+							// 한 번에 넘길 슬라이드 수
+							slidesPerGroup: 1,
+							// 한 번에 표시할 슬라이드 수
+							slidesPerView: 1,
+							// 자동 재생
+							autoplay: {
+								delay: 5000,
+								pauseOnMouseEnter: true
+							},
+							// 페이징바
+							pagination: {
+								el: '.swiper-pagination',
+								clickable: true
+							},
+							// 좌우 화살표
+							navigation: {
+								nextEl: '.swiper-button-next',
+								prevEl: '.swiper-button-prev',
+							}
+						});
+					}
+				});
+			};
+
+			/* ----- 실시간 인기 TOP 20 콘텐츠 조회 함수 : TV 프로그램 ----- */
+			function topViewsTv() {
+
+				// 조회 결과 표시할 슬라이드 영역
+				const $topViewsTvWrapper = $('#main-top-views-tv_swiper .swiper-wrapper');
+
+				$.ajax({
+					url: "topViewsTv.con",
+					type: "GET",
+					success: result => {
+
+						// 조회 결과 표시할 슬라이드 영역 초기화
+						$topViewsTvWrapper.empty();
+
+						// 조회 결과 하나씩 슬라이드 생성
+						$.each(result, (i, item) => {
+
+							if(item.posterPath === "resources/image/contents/poster_default.png") {
+								$topViewsTvWrapper.append('<div class="swiper-slide"><a href="detail.con?category=tv&id=' + item.tvId +
+														  '"><img src=' + item.posterPath +
+														  '></a><span><img src=resources/image/contents/' + (i + 1) +
+														  '.png></span><span class="name">' + item.name + '</span></div>');
+							} else {
+								$topViewsTvWrapper.append('<div class="swiper-slide"><a href="detail.con?category=tv&id=' + item.tvId +
+														  '"><img src=https://image.tmdb.org/t/p/w500' + item.posterPath +
+														  '></a><span><img src=resources/image/contents/' + (i + 1) +
+														  '.png></span><span class="name">' + item.name + '</span></div>');
+							}
+
+						});
+
+						const $topViewsTvSwiper = new Swiper('#main-top-views-tv_swiper', {
+							// 커서 형태 'grab'
+							grabCursor: true,
+							// 무한 반복
+							loop: true,
+							// 한 번에 넘길 슬라이드 수
+							slidesPerGroup: 1,
+							// 한 번에 표시할 슬라이드 수
+							slidesPerView: 1,
+							// 자동 재생
+							autoplay: {
+								delay: 5000,
+								pauseOnMouseEnter: true
+							},
+							// 반응형
+							breakpoints: {
+								750: {
+									slidesPerView: 2
+								},
+								1000: {
+									slidesPerView: 3
+								},
+								1250: {
+									slidesPerView: 4
+								},
+								1400: {
+									slidesPerView: 5
+								}
+							},
+							// 페이징바
+							pagination: {
+								el: '.swiper-pagination',
+								clickable: true,
+								dynamicBullets: true,
+								dynamicMainBullets: 3
+							},
+							// 좌우 화살표
+							navigation: {
+								nextEl: '.swiper-button-next',
+								prevEl: '.swiper-button-prev',
+							}
+						});
+					}
+				});
+			};
+
+			/* ----- 실시간 인기 TOP 20 콘텐츠 조회 함수 : 영화 ----- */
+			function topViewsMovie() {
+
+				// 조회 결과 표시할 슬라이드 영역
+				const $topViewsMovieWrapper = $('#main-top-views-movie_swiper .swiper-wrapper');
+
+				$.ajax({
+					url: "topViewsMovie.con",
+					type: "GET",
+					success: result => {
+
+						// 조회 결과 표시할 슬라이드 영역 초기화
+						$topViewsMovieWrapper.empty();
+
+						// 조회 결과 하나씩 슬라이드 생성
+						$.each(result, (i, item) => {
+
+							if(item.posterPath === "resources/image/contents/poster_default.png") {
+								$topViewsMovieWrapper.append('<div class="swiper-slide"><a href="detail.con?category=movie&&id=' + item.movieId +
+															 '"><img src=' + item.posterPath +
+															 '></a><span><img src=resources/image/contents/' + (i + 1) +
+															 '.png></span><span class="name">' + item.title + '</span></div>');
+							} else {
+								$topViewsMovieWrapper.append('<div class="swiper-slide"><a href="detail.con?category=movie&id=' + item.movieId +
+															 '"><img src=https://image.tmdb.org/t/p/w500' + item.posterPath +
+															 '></a><span><img src=resources/image/contents/' + (i + 1) +
+															 '.png></span><span class="name">' + item.title + '</span></div>');
+							}
+						});
+
+						const $topViewsMovieSwiper = new Swiper('#main-top-views-movie_swiper', {
+							// 커서 형태 'grab'
+							grabCursor: true,
+							// 무한 반복
+							loop: true,
+							// 한 번에 넘길 슬라이드 수
+							slidesPerGroup: 1,
+							// 한 번에 표시할 슬라이드 수
+							slidesPerView: 1,
+							// 자동 재생
+							autoplay: {
+								delay: 5000,
+								pauseOnMouseEnter: true
+							},
+							// 반응형
+							breakpoints: {
+								750: {
+									slidesPerView: 2
+								},
+								1000: {
+									slidesPerView: 3
+								},
+								1250: {
+									slidesPerView: 4
+								},
+								1400: {
+									slidesPerView: 5
+								}
+							},
+							// 페이징바
+							pagination: {
+								el: '.swiper-pagination',
+								clickable: true,
+								dynamicBullets: true,
+								dynamicMainBullets: 3
+							},
+							// 좌우 화살표
+							navigation: {
+								nextEl: '.swiper-button-next',
+								prevEl: '.swiper-button-prev',
+							}
+						});
+					}
+				});
+			};
+
+			/* ----- 시청하는 콘텐츠 조회 함수 ----- */
+			function contentsRecord() {
+
+				// 조회 결과 표시할 슬라이드 영역
+				const $contentsRecordWrapper = $('#main-record_swiper .swiper-wrapper');
+
+				$.ajax({
+					url: "contentsRecord.con",
+					type: "GET",
+					data: {
+						userNo: $('#main-userno_input').val()
+					},
+					success: result => {
+
+						// 조회 결과 표시할 슬라이드 영역 초기화
+						$contentsRecordWrapper.empty();
+
+						// 조회 결과 없으면 해당 영역 숨김
+						if(result.length === 0) {
+							$('h3.record').hide();
+							$('#main-record_container').hide();
+						}
+
+						// 조회 결과 하나씩 슬라이드 생성
+						$.each(result, (i, item) => {
+							if(item.movieId == null) {
+
+								// TV 에피소드일 경우
+								if(item.posterPath === "resources/image/contents/poster_default.png") {
+									$contentsRecordWrapper.append('<div class="swiper-slide"><a href="detail.con?category=episode&id=' + item.episodeId +
+																'"><img src' + item.stillPath +
+																'><span class="play"><i class="fa-regular fa-circle-play"></i></span></a><br><span class="name">' + item.tvId +
+																'</span><br><span class="name">' + item.episodeNumber + '화</span></div>');
+								} else {
+									$contentsRecordWrapper.append('<div class="swiper-slide"><a href="detail.con?category=episode&id=' + item.episodeId +
+																'"><img src=https://image.tmdb.org/t/p/w500' + item.stillPath +
+																'><span class="play"><i class="fa-regular fa-circle-play"></i></span></a><br><span class="name">' + item.tvId +
+																'</span><br><span class="name">' + item.episodeNumber + '화</span></div>');
+								}
+							} else {
+
+								// 영화일 경우
+								if(item.posterPath === "resources/image/contents/poster_default.png") {
+									$contentsRecordWrapper.append('<div class="swiper-slide"><a href="detail.con?category=movie&id=' + item.movieId +
+																'"><img src' + item.posterPath +
+																'><span class="play"><i class="fa-regular fa-circle-play"></i></span></a><br><span class="name">' + item.title + '</span></div>');
+								} else {
+									$contentsRecordWrapper.append('<div class="swiper-slide"><a href="detail.con?category=movie&id=' + item.movieId +
+																'"><img src=https://image.tmdb.org/t/p/w500' + item.posterPath +
+																'><span class="play"><i class="fa-regular fa-circle-play"></i></span></a><br><span class="name">' + item.title + '</span></div>');
+								}
+							}
+						});
+
+						const $contentsRecordSwiper = new Swiper('#main-record_swiper', {
+							// 커서 형태 'grab'
+							grabCursor: true,
+							// 한 번에 넘길 슬라이드 수
+							slidesPerGroup: 1,
+							// 한 번에 표시할 슬라이드 수
+							slidesPerView: 1,
+							// 반응형
+							breakpoints: {
+								750: {
+									slidesPerView: 2
+								},
+								1000: {
+									slidesPerView: 3
+								},
+								1250: {
+									slidesPerView: 4
+								},
+								1400: {
+									slidesPerView: 5
+								}
+							}
+						});
+					},
+				});
+			};
+
+			/* ----- 새로 승선한 신작 조회 함수 ----- */
+			function newContents() {
+
+				// 조회 결과 표시할 슬라이드 영역
+				const $newContentsWrapper = $('#main-new_swiper .swiper-wrapper');
+
+				$.ajax({
+					url: "newContents.con",
+					type: "GET",
+					success: result => {
+
+						// 조회 결과 표시할 슬라이드 영역 초기화
+						$newContentsWrapper.empty();
+
+						// 조회 결과 하나씩 슬라이드 생성
+						$.each(result, (i, item) => {
+							if(item.movieId == null) {
+
+								// TV 프로그램일 경우
+								if(item.posterPath === "resources/image/contents/poster_default.png") {
+									$newContentsWrapper.append('<div class="swiper-slide"><a href="detail.con?category=tv&id=' + item.tvId +
+															   '"><img src' + item.posterPath +
+															   '></a><br><span class="name">' + item.name + '</span></div>');
+								} else {
+									$newContentsWrapper.append('<div class="swiper-slide"><a href="detail.con?category=tv&id=' + item.tvId +
+															   '"><img src=https://image.tmdb.org/t/p/w500' + item.posterPath +
+															   '></a><br><span class="name">' + item.name + '</span></div>');
+								}
+							} else {
+
+								// 영화일 경우
+								if(item.posterPath === "resources/image/contents/poster_default.png") {
+									$newContentsWrapper.append('<div class="swiper-slide"><a href="detail.con?category=movie&id=' + item.movieId +
+															   '"><img src' + item.posterPath +
+															   '></a><br><span class="name">' + item.title + '</span></div>');
+								} else {
+									$newContentsWrapper.append('<div class="swiper-slide"><a href="detail.con?category=movie&id=' + item.movieId +
+															   '"><img src=https://image.tmdb.org/t/p/w500' + item.posterPath +
+															   '></a><br><span class="name">' + item.title + '</span></div>');
+								}
+							}
+						});
+
+						const $newContentsSwiper = new Swiper('#main-new_swiper', {
+							// 커서 형태 'grab'
+							grabCursor: true,
+							// 무한 반복
+							loop: true,
+							// 한 번에 넘길 슬라이드 수
+							slidesPerGroup: 1,
+							// 한 번에 표시할 슬라이드 수
+							slidesPerView: 1,
+							// 자동 재생
+							autoplay: {
+								delay: 5000,
+								pauseOnMouseEnter: true
+							},
+							// 반응형
+							breakpoints: {
+								750: {
+									slidesPerView: 2
+								},
+								1000: {
+									slidesPerView: 3
+								},
+								1250: {
+									slidesPerView: 4
+								},
+								1400: {
+									slidesPerView: 5
+								}
+							},
+							// 페이징바
+							pagination: {
+								el: '.swiper-pagination',
+								clickable: true,
+								dynamicBullets: true,
+								dynamicMainBullets: 3
+							},
+							// 좌우 화살표
+							navigation: {
+								nextEl: '.swiper-button-next',
+								prevEl: '.swiper-button-prev',
+							}
+						});
+					}
+				});
+			};
+		});
+	</script>
 
 </body>
 </html>

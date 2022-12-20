@@ -123,7 +123,7 @@
 
 	        <table id="user_profile">
 	            <tr>
-	                <td rowspan="2" width="220"><img src="resources/image/user/profile/profile1.jfif" width="170" height="170"></td>
+	                <td rowspan="2" width="220"><img src="resources/image/user/profile/profile1.png" width="170" height="170"></td>
 	                <td colspan="2" width="380" style="font-size:35px; font-weight:900;">${loginUser.userNickname}</td>
 	                <td>
 	                	<button type="button" onclick="location.href='updateForm.me'">회원정보 수정</button>
@@ -136,14 +136,30 @@
 			                    이용권 구독을 하지 않은 경우 '사용 중인 이용권이 없습니다'
 			                    라는 멘트와 함께 이용권 구독 페이지로 가는 a태그
 	                -->
-	                <td style="font-size:20px; font-weight:900;">사용 중인 이용권이 없습니다</td>
-	                <td><button onclick="location.href='#'">이용권 구독</button></td>
+					<c:choose>
+						<c:when test="${empty payment}">
+							<td style="font-size:20px; font-weight:900;">사용 중인 이용권이 없습니다</td>
+	                		<td><button onclick="location.href='#'">이용권 구독</button></td>
+						</c:when>
+	                	<c:otherwise>
+							<td style="font-size:20px; font-weight:900;">
+								<c:choose>
+									<c:when test="${fn:contains(payment.payOrderNo,'pay')}">일반이용권</c:when>
+									<c:otherwise>정기구독권</c:otherwise>
+								</c:choose>
+							</td>
+							<td style="font-size:20px; font-weight:900;">
+								만료일: ${payment.payEndDate}
+							</td>
+						</c:otherwise>
+					</c:choose>
 	            </tr>
 	        </table>
 
-		    <!-- 이용권 구독하지 않은 경우만 나타는 구독 유도탭 -->
-		    <div align="center" id="subscribe_tab">이용권을 구독하고 인기 TV프로그램과 다양한 영화를 자유롭게 시청하세요!  이용권 구독하기></div>
-
+			<c:if test="${empty payment}">
+				<!-- 이용권 구독하지 않은 경우만 나타는 구독 유도탭 -->
+				<div align="center" id="subscribe_tab">이용권을 구독하고 인기 TV프로그램과 다양한 영화를 자유롭게 시청하세요!  이용권 구독하기></div>
+			</c:if>		
 		    <!-- !!! 본인이 맡은 탭 div에 id="selected_tab" 붙어녛기 !!!-->
 		    <div id="mypage_navi">
 		        <div><a href="">시청 내역</a></div>

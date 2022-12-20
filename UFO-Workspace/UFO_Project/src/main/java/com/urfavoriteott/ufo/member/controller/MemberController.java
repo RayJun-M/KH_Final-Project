@@ -40,6 +40,21 @@ public class MemberController {
 	@Autowired
 	private MailSendService mailService;
 		
+	
+	/**
+	 * 로그인 시 이용 기간이 남아있는지 체크할 함수 - 작성자: 성현
+	 * @param loginUser: 로그인한 정보
+	 * @return
+	 */
+	
+	public Payment payChecker(Member loginUser) {
+		Payment payment = null;
+		
+		payment = memberService.payChecker(loginUser);
+		
+		return payment;
+	}
+	
 	/**
 	 * 회원 로그인창을 띄워주는 메소드 - 작성자 : 동민
 	 * @return
@@ -86,9 +101,13 @@ public class MemberController {
 		
 		if(loginUser != null &&
 				bcryptPasswordEncoder.matches(m.getUserPwd(), loginUser.getUserPwd())) {
-			
+				
 			// 비밀번호도 일치한다면 => 로그인 성공
 			session.setAttribute("loginUser", loginUser);
+			
+			Payment payment = payChecker(loginUser);
+			System.out.println(payment);
+			session.setAttribute("payment", payment);
 			
 			// session.setAttribute("alertMsg", "로그인에 성공하였습니다.");
 			
@@ -466,13 +485,12 @@ public class MemberController {
 	 * 작성자: 성현 / 마이페이지 결제내역 호출 메소드
 	 * @param currentPage: 현재 페이지(맨 처음 호출시엔 기본값 1)
 	 * @param session (로그인한 사용자의 번호 컨트롤러에서 호출)
-	 * @param mv (페이지에 쏴줄 결제내역과 페이징 객체)
+	 * @param mv (페이지에 바인딩할 결제내역과 페이징 객체)
 	 * @return (myPayment.jsp로 포워딩)
 	 */
 	@RequestMapping("myPayment.me")
-	public ModelAndView myPament(@RequestParam(value = "cpage", defaultValue = "1")int currentPage, HttpSession session, ModelAndView mv) {
+	public ModelAndView myPayment(@RequestParam(value = "cpage", defaultValue = "1")int currentPage, HttpSession session, ModelAndView mv) {
 		
-		// view에서
 		int loginUserNo = ((Member)session.getAttribute("loginUser")).getUserNo();
 
 		int listCount = memberService.selectMyPaymentListCount(loginUserNo);

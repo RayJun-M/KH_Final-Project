@@ -226,4 +226,9 @@ public class MemberServiceImpl implements MemberService {
 		return memberDao.selectMyPaymentList(sqlSession, pi, loginUserNo);
 	}
 
+	@Override
+	public Payment payChecker(Member loginUser) {
+		return memberDao.payChecker(sqlSession, loginUser);
+	}
+
 }

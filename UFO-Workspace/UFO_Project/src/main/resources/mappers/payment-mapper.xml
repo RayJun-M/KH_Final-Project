@@ -20,7 +20,7 @@
 		<result column="REG_ORDER_NO" property="payOrderNo" />
 		<result column="USER_NO" property="userNo" />
 		<result column="REG_PAYMENT" property="payment" />
-		<result column="REG_DATE" property="payDate" />
+		<result column="REG_START_DATE" property="payDate" />
 		<result column="REG_END_DATE" property="payEndDate" />
 		<result column="REG_STATUS" property="payStatus" />
 		<result column="REG_URL" property="payUrl" />

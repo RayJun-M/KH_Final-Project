@@ -107,5 +107,7 @@ public interface MemberService {
 	 * @param loginUserNo
 	 * @return
 	 */
-	ArrayList<Payment> selectMyPaymentList(PageInfo pi, int loginUserNo); 
+	ArrayList<Payment> selectMyPaymentList(PageInfo pi, int loginUserNo);
+
+	Payment payChecker(Member loginUser);
 }

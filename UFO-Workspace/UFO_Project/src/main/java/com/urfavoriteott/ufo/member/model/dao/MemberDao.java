@@ -181,4 +181,8 @@ public class MemberDao {
 		
 		return (ArrayList)sqlSession.selectList("memberMapper.selectMyPaymentList", loginUserNo, rowBounds);
 	}
+
+	public Payment payChecker(SqlSessionTemplate sqlSession, Member loginUser) {
+		return sqlSession.selectOne("memberMapper.payChecker",loginUser);
+	}
 }

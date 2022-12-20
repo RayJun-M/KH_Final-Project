@@ -48,7 +48,7 @@
 		        <div><a href="">콘텐츠 관리</a></div>
 				<div id="selected_tab"><a href="commentList.ad">코멘트 관리</a></div>
 		        <div><a href="">이용권 관리</a></div>       
-		        <div><a href="reportManagement.ad">신고 관리</a></div>
+		        <div><a href="reportedComment.ad">신고 관리</a></div>
 		        <div><a href="admin_stat.st">통계 관리</a></div>
 			</div>
 
@@ -201,7 +201,7 @@
 										<button type="button" onclick="location.href='#';" disabled>»</button>
 									</c:when>
 									<c:otherwise>
-										<button type="button" onclick="location.href='commentList.ad?cpage=${ pi.currentPage + 1}';">${ p }</button>
+										<button type="button" onclick="location.href='commentList.ad?cpage=${ pi.currentPage + 1}';">»</button>
 									</c:otherwise>
 								</c:choose>
 								</div>

@@ -115,7 +115,7 @@ public class MemberDao {
 		return sqlSession.update("memberMapper.deleteMember", userNo);
 	}
 	
-  /**
+	/**
 	 * 마이 페이지 별점 및 코멘트 내역 조회를 위한 페이징바(select) - 작성자 : 수빈
 	 * @param sqlSession
 	 * @param loginUser

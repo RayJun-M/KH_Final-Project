@@ -132,7 +132,7 @@ public interface AdminService {
 	int deleteAdminComment(int checkNum); 
 	
 	/**
-	 * 관리자 페이지 신고 관리를 위한 페이징바(select) - 작성자: 수빈
+	 * 관리자 페이지 코멘트 신고 관리를 위한 페이징바(select) - 작성자: 수빈
 	 * @return
 	 */
 	int reportedCommentListCount();
@@ -179,10 +179,64 @@ public interface AdminService {
 	int resetStatusReportedComment(int reportNo);
 	
 	/**
-	 * 관리자 페이지 신고 관리에서 신고된 코멘트를 삭제 상태를 되돌리는(REVIEW_STATUS='Y') 메소드 - 작성자: 수빈
+	 * 관리자 페이지 신고 관리에서 신고된 코멘트 삭제 상태를 되돌리는(REVIEW_STATUS='Y') 메소드 - 작성자: 수빈
 	 * @param reviewNo
 	 * @return
 	 */
 	int resetReportedComment(int reviewNo);
+	
+	/**
+	 * 관리자 페이지 댓글 신고 관리를 위한 페이징바(select) - 작성자: 수빈
+	 * @return
+	 */
+	int reportedReplyListCount();
+	
+	/**
+	 * 관리자 페이지에서 신고 관리를 위해 신고된 모든 댓글 조회 (select) - 작성자: 수빈
+	 * @param pi
+	 * @return
+	 */
+	ArrayList<Report> reportedReplyList(PageInfo pi);
+	
+	/**
+	 * 관리자 페이지 신고 관리에서 신고된 댓글 삭제(REPORT_STATUS='Y') 하는 메소드 - 작성자: 수빈
+	 * @param reportNo
+	 * @return
+	 */
+	int changeStatusReportedReply(int reportNo);
+	
+	/**
+	 * 관리자 페이지 신고 관리에서 신고된 댓글을 삭제(REVIEW_STATUS='N') 하는 메소드 - 작성자: 수빈
+	 * @param reviewNo
+	 * @return
+	 */
+	int deleteReportedReply(int comRplNo);
+	
+	/**
+	 * 관리자 페이지 신고 관리에서 처리된 댓글 보기 버튼 클릭 시 페이징바(select) - 작성자: 수빈
+	 * @return
+	 */
+	int processedReplyListCount();
+	
+	/**
+	 * 관리자 페이지 신고 관리에서 처리된 댓글 보기 버튼 클릭 시 신고 처리된 모든 댓글 조회 (select) - 작성자: 수빈
+	 * @param pi
+	 * @return
+	 */
+	ArrayList<Report> processedReplyList(PageInfo pi);
+	
+	/**
+	 * 관리자 페이지 신고 관리에서 신고된 댓글을 되돌리는(REPORT_STATUS='N') 메소드 - 작성자: 수빈
+	 * @param reportNo
+	 * @return
+	 */
+	int resetStatusReportedReply(int reportNo);
+	
+	/**
+	 * 관리자 페이지 신고 관리에서 신고된 댓글 삭제 상태를 되돌리는(REVIEW_STATUS='Y') 메소드 - 작성자: 수빈
+	 * @param comRplNo
+	 * @return
+	 */
+	int resetReportedReply(int comRplNo);
 
 }

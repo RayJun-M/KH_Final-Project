@@ -1,6 +1,7 @@
 package com.urfavoriteott.ufo.contents.controller;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Locale;
 
 import javax.servlet.http.HttpSession;
@@ -14,7 +15,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.siot.IamportRestClient.IamportClient;
 import com.siot.IamportRestClient.exception.IamportResponseException;
+import com.siot.IamportRestClient.request.ScheduleData;
 import com.siot.IamportRestClient.response.IamportResponse;
+import com.siot.IamportRestClient.response.Schedule;
 import com.urfavoriteott.ufo.contents.model.service.PaymentService;
 import com.urfavoriteott.ufo.contents.model.vo.Payment;
 
@@ -100,5 +103,11 @@ public class PaymentController {
 		}
 		
 		return str;
+	}
+		
+	@RequestMapping("scheduling.pay")
+	public IamportResponse<List<Schedule>> againPayment(ScheduleData scheduleData) throws IamportResponseException, IOException{
+		
+		return RESTAPI.subscribeSchedule(scheduleData);
 	}
 }

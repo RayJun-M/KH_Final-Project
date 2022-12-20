@@ -355,11 +355,24 @@ uri="http://java.sun.com/jsp/jstl/core" %>
                     billingKey: rsp.customer_uid
                   },
                   type: 'POST',
-                  success: rsp => {
-                    console.log(rsp)
+                  success: () => {
+                    $.ajax({
+                      url:'scheduling.pay',
+                      data: {
+                        customer_uid: '',
+                        type:'POST',
+                        schedules: [{
+                                      'merchant_uid': 'reg_'+new Date().getTime(),
+                                      'schedule_at': ,
+                                      'currency': 'KRW',
+                                      'amount': 3900,
+                                      'name': '정기구독권',
+                                      'buyer_email': userId
+                                  }]
+                      }
+                    })
                   },
                   error : rej => {
-                    console.log(rej)
                   }
                 })
               }else{
@@ -368,6 +381,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
             })
       });
     });
+
         </script>
         <!-- 결제 약관 -->
         <div id="content_footer">

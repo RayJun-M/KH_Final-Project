@@ -123,7 +123,7 @@
 
 	        <table id="user_profile">
 	            <tr>
-	                <td rowspan="2" width="220"><img src="resources/image/user/profile/profile1.png" width="170" height="170"></td>
+	                <td rowspan="2" width="220"><img src="resources/image/member/profile${loginUser.userProfile}.png" width="170" height="170"></td>
 	                <td colspan="2" width="380" style="font-size:35px; font-weight:900;">${loginUser.userNickname}</td>
 	                <td>
 	                	<button type="button" onclick="location.href='updateForm.me'">회원정보 수정</button>
@@ -139,16 +139,16 @@
 					<c:choose>
 						<c:when test="${empty payment}">
 							<td style="font-size:20px; font-weight:900;">사용 중인 이용권이 없습니다</td>
-	                		<td><button onclick="location.href='#'">이용권 구독</button></td>
+							<td><button onclick="location.href='#'">이용권 구독</button></td>
 						</c:when>
-	                	<c:otherwise>
+						<c:otherwise>
 							<td style="font-size:20px; font-weight:900;">
 								<c:choose>
 									<c:when test="${fn:contains(payment.payOrderNo,'pay')}">일반이용권</c:when>
 									<c:otherwise>정기구독권</c:otherwise>
 								</c:choose>
 							</td>
-							<td style="font-size:20px; font-weight:900;">
+							<td style="font-size:18px; font-weight:600;">
 								만료일: ${payment.payEndDate}
 							</td>
 						</c:otherwise>
@@ -164,8 +164,8 @@
 		    <div id="mypage_navi">
 		        <div><a href="">시청 내역</a></div>
 		        <div><a href="">볼래요</a></div>
-		        <div id="selected_tab"><a href="myPayment.pay">이용권 내역</a></div>       
-		        <div><a href="">별점 및 코멘트 내역</a></div>
+		        <div id="selected_tab"><a href="myPayment.me">이용권 내역</a></div>       
+		        <div><a href="myComment.me">별점 및 코멘트 내역</a></div>
 		        <div><a href="">커뮤니티 글 내역</a></div>
 		        <div><a href="">커뮤니티 댓글 내역</a></div>
 			</div>
@@ -207,7 +207,15 @@
 										<c:when test="${fn:contains(item.payOrderNo,'pay')}">일반이용권&emsp;</c:when>
 										<c:otherwise>정기구독권&emsp;</c:otherwise>
 									</c:choose>
-										<button class="btn btn-sm btn-outline-dark" style="background-color: #64FFDA;" onclick="cancelPay(${item.payOrderNo})">해지</button></div></td>
+									<c:choose>
+										<c:when test="${item.payEndDate >= today}">
+										<button class="btn btn-sm btn-outline-dark" style="background-color: #64FFDA;" onclick="cancelPay('${item.payOrderNo}')">해지</button>
+										</c:when>
+										<c:otherwise>
+										<button class="btn btn-sm btn-outline-dark" style="background-color: #64FFDA;" disabled>해지</button>
+									</c:otherwise>
+									</c:choose>
+								</td>
 								<td><fmt:formatNumber value="${item.payment}" pattern="#,###원"/></td>
 								<td>${item.payDate}</td>
 								<td>${item.payEndDate}</td>
@@ -218,11 +226,11 @@
 
 					<script>
 
-						const cancelPay = (payNo) => {
-							if(confirm('정말 해지하시겠습니까?')){
+						const cancelPay = (payOrderNo) => {
+							if(confirm('이용권을 해지하셔도 만료일까지 이용은 가능하시며, 환불은 되지않습니다. 해지하시겠습니까?')){
 								$.ajax({
 									url: 'delete.pay',
-									data: {payOrderNo: payNo},
+									data: {payOrderNo: payOrderNo},
 									type: 'GET',
 									success: () => {
 
@@ -243,7 +251,6 @@
 								}
 							})
 							abledBtn.forEach((el) => {
-								console.log(el);
 								el.addEventListener('mouseenter', () => {
 									el.style.cursor = 'pointer';
 								})

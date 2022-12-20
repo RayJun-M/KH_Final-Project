@@ -141,12 +141,12 @@
 			                    이용권 구독을 하지 않은 경우 '사용 중인 이용권이 없습니다'
 			                    라는 멘트와 함께 이용권 구독 페이지로 가는 a태그
 	                -->
-	                <c:choose>
+					<c:choose>
 						<c:when test="${empty payment}">
 							<td style="font-size:20px; font-weight:900;">사용 중인 이용권이 없습니다</td>
-	                		<td><button onclick="location.href='#'">이용권 구독</button></td>
+							<td><button onclick="location.href='#'">이용권 구독</button></td>
 						</c:when>
-	                	<c:otherwise>
+						<c:otherwise>
 							<td style="font-size:20px; font-weight:900;">
 								<c:choose>
 									<c:when test="${fn:contains(payment.payOrderNo,'pay')}">일반이용권</c:when>
@@ -200,7 +200,7 @@
 		        <div><a href="">시청 내역</a></div>
 		        <div><a href="">볼래요</a></div>
 		        <div><a href="myPayment.me">이용권 내역</a></div>       
-		        <div><a href="">별점 및 코멘트 내역</a></div>
+		        <div><a href="myComment.me">별점 및 코멘트 내역</a></div>
 		        <div><a href="">커뮤니티 글 내역</a></div>
 		        <div><a href="">커뮤니티 댓글 내역</a></div>
 			</div>

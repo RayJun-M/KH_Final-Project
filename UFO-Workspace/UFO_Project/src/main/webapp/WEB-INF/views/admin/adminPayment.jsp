@@ -149,7 +149,16 @@
 						<td><fmt:formatNumber value="${item.payment}" pattern="#,###원"/></td>
 						<td>${item.payDate}</td>
 						<td>${item.payEndDate}</td>
-						<td><button class="btn btn-sm btn-outline-dark" style="background-color: #64FFDA;">해지</button></td>
+						<td>
+							<c:choose>
+								<c:when test="${item.payEndDate >= today}">
+									<button class="btn btn-sm btn-outline-dark" style="background-color: #64FFDA;" onclick="cancelPay(${item.payOrderNo})">해지</button>
+								</c:when>
+								<c:otherwise>
+									<button class="btn btn-sm btn-outline-dark" style="background-color: #64FFDA;" disabled>해지</button>
+								</c:otherwise>
+							</c:choose>
+						</td>
 					</tr>
 					</c:forEach>
 

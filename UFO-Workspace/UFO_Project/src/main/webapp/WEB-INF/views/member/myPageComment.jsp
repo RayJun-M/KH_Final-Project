@@ -49,21 +49,23 @@
 			                    이용권 구독을 하지 않은 경우 '사용 중인 이용권이 없습니다'
 			                    라는 멘트와 함께 이용권 구독 페이지로 가는 a태그
 	                -->
-					<c:when test="${empty payment}">
-						<td style="font-size:20px; font-weight:900;">사용 중인 이용권이 없습니다</td>
-						<td><button onclick="location.href='#'">이용권 구독</button></td>
-					</c:when>
-					<c:otherwise>
-						<td style="font-size:20px; font-weight:900;">
-							<c:choose>
-								<c:when test="${fn:contains(payment.payOrderNo,'pay')}">일반이용권</c:when>
-								<c:otherwise>정기구독권</c:otherwise>
-							</c:choose>
-						</td>
-						<td style="font-size:18px; font-weight:600;">
-							만료일: ${payment.payEndDate}
-						</td>
-					</c:otherwise>
+					<c:choose>
+						<c:when test="${empty payment}">
+							<td style="font-size:20px; font-weight:900;">사용 중인 이용권이 없습니다</td>
+							<td><button onclick="location.href='#'">이용권 구독</button></td>
+						</c:when>
+						<c:otherwise>
+							<td style="font-size:20px; font-weight:900;">
+								<c:choose>
+									<c:when test="${fn:contains(payment.payOrderNo,'pay')}">일반이용권</c:when>
+									<c:otherwise>정기구독권</c:otherwise>
+								</c:choose>
+							</td>
+							<td style="font-size:18px; font-weight:600;">
+								만료일: ${payment.payEndDate}
+							</td>
+						</c:otherwise>
+					</c:choose>
 				</c:choose>
 	            </tr>
 	        </table>
@@ -76,7 +78,7 @@
 		    <div id="mypage_navi">
 		        <div><a href="">시청 내역</a></div>
 		        <div><a href="">볼래요</a></div>
-		        <div><a href="">이용권 내역</a></div>       
+		        <div><a href="myPayment.me">이용권 내역</a></div>       
 		        <div id="selected_tab" class="rating_comment"><a href="myComment.me">별점 및 코멘트 내역</a></div>
 		        <div><a href="">커뮤니티 글 내역</a></div>
 		        <div><a href="">커뮤니티 댓글 내역</a></div>

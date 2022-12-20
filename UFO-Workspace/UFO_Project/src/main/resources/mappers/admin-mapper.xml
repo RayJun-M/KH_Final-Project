@@ -78,7 +78,7 @@
 		<result column="REG_URL" property="payUrl" />
 		<result column="BILLINGKEY" property="billingKey" />
 	</resultMap>
-	<!-- 관리자 한달이용권 월별 매출 - 작성자 : 장희연
+	<!-- 관리자 한달이용권 월별 매출 - 작성자 : 장희연 -->
 	<select id="selectSalesPerMonthOnce" resultMap="salesResultSet">
 		SELECT SUM(PAYMENT) "TOTAL"
 			 , (TO_CHAR(PAY_DATE,'YYYY.MM')) "DATE_RANGE"
@@ -88,7 +88,7 @@
 		   AND <![CDATA[ TO_CHAR(PAY_DATE,'YYYY.MM') <= TO_CHAR(SYSDATE,'YYYY.MM') ]]>
 		ORDER BY DATE_RANGE
 	</select>
-	-->
+
 	<!-- 관리자 월별구독권 월별 매출 - 작성자 : 장희연 -->
 	<select id="selectSalesPerMonthSub" resultMap="salesResultSet">
 		SELECT SUM(REG_PAYMENT) "TOTAL"
@@ -100,7 +100,7 @@
 		ORDER BY DATE_RANGE
 	</select>
 	
-	<!-- 관리자 월별 매출 - 작성자 : 장희연 
+	<!-- 관리자 월별 매출 - 작성자 : 장희연 -->
 	<select id="selectSalesPerMonth" resultMap="salesResultSet">
 		SELECT SUM(TOTAL) "TOTAL"
 			 , DATE_RANGE
@@ -122,8 +122,8 @@
 		GROUP BY DATE_RANGE
 		ORDER BY DATE_RANGE
 	</select>
-	-->
-	<!-- 관리자 한달이용권 연도별 매출 - 작성자 : 장희연  
+	
+	<!-- 관리자 한달이용권 연도별 매출 - 작성자 : 장희연 -->
 	<select id="selectSalesPerYearOnce" resultMap="salesResultSet">
 		SELECT SUM(PAYMENT) "TOTAL"
 			 , (TO_CHAR(PAY_DATE,'YYYY')) "DATE_RANGE"
@@ -133,8 +133,8 @@
 		   AND <![CDATA[ TO_CHAR(PAY_DATE,'YYYY') <= TO_CHAR(SYSDATE,'YYYY') ]]>
 		ORDER BY DATE_RANGE
 	</select>
-	-->
-	<!-- 관리자 월별구독권 연도별 매출 - 작성자 : 장희연 
+	
+	<!-- 관리자 월별구독권 연도별 매출 - 작성자 : 장희연 -->
 	<select id="selectSalesPerYearSub" resultMap="salesResultSet">
 		SELECT SUM(REG_PAYMENT) "TOTAL"
 			 , (TO_CHAR(REG_START_DATE,'YYYY')) "DATE_RANGE"
@@ -144,8 +144,8 @@
 		   AND <![CDATA[ TO_CHAR(REG_START_DATE,'YYYY') <= TO_CHAR(SYSDATE,'YYYY') ]]> 
 		ORDER BY DATE_RANGE
 	</select>
-	-->
-	<!-- 관리자 연도별 매출 - 작성자 : 장희연 
+	
+	<!-- 관리자 연도별 매출 - 작성자 : 장희연 -->
 	<select id="selectSalesPerYear" resultMap="salesResultSet">
 		SELECT SUM(TOTAL) "TOTAL"
 			 , DATE_RANGE
@@ -168,117 +168,15 @@
 		ORDER BY DATE_RANGE
 	</select>
 	
-	<select id="selectViewsTV" parameterType="string" resultType="_int">
-		SELECT VIEWS
-		FROM TV
-		WHERE GENRES LIKE '%' || #{genre} || '%'
-	</select>
-	
 	<select id="selectViewsMovie" parameterType="string" resultType="_int">
 		SELECT VIEWS
 		FROM MOVIE
 		WHERE GENRES LIKE '%' || #{genre} || '%'
 	</select>
--->
-	<!-- 관리자 한달이용권 월별 매출 - 작성자 : 장희연  
-	<select id="selectSalesPerMonthOnce" resultMap="salesResultSet">
-		SELECT SUM(PAYMENT) "TOTAL"
-			 , (TO_CHAR(PAY_DATE,'YYYY.MM')) "DATE_RANGE"
-		FROM PAYMENT
-		GROUP BY TO_CHAR(PAY_DATE,'YYYY.MM')
-		HAVING <![CDATA[ TO_CHAR(PAY_DATE,'YYYY.MM') >= TO_CHAR(ADD_MONTHS(SYSDATE,-11),'YYYY.MM') ]]>
-		   AND <![CDATA[ TO_CHAR(PAY_DATE,'YYYY.MM') <= TO_CHAR(SYSDATE,'YYYY.MM') ]]>
-		ORDER BY DATE_RANGE
-	</select>
-	-->
-	<!-- 관리자 월별구독권 월별 매출 - 작성자 : 장희연 
-	<select id="selectSalesPerMonthSub" resultMap="salesResultSet">
-		SELECT SUM(REG_PAYMENT) "TOTAL"
-			 , (TO_CHAR(REG_START_DATE,'YYYY.MM')) "DATE_RANGE"
-		FROM PAYMENT_REGULAR
-		GROUP BY TO_CHAR(REG_START_DATE,'YYYY.MM')
-		HAVING <![CDATA[ TO_CHAR(REG_START_DATE,'YYYY.MM') >= TO_CHAR(ADD_MONTHS(SYSDATE,-11),'YYYY.MM') ]]>
-		   AND <![CDATA[ TO_CHAR(REG_START_DATE,'YYYY.MM') <= TO_CHAR(SYSDATE,'YYYY.MM') ]]>
-		ORDER BY DATE_RANGE
-	</select>
-	-->
-	<!-- 관리자 월별 매출 - 작성자 : 장희연
-	<select id="selectSalesPerMonth" resultMap="salesResultSet">
-		SELECT SUM(TOTAL) "TOTAL"
-			 , DATE_RANGE
-		FROM (
-		    SELECT SUM(REG_PAYMENT) "TOTAL"
-		         , (TO_CHAR(REG_START_DATE,'YYYY.MM')) "DATE_RANGE"
-		    FROM PAYMENT_REGULAR
-		    GROUP BY TO_CHAR(REG_START_DATE,'YYYY.MM')
-		    HAVING <![CDATA[ TO_CHAR(REG_START_DATE,'YYYY.MM') >= TO_CHAR(ADD_MONTHS(SYSDATE,-11),'YYYY.MM') ]]>
-		       AND <![CDATA[ TO_CHAR(REG_START_DATE,'YYYY.MM') <= TO_CHAR(SYSDATE,'YYYY.MM') ]]>
-		    UNION
-		    SELECT SUM(PAYMENT) "TOTAL"
-		         , (TO_CHAR(PAY_DATE,'YYYY.MM')) "DATE_RANGE"
-		    FROM PAYMENT
-		    GROUP BY TO_CHAR(PAY_DATE,'YYYY.MM')
-		    HAVING <![CDATA[ TO_CHAR(PAY_DATE,'YYYY.MM') >= TO_CHAR(ADD_MONTHS(SYSDATE,-11),'YYYY.MM') ]]>
-		       AND <![CDATA[ TO_CHAR(PAY_DATE,'YYYY.MM') <= TO_CHAR(SYSDATE,'YYYY.MM') ]]>
-		)
-		GROUP BY DATE_RANGE
-		ORDER BY DATE_RANGE
-	</select>
-	 -->
-	<!-- 관리자 한달이용권 연도별 매출 - 작성자 : 장희연  
-	<select id="selectSalesPerYearOnce" resultMap="salesResultSet">
-		SELECT SUM(PAYMENT) "TOTAL"
-			 , (TO_CHAR(PAY_DATE,'YYYY')) "DATE_RANGE"
-		FROM PAYMENT
-		GROUP BY TO_CHAR(PAY_DATE,'YYYY')
-		HAVING <![CDATA[ TO_CHAR(PAY_DATE,'YYYY') >= TO_CHAR(SYSDATE - (INTERVAL '5' YEAR),'YYYY') ]]>
-		   AND <![CDATA[ TO_CHAR(PAY_DATE,'YYYY') <= TO_CHAR(SYSDATE,'YYYY') ]]>
-		ORDER BY DATE_RANGE
-	</select>
-	-->
-	<!-- 관리자 월별구독권 연도별 매출 - 작성자 : 장희연 
-	<select id="selectSalesPerYearSub" resultMap="salesResultSet">
-		SELECT SUM(REG_PAYMENT) "TOTAL"
-			 , (TO_CHAR(REG_START_DATE,'YYYY')) "DATE_RANGE"
-		FROM PAYMENT_REGULAR
-		GROUP BY TO_CHAR(REG_START_DATE,'YYYY')
-		HAVING <![CDATA[ TO_CHAR(REG_START_DATE,'YYYY') >= TO_CHAR(SYSDATE - (INTERVAL '5' YEAR),'YYYY') ]]>
-		   AND <![CDATA[ TO_CHAR(REG_START_DATE,'YYYY') <= TO_CHAR(SYSDATE,'YYYY') ]]> 
-		ORDER BY DATE_RANGE
-	</select>
-	-->
-	<!-- 관리자 연도별 매출 - 작성자 : 장희연 
-	<select id="selectSalesPerYear" resultMap="salesResultSet">
-		SELECT SUM(TOTAL) "TOTAL"
-			 , DATE_RANGE
-		FROM (
-		    SELECT SUM(PAYMENT) "TOTAL"
-				 , (TO_CHAR(PAY_DATE,'YYYY')) "DATE_RANGE"
-			FROM PAYMENT
-			GROUP BY TO_CHAR(PAY_DATE,'YYYY')
-			HAVING <![CDATA[ TO_CHAR(PAY_DATE,'YYYY') >= TO_CHAR(SYSDATE - (INTERVAL '5' YEAR),'YYYY') ]]>
-			   AND <![CDATA[ TO_CHAR(PAY_DATE,'YYYY') <= TO_CHAR(SYSDATE,'YYYY') ]]>
-		    UNION
-		    SELECT SUM(REG_PAYMENT) "TOTAL"
-				 , (TO_CHAR(REG_START_DATE,'YYYY')) "DATE_RANGE"
-			FROM PAYMENT_REGULAR
-			GROUP BY TO_CHAR(REG_START_DATE,'YYYY')
-			HAVING <![CDATA[ TO_CHAR(REG_START_DATE,'YYYY') >= TO_CHAR(SYSDATE - (INTERVAL '5' YEAR),'YYYY') ]]>
-			   AND <![CDATA[ TO_CHAR(REG_START_DATE,'YYYY') <= TO_CHAR(SYSDATE,'YYYY') ]]> 
-		)
-		GROUP BY DATE_RANGE
-		ORDER BY DATE_RANGE
-	</select>
-	-->
+	
 	<select id="selectViewsTV" parameterType="string" resultType="_int">
 		SELECT VIEWS
 		FROM TV
-		WHERE GENRES LIKE '%' || #{genre} || '%'
-	</select>
-	
-	<select id="selectViewsMovie" parameterType="string" resultType="_int">
-		SELECT VIEWS
-		FROM MOVIE
 		WHERE GENRES LIKE '%' || #{genre} || '%'
 	</select>
 
@@ -435,15 +333,17 @@
 		WHERE REVIEW_NO = #{reviewNo}
 	</update>
 		
+	<!-- 관리자 페이지 이용권 내역 수 조회 - 작성자: 성현 -->
 	<select id="selectAdminPaymentListCount" resultType="_int">
 		SELECT SUM(COUNT) AS COUNT
 		FROM (SELECT COUNT(*) AS COUNT
 		      FROM PAYMENT
 		      UNION ALL
 		      SELECT COUNT(*) AS COUNT
-		      FROM PAYMENT_REGULAR
+		      FROM PAYMENT_REGULAR)
 	</select>
 	
+	<!-- 관리자 페이지 이용권 내역 리스트 조회 - 작성자: 성현 -->
 	<select id="selectAdminPaymentList" resultMap="paymentResultSet">
 		SELECT *
 		FROM(SELECT PAY_ORDER_NO,
@@ -453,7 +353,6 @@
 		          PAY_END_DATE
 				FROM PAYMENT
 				JOIN MEMBER USING (USER_NO)
-		
 		UNION
 		SELECT REG_ORDER_NO AS PAY_ORDER_NO,
 		        USER_ID AS USER_NO,
@@ -462,8 +361,9 @@
 		        REG_END_DATE AS PAY_END_DATE
 		FROM PAYMENT_REGULAR
 		JOIN MEMBER USING (USER_NO))
-		ORDER BY PAY_DATE
+		ORDER BY PAY_DATE DESC
 	</select>
+	
 	<!-- 관리자 페이지 댓글 신고 관리를 위한 페이징바(select) - 작성자: 수빈 -->
 	<select id="reportedReplyListCount" resultType="_int">
 		SELECT COUNT(*)

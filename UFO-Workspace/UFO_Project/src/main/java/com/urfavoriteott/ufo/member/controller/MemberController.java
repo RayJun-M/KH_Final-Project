@@ -144,7 +144,7 @@ public class MemberController {
 		return "redirect:/";
 		
 	}
-	
+		
 	/**
 	 * 회원가입창을 띄워주는 메소드 - 작성자 : 동민
 	 * @return

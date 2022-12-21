@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "mybatis-3-mapper.dtd" >
 <mapper namespace="paymentMapper">
+
+	<!-- 일반결제 resultset -->
     <resultMap id="paymentResultSet" type="payment">
 		<result column="PAY_NO" property="payNo" />
 		<result column="PAY_ORDER_NO" property="payOrderNo" />
@@ -12,17 +14,20 @@
 		<result column="PAY_URL" property="payUrl" />
 	</resultMap>
 	
+	<!-- 정기결제 resultset -->
 	<resultMap id="regPayResultSet" type="payment">
 		<result column="REG_NO" property="payNo" />
 		<result column="REG_ORDER_NO" property="payOrderNo" />
-		<result column="USERNO" property="userNo" />
+		<result column="USER_NO" property="userNo" />
 		<result column="REG_PAYMENT" property="payment" />
-		<result column="REG_DATE" property="payDate" />
+		<result column="REG_START_DATE" property="payDate" />
 		<result column="REG_END_DATE" property="payEndDate" />
 		<result column="REG_STATUS" property="payStatus" />
 		<result column="REG_URL" property="payUrl" />
+		<result column="BILLINGKEY" property="billingKey" />
 	</resultMap>
 	
+	<!-- 작성자: 성현 / 일반결제 insert -->
 	<insert id="insertPay" parameterType="payment">
 		INSERT INTO PAYMENT(PAY_NO,
 							PAY_ORDER_NO,
@@ -36,6 +41,20 @@
 				#{payUrl})
 	</insert>
 	
+	<!-- 작성자: 성현 / 정기결제 insert -->
 	<insert id="insertReg" parameterType="payment">
+		INSERT INTO PAYMENT_REGULAR (REG_NO,
+									 REG_ORDER_NO,
+									 USER_NO,
+									 REG_PAYMENT,
+									 REG_URL,
+									 BILLINGKEY)
+							 VALUES (#{payNo},
+							 		 #{payOrderNo},
+							 		 #{userNo},
+							 		 #{payment},
+							 		 #{payUrl},
+							 		 #{billingKey}
+							 		 )
 	</insert>
 </mapper>

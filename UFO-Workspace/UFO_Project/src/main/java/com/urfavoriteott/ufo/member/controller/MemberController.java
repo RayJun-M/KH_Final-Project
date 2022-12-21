@@ -1,6 +1,7 @@
 package com.urfavoriteott.ufo.member.controller;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.Cookie;
@@ -20,10 +21,10 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.urfavoriteott.ufo.common.model.vo.PageInfo;
 import com.urfavoriteott.ufo.common.template.Pagination;
+import com.urfavoriteott.ufo.contents.model.vo.Payment;
 import com.urfavoriteott.ufo.contents.model.vo.Review;
 import com.urfavoriteott.ufo.member.model.service.MemberService;
 import com.urfavoriteott.ufo.member.model.vo.Member;
-
 
 @Controller
 public class MemberController {
@@ -39,6 +40,21 @@ public class MemberController {
 	@Autowired
 	private MailSendService mailService;
 		
+	
+	/**
+	 * 로그인 시 이용 기간이 남아있는지 체크할 함수 - 작성자: 성현
+	 * @param loginUser: 로그인한 정보
+	 * @return
+	 */
+	
+	public Payment payChecker(Member loginUser) {
+		Payment payment = null;
+		
+		payment = memberService.payChecker(loginUser);
+		
+		return payment;
+	}
+	
 	/**
 	 * 회원 로그인창을 띄워주는 메소드 - 작성자 : 동민
 	 * @return
@@ -85,9 +101,13 @@ public class MemberController {
 		
 		if(loginUser != null &&
 				bcryptPasswordEncoder.matches(m.getUserPwd(), loginUser.getUserPwd())) {
-			
+				
 			// 비밀번호도 일치한다면 => 로그인 성공
 			session.setAttribute("loginUser", loginUser);
+			
+			Payment payment = payChecker(loginUser);
+			System.out.println(payment);
+			session.setAttribute("payment", payment);
 			
 			// session.setAttribute("alertMsg", "로그인에 성공하였습니다.");
 			
@@ -124,7 +144,7 @@ public class MemberController {
 		return "redirect:/";
 		
 	}
-	
+		
 	/**
 	 * 회원가입창을 띄워주는 메소드 - 작성자 : 동민
 	 * @return
@@ -406,7 +426,7 @@ public class MemberController {
 		}
 	}
 
-  /**
+	/**
 	 * 마이 페이지 별점 및 코멘트 내역에서 사용할 페이징 바, 기본 접속 시 내가 쓴 전체 코멘트 조회 - 작성자 : 수빈
 	 * @param currentPage
 	 * @param model
@@ -459,5 +479,38 @@ public class MemberController {
 		}
 		
 		return result;
+	}
+	
+	/**
+	 * 작성자: 성현 / 마이페이지 결제내역 호출 메소드
+	 * @param currentPage: 현재 페이지(맨 처음 호출시엔 기본값 1)
+	 * @param session (로그인한 사용자의 번호 컨트롤러에서 호출)
+	 * @param mv (페이지에 바인딩할 결제내역과 페이징 객체)
+	 * @return (myPayment.jsp로 포워딩)
+	 */
+	@RequestMapping("myPayment.me")
+	public ModelAndView myPayment(@RequestParam(value = "cpage", defaultValue = "1")int currentPage, HttpSession session, ModelAndView mv) {
+		
+		int loginUserNo = ((Member)session.getAttribute("loginUser")).getUserNo();
+
+		int listCount = memberService.selectMyPaymentListCount(loginUserNo);
+		
+		int pageLimit = 10;
+		int boardLimit = 10;
+		
+		Date today = new Date();
+		mv.addObject("today", today);
+		
+		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, pageLimit, boardLimit);
+		
+		mv.addObject("pi", pi);
+		
+		ArrayList<Payment> list = memberService.selectMyPaymentList(pi, loginUserNo);
+		System.out.println(list);
+		mv.addObject("list", list);
+		
+		mv.setViewName("member/myPayment");
+		
+		return mv;
 	}
 }

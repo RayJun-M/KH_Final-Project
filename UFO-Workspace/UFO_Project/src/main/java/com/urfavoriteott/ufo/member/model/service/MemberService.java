@@ -3,6 +3,7 @@ package com.urfavoriteott.ufo.member.model.service;
 import java.util.ArrayList;
 
 import com.urfavoriteott.ufo.common.model.vo.PageInfo;
+import com.urfavoriteott.ufo.contents.model.vo.Payment;
 import com.urfavoriteott.ufo.contents.model.vo.Review;
 import com.urfavoriteott.ufo.member.model.vo.Member;
 
@@ -72,7 +73,7 @@ public interface MemberService {
 	 */
 	int deleteMember(int userNo);
   
-  /**
+	/**
 	 * 마이 페이지 별점 및 코멘트 내역 조회를 위한 페이징바(select) - 작성자 : 수빈
 	 * @param loginUserNo
 	 * @return
@@ -92,5 +93,21 @@ public interface MemberService {
 	 * @param checkNum
 	 * @return
 	 */
-	int deleteMyComment(int checkNum); 
+	int deleteMyComment(int checkNum);
+
+	/** 작성자: 성현 / 마이페이지 결제내역 조회 페이징 처리에 필요한 결제내역 수 조회
+	 * @param loginUserNo
+	 * @return
+	 */
+	int selectMyPaymentListCount(int loginUserNo);
+
+	/**
+	 * 작성자: 성현 / 마이페이지 결제내역 조회
+	 * @param pi
+	 * @param loginUserNo
+	 * @return
+	 */
+	ArrayList<Payment> selectMyPaymentList(PageInfo pi, int loginUserNo);
+
+	Payment payChecker(Member loginUser);
 }

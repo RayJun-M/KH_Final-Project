@@ -5,4 +5,6 @@ import com.urfavoriteott.ufo.contents.model.vo.Payment;
 public interface PaymentService {
 
     int insertPay(Payment payment);
+
+	int insertReg(Payment payment);
 }

@@ -1,6 +1,7 @@
 package com.urfavoriteott.ufo.community.model.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,5 +43,13 @@ public class CommunityServiceImpl implements CommunityService {
 	@Override
 	public Community selectCommunity(int comNo) {
 		return communityDao.selectCommunity(sqlSession, comNo);
+	}
+	
+	/**
+	 * 커뮤니티 댓글 신고를 눌렀을 때 사용할 메소드 - 작성자: 수빈
+	 */
+	@Override
+	public int reportReply(HashMap map) {
+		return communityDao.reportReply(sqlSession, map);
 	}
 }

@@ -1,5 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -66,6 +71,22 @@
 	.active :hover {
 		cursor: pointer;
 	}
+
+	/* 페이징 처리 */
+	#pagingArea {
+    text-align: center;
+  	}
+
+	#pagingArea>button {
+		background-color: #64ffda;
+		border-radius : 5px;
+		margin-left : 5px;
+		margin-right : 5px;
+		width : 40px;
+		height : 40px;
+		/* opacity : 40%; */
+		cursor: pointer;
+	}
 </style>
 </head>
 <body>
@@ -95,7 +116,7 @@
 		        <div><a href="admin_list.me">회원 관리</a></div>
 		        <div><a href="">콘텐츠 관리</a></div>
 				<div><a href="">코멘트 관리</a></div>
-		        <div id="selected_tab"><a href="adminPayment.pay">이용권 관리</a></div>       
+		        <div id="selected_tab"><a href="adminPaymentList.ad">이용권 관리</a></div>       
 		        <div><a href="">신고 관리</a></div>
 		        <div><a href="admin	_stat.st">통계 관리</a></div>
 			</div>
@@ -109,45 +130,37 @@
 						<th colspan="2">유형</th>
 						<th>사용자 아이디</th>
 						<th>결제금액</th>
-						<th>결제수단</th>
 						<th>결제일</th>
 						<th>만료일</th>
 						<th>해지</th>
 					</tr>
 				</thead>
 				<tbody>
+					<c:forEach var="item" items="${list}">
 					<tr>
-						<td>20220711subsuser01</td>
-						<td colspan="2">정기구독권&emsp;</td>
-						<td>user01</td>
-						<td>5,900원</td>
-						<td>카드</td>
-						<td>2022.07.11</td>
-						<td>2022.08.10</td>
-						<td><button class="btn btn-sm btn-outline-dark" style="background-color: #64FFDA;">해지</button></td>
+						<td>${item.payOrderNo}</td>
+						<td colspan="2">									
+						<c:choose>
+							<c:when test="${fn:contains(item.payOrderNo,'pay')}">일반이용권</c:when>
+							<c:otherwise>정기구독권</c:otherwise>
+						</c:choose>
+						</td>
+						<td>${item.userNo }</td>
+						<td><fmt:formatNumber value="${item.payment}" pattern="#,###원"/></td>
+						<td>${item.payDate}</td>
+						<td>${item.payEndDate}</td>
+						<td>
+							<c:choose>
+								<c:when test="${item.payEndDate >= today}">
+									<button class="btn btn-sm btn-outline-dark" style="background-color: #64FFDA;" onclick="cancelPay(${item.payOrderNo})">해지</button>
+								</c:when>
+								<c:otherwise>
+									<button class="btn btn-sm btn-outline-dark" style="background-color: #64FFDA;" disabled>해지</button>
+								</c:otherwise>
+							</c:choose>
+						</td>
 					</tr>
-					<tr>
-						<td>20220711subsuser01</td>
-						<td colspan="2">정기구독권&emsp;</td>
-						<td>user01</td>
-						<td>5,900원</td>
-						<td>카드</td>
-						<td>2022.07.11</td>
-						<td>2022.08.10</td>
-						<td><button class="btn btn-sm btn-outline-dark" style="background-color: #64FFDA;">해지</button></td>
-					</tr>
-					<tr>
-						<td>20220711subsuser01</td>
-						<td colspan="2">정기구독권&emsp;</td>
-						<td>user01</td>
-						<td>5,900원</td>
-						<td>카드</td>
-						<td>2022.07.11</td>
-						<td>2022.08.10</td>
-						<td><button class="btn btn-sm btn-outline-dark" style="background-color: #64FFDA;">해지</button></td>
-					</tr>
-
-					<!-- 페이징 처리 할 영역 -->
+					</c:forEach>
 
 
 
@@ -186,10 +199,34 @@
 								})
 							})
 						}
-						
 					</script>
 				</tbody>
-			</table>			
+			</table>
+			<br><br>
+			<!-- 페이징 처리 할 영역 -->
+			<div id="pagingArea">
+				<c:choose>
+					<c:when test="${ pi.currentPage eq 1 }">
+						<button type="button" onclick="location.href='#';" disabled>«</button>
+					</c:when>
+					<c:otherwise>
+						<button type="button" onclick="location.href='adminPaymentList.ad?cpage=${ pi.currentPage - 1}';">«</button>
+					</c:otherwise>
+				</c:choose>
+				
+				<c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }" step="1">
+					<button type="button" onclick="location.href='adminPaymentList.ad?cpage=${ p }';">${ p }</button>
+				</c:forEach>
+				
+				<c:choose>
+					<c:when test="${ pi.currentPage eq pi.maxPage }">
+						<button type="button" onclick="location.href='#';" disabled>»</button>
+					</c:when>
+					<c:otherwise>
+						<button type="button" onclick="location.href='adminPaymentList.ad?cpage=${ pi.currentPage + 1}';">»</button>
+					</c:otherwise>
+				</c:choose>
+			</div>
         </div>
 
 

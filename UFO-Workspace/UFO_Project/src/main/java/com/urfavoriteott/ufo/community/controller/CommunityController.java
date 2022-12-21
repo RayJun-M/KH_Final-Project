@@ -1,6 +1,7 @@
 package com.urfavoriteott.ufo.community.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.servlet.http.HttpSession;
 
@@ -9,13 +10,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.urfavoriteott.ufo.common.model.vo.PageInfo;
 import com.urfavoriteott.ufo.common.template.Pagination;
 import com.urfavoriteott.ufo.community.model.service.CommunityService;
 import com.urfavoriteott.ufo.community.model.vo.Community;
-import com.urfavoriteott.ufo.cs.model.vo.Notice;
 
 @Controller
 public class CommunityController {
@@ -113,4 +114,47 @@ public class CommunityController {
 		 return mv;
 		 
 	 }
+	 
+	    /**
+	     * 커뮤니티 댓글 신고를 눌렀을 때 사용할 메소드 - 작성자: 수빈
+	     * @param reportReason
+	     * @param form_comRplNo
+	     * @param form_comRplUserNo
+	     * @param form_loginUserNo
+	     * @return
+	     */
+	    @ResponseBody
+	    @RequestMapping(value="reportReply.co", produces="text/html; charset=UTF-8")
+	    public String reportReply(String form_cno, String reportReason, String form_comRplNo, String form_comRplUserNo, String form_loginUserNo) {
+	    	
+	    	// System.out.println(reportReason);
+	    	// System.out.println(form_comRplNo);
+	    	// System.out.println(form_comRplUserNo);
+	    	// System.out.println(form_loginUserNo);
+	    	
+	    	HashMap<String, String> map = new HashMap<>();
+	    	map.put("reportReason", reportReason);
+	    	map.put("comRplNo", form_comRplNo);
+	    	map.put("comRplUserNo", form_comRplUserNo);
+	    	map.put("loginUserNo", form_loginUserNo);
+	    	
+	    	int result = communityService.reportReply(map);
+	    	
+	    	if(result > 0) {
+
+	        	return "<script>"
+	   	    		 + "alert('성공적으로 신고 접수되었습니다.');"
+	   	    		 + "location.href='communityDetail.co?cno=" + form_cno + "';"
+	   	    		 + "</script>";
+	    		
+	    	} else {
+	    		
+	    		return "<script>"
+	      	    		 + "alert('신고 접수에 실패하셨습니다. 잠시 후 다시 시도해 주세요.');"
+	      	    		+ "location.href='communityDetail.co?cno=" + form_cno + "';"
+	      	    		 + "</script>";
+	    		
+	    	}
+	    	
+	    }
 }

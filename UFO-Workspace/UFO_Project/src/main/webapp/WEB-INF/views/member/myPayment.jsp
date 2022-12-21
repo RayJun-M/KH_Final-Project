@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -85,6 +88,22 @@
 	.active :hover {
 		cursor: pointer;
 	}
+
+  /* 페이징 처리 */
+  #pagingArea {
+    text-align: center;
+  }
+
+  #pagingArea>button {
+    background-color: #64ffda;
+    border-radius : 5px;
+    margin-left : 5px;
+    margin-right : 5px;
+    width : 40px;
+    height : 40px;
+    /* opacity : 40%; */
+    cursor: pointer;
+  }
 </style>
 </head>
 <body>
@@ -104,8 +123,8 @@
 
 	        <table id="user_profile">
 	            <tr>
-	                <td rowspan="2" width="220"><img src="resources/image/user/profile/profile1.jfif" width="170" height="170"></td>
-	                <td colspan="2" width="380" style="font-size:35px; font-weight:900;">//이용자닉네임//</td>
+	                <td rowspan="2" width="220"><img src="resources/image/member/profile${loginUser.userProfile}.png" width="170" height="170"></td>
+	                <td colspan="2" width="380" style="font-size:35px; font-weight:900;">${loginUser.userNickname}</td>
 	                <td>
 	                	<button type="button" onclick="location.href='updateForm.me'">회원정보 수정</button>
 	                	<button type="button" data-toggle="modal" data-target="#updatePwdForm">비밀번호 변경</button>
@@ -117,20 +136,36 @@
 			                    이용권 구독을 하지 않은 경우 '사용 중인 이용권이 없습니다'
 			                    라는 멘트와 함께 이용권 구독 페이지로 가는 a태그
 	                -->
-	                <td style="font-size:20px; font-weight:900;">사용 중인 이용권이 없습니다</td>
-	                <td><button onclick="location.href='#'">이용권 구독</button></td>
+					<c:choose>
+						<c:when test="${empty payment}">
+							<td style="font-size:20px; font-weight:900;">사용 중인 이용권이 없습니다</td>
+							<td><button onclick="location.href='#'">이용권 구독</button></td>
+						</c:when>
+						<c:otherwise>
+							<td style="font-size:20px; font-weight:900;">
+								<c:choose>
+									<c:when test="${fn:contains(payment.payOrderNo,'pay')}">일반이용권</c:when>
+									<c:otherwise>정기구독권</c:otherwise>
+								</c:choose>
+							</td>
+							<td style="font-size:18px; font-weight:600;">
+								만료일: ${payment.payEndDate}
+							</td>
+						</c:otherwise>
+					</c:choose>
 	            </tr>
 	        </table>
 
-		    <!-- 이용권 구독하지 않은 경우만 나타는 구독 유도탭 -->
-		    <div align="center" id="subscribe_tab">이용권을 구독하고 인기 TV프로그램과 다양한 영화를 자유롭게 시청하세요!  이용권 구독하기></div>
-
+			<c:if test="${empty payment}">
+				<!-- 이용권 구독하지 않은 경우만 나타는 구독 유도탭 -->
+				<div align="center" id="subscribe_tab">이용권을 구독하고 인기 TV프로그램과 다양한 영화를 자유롭게 시청하세요!  이용권 구독하기></div>
+			</c:if>		
 		    <!-- !!! 본인이 맡은 탭 div에 id="selected_tab" 붙어녛기 !!!-->
 		    <div id="mypage_navi">
 		        <div><a href="">시청 내역</a></div>
 		        <div><a href="">볼래요</a></div>
-		        <div id="selected_tab"><a href="myPayment.pay">이용권 내역</a></div>       
-		        <div><a href="">별점 및 코멘트 내역</a></div>
+		        <div id="selected_tab"><a href="myPayment.me">이용권 내역</a></div>       
+		        <div><a href="myComment.me">별점 및 코멘트 내역</a></div>
 		        <div><a href="">커뮤니티 글 내역</a></div>
 		        <div><a href="">커뮤니티 댓글 내역</a></div>
 			</div>
@@ -143,47 +178,70 @@
 						<th width="20%">결제번호</th>
 						<th colspan="2">상품명</th>
 						<th>결제금액</th>
-						<th>결제수단</th>
 						<th>결제일</th>
 						<th>만료일</th>
 					</tr>
 				</thead>
+				<fmt:formatDate var="today" value="${today}" pattern="yyyy-MM-dd" />
 				<tbody>
-					<tr>
-						<td>구독중</td>
-						<td>20220711subsuser01</td>
-						<td colspan="2">정기구독권&emsp;<button class="btn btn-sm btn-outline-dark" style="background-color: #64FFDA;">해지</button></div></td>
-						<td>5,900원</td>
-						<td>카드</td>
-						<td>2022.07.11</td>
-						<td>2022.08.10</td>
-					</tr>
-					<tr>
-						<td>이용중</td>
-						<td>20220711subsuser01</td>
-						<td colspan="2">정기구독권&emsp;<button class="btn btn-sm btn-outline-dark" style="background-color: #64FFDA;">해지</button></div></td>
-						<td>5,900원</td>
-						<td>카드</td>
-						<td>2022.07.11</td>
-						<td>2022.08.10</td>
-					</tr>
-					<tr>
-						<td>만료</td>
-						<td>20220711subsuser01</td>
-						<td colspan="2">정기구독권&emsp;<button class="btn btn-sm btn-outline-dark" style="background-color: #64FFDA;" disabled>해지</button></div></td>
-						<td>5,900원</td>
-						<td>카드</td>
-						<td>2022.07.11</td>
-						<td>2022.08.10</td>
-					</tr>
-
-					<!-- 페이징 처리 할 영역 -->
-
-
-
-
+					<c:choose>
+						<c:when test="${empty list}">
+							<div style="text-align:center; font-size:20px;">조회된 결과가 없습니다.</div>
+						</c:when>
+						<c:otherwise>
+						<c:forEach var="item" items="${list}">
+							<tr>
+								<td>
+									<c:choose>
+										<c:when test="${item.payEndDate >= today}">
+											이용중
+										</c:when>
+										<c:otherwise>
+											만료됨
+										</c:otherwise>
+									</c:choose>
+								</td>
+								<td>${item.payOrderNo}</td>
+								<td colspan="2">
+									<c:choose>
+										<c:when test="${fn:contains(item.payOrderNo,'pay')}">일반이용권&emsp;</c:when>
+										<c:otherwise>정기구독권&emsp;</c:otherwise>
+									</c:choose>
+									<c:choose>
+										<c:when test="${item.payEndDate >= today}">
+										<button class="btn btn-sm btn-outline-dark" style="background-color: #64FFDA;" onclick="cancelPay('${item.payOrderNo}')">해지</button>
+										</c:when>
+										<c:otherwise>
+										<button class="btn btn-sm btn-outline-dark" style="background-color: #64FFDA;" disabled>해지</button>
+									</c:otherwise>
+									</c:choose>
+								</td>
+								<td><fmt:formatNumber value="${item.payment}" pattern="#,###원"/></td>
+								<td>${item.payDate}</td>
+								<td>${item.payEndDate}</td>
+							</tr>
+						</c:forEach>
+					</c:otherwise>
+					</c:choose>
 
 					<script>
+
+						const cancelPay = (payOrderNo) => {
+							if(confirm('이용권을 해지하셔도 만료일까지 이용은 가능하시며, 환불은 되지않습니다. 해지하시겠습니까?')){
+								$.ajax({
+									url: 'delete.pay',
+									data: {payOrderNo: payOrderNo},
+									type: 'GET',
+									success: () => {
+
+									},
+									error: () => {
+									console.log('AJAX 호출 에러 발생');
+									}
+								});
+							}
+						}
+
 						onload = () => { 
 							let btn = document.querySelectorAll('.btn');
 							let abledBtn = [];
@@ -193,33 +251,42 @@
 								}
 							})
 							abledBtn.forEach((el) => {
-								console.log(el);
 								el.addEventListener('mouseenter', () => {
 									el.style.cursor = 'pointer';
 								})
 								el.addEventListener('mouseout', () => {
 									el.style.cursor= '';
 								})
-								el.addEventListener('click', () => { // 해지 누르면 모달창으로 진짜 해지할건지 확인받고 ok하면 비동기처리
-									if(confirm('정말 해지하시겠습니까?')){
-										$.ajax({
-											url: 'delete.pay',
-											data: {},
-											type: 'post',
-											success: () => {
-											},
-											error: () => {
-												console.log('AJAX 호출 에러 발생');
-											}
-										});
-									}
-								})
 							})
 						}
-						
 					</script>
 				</tbody>
 			</table>
+			<br><br>
+			<!-- 페이징 처리 할 영역 -->
+			<div id="pagingArea">
+				<c:choose>
+					<c:when test="${ pi.currentPage eq 1 }">
+						<button type="button" onclick="location.href='#';" disabled>«</button>
+					</c:when>
+					<c:otherwise>
+						<button type="button" onclick="location.href='myPayment.me?cpage=${ pi.currentPage - 1}';">«</button>
+					</c:otherwise>
+				</c:choose>
+				
+				<c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }" step="1">
+					<button type="button" onclick="location.href='myPayment.me?cpage=${ p }';">${ p }</button>
+				</c:forEach>
+				
+				<c:choose>
+					<c:when test="${ pi.currentPage eq pi.maxPage }">
+						<button type="button" onclick="location.href='#';" disabled>»</button>
+					</c:when>
+					<c:otherwise>
+						<button type="button" onclick="location.href='myPayment.me?cpage=${ pi.currentPage + 1}';">»</button>
+					</c:otherwise>
+				</c:choose>
+			</div>
         </div>
 
 		<!-- 푸터 영역 -->

@@ -18,6 +18,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.urfavoriteott.ufo.common.model.vo.PageInfo;
+import com.urfavoriteott.ufo.contents.model.vo.Payment;
 import com.urfavoriteott.ufo.contents.model.vo.Review;
 import com.urfavoriteott.ufo.member.model.dao.MemberDao;
 import com.urfavoriteott.ufo.member.model.vo.Member;
@@ -205,6 +206,29 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public int deleteMyComment(int checkNum) {
 		return memberDao.deleteMyComment(sqlSession, checkNum);
+	}
+
+	/** 
+	 * 작성자: 성현 / 마이페이지 결제내역 페이징처리에 필요한 listCount 조회
+	 */
+	@Override
+	public int selectMyPaymentListCount(int loginUserNo) {
+		
+		return memberDao.selectMyPaymentListCount(sqlSession, loginUserNo);
+	}
+
+	/**
+	 * 작성자: 성현 / 마이페이지 결제내역 조회
+	 */
+	@Override
+	public ArrayList<Payment> selectMyPaymentList(PageInfo pi, int loginUserNo) {
+		
+		return memberDao.selectMyPaymentList(sqlSession, pi, loginUserNo);
+	}
+
+	@Override
+	public Payment payChecker(Member loginUser) {
+		return memberDao.payChecker(sqlSession, loginUser);
 	}
 
 }

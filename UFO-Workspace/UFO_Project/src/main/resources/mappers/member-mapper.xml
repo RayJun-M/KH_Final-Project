@@ -12,6 +12,47 @@
 		<result column="USER_PROFILE" property="userProfile" />
 	</resultMap>
 	
+	<!-- 리뷰 관련 resultSet, 작성자: 수빈 -->
+	<resultMap id="reviewResultSet" type="review">
+		<result column="REVIEW_NO" property="reviewNo" />
+		<result column="USER_NO" property="userNo" />
+		<result column="MOVIE_ID" property="movieId" />
+		<result column="MOVIE_TITLE" property="movieTitle" />
+		<result column="TV_ID" property="tvId" />
+		<result column="TV_NAME" property="tvName" />
+		<result column="REVIEW_STAR" property="reviewStar" />
+		<result column="REVIEW_CONTENT" property="reviewContent" />
+		<result column="REVIEW_REGISTER_DATE" property="reviewDate" />
+		<result column="REVIEW_STATUS" property="reviewStatus" />
+		<result column="USER_ID" property="userId" />
+		<result column="USER_NICKNAME" property="userNickname" />
+	</resultMap>
+	
+	<!-- 일반결제 resultset -->
+    <resultMap id="paymentResultSet" type="payment">
+		<result column="PAY_NO" property="payNo" />
+		<result column="PAY_ORDER_NO" property="payOrderNo" />
+		<result column="USER_NO" property="userNo" />
+		<result column="PAYMENT" property="payment" />
+		<result column="PAY_DATE" property="payDate" />
+		<result column="PAY_END_DATE" property="payEndDate" />
+		<result column="PAY_STATUS" property="payStatus" />
+		<result column="PAY_URL" property="payUrl" />
+	</resultMap>
+	
+	<!-- 정기결제 resultset -->
+	<resultMap id="regPayResultSet" type="payment">
+		<result column="REG_NO" property="payNo" />
+		<result column="REG_ORDER_NO" property="payOrderNo" />
+		<result column="USER_NO" property="userNo" />
+		<result column="REG_PAYMENT" property="payment" />
+		<result column="REG_START_DATE" property="payDate" />
+		<result column="REG_END_DATE" property="payEndDate" />
+		<result column="REG_STATUS" property="payStatus" />
+		<result column="REG_URL" property="payUrl" />
+		<result column="BILLINGKEY" property="billingKey" />
+	</resultMap>
+	
 	<!-- 로그인용 쿼리문(암호화작업 완료) -->
 	<select id="loginMember" parameterType="member" resultMap="memberResultSet">
 		SELECT *
@@ -144,7 +185,7 @@
 		 WHERE USER_NO = #{userNo}
 	</update>
 	
-		<!-- 마이 페이지 별점 및 코멘트 내역 조회를 위한 페이징바(select) - 작성자 : 수빈 -->
+	<!-- 마이 페이지 별점 및 코멘트 내역 조회를 위한 페이징바(select) - 작성자 : 수빈 -->
 	<select id="selectMyCommentListCount" resultType="_int">
 		SELECT COUNT(*)
 		FROM REVIEW
@@ -176,4 +217,60 @@
 		   SET REVIEW_STATUS = 'N'
 		WHERE REVIEW_NO = ${checkNum}
 	</update>
+	
+	<!-- 결제내역 리스트 페이징 처리 - 작성자: 성현 -->
+	<select id="selectMyPaymentListCount" resultType="_int">
+		SELECT SUM(COUNT) AS COUNT
+		FROM (SELECT COUNT(*) AS COUNT
+		      FROM PAYMENT
+		      WHERE USER_NO = #{loginUserNo}
+		      UNION ALL
+		      SELECT COUNT(*) AS COUNT
+		      FROM PAYMENT_REGULAR
+		      WHERE USER_NO = #{loginUserNo})
+	</select>
+	
+	<!-- 결제내역 리스트 조회 - 작성자: 성현 -->
+	<select id="selectMyPaymentList" parameterType="_int" resultMap="paymentResultSet">
+		SELECT * 
+		FROM	(SELECT PAY_ORDER_NO,
+		                    PAYMENT,
+		                    PAY_DATE,
+		                    PAY_END_DATE
+		                    FROM PAYMENT
+		                    WHERE USER_NO = #{loginUserNo}
+		                    UNION
+		                    SELECT REG_ORDER_NO AS PAY_ORDER_NO,
+		                    REG_PAYMENT AS PAYMENT, 
+		                    REG_START_DATE AS PAY_DATE,
+		                    REG_END_DATE AS PAY_END_DATE
+		                    FROM PAYMENT_REGULAR
+		                    WHERE USER_NO = #{loginUserNo})
+		ORDER BY PAY_DATE DESC
+	</select>
+	
+	<!-- 만료기간이 남아있는 이용권이 있는지 조회 - 작성자: 성현 -->
+	<select id="payChecker" parameterType="_int" resultMap="paymentResultSet">
+		SELECT PAY_ORDER_NO,
+		       USER_NO,
+		       PAYMENT,
+		       PAY_DATE,
+		       PAY_END_DATE,
+		       PAY_STATUS,
+		       PAY_URL
+		FROM PAYMENT
+		WHERE USER_NO = #{userNo}
+		AND PAY_END_DATE >= SYSDATE
+		UNION ALL
+		SELECT REG_ORDER_NO AS PAY_ORDER_NO,
+		       USER_NO,
+		       REG_PAYMENT AS PAYMENT,
+		       REG_START_DATE AS PAY_DATE,
+		       REG_END_DATE AS PAY_END_DATE,
+		       REG_STATUS AS PAY_STATUS,
+		       REG_URL AS PAY_URL
+		FROM PAYMENT_REGULAR
+		WHERE USER_NO = #{userNo}
+		AND REG_END_DATE >= SYSDATE
+	</select>
 </mapper>

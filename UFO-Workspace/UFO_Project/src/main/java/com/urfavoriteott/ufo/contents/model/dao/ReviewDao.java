@@ -61,5 +61,74 @@ public class ReviewDao {
 		return sqlSession.update("reviewMapper.reportComment", map);
 		
 	}
-
+	
+	/**
+	 * 콘텐츠 화면에서 나의 리뷰 가지고 오기 - 작성자: 수빈
+	 * @param sqlSession
+	 * @param map
+	 * @return
+	 */
+	public Review selectMyComment(SqlSessionTemplate sqlSession, HashMap map) {
+		return (Review)sqlSession.selectOne("reviewMapper.selectMyComment", map);
+	}
+	
+	/**
+	 * 컨텐츠 화면에서 나의 코멘트를 삭제하는 메소드 - 작성자: 수빈
+	 * @param sqlSession
+	 * @param myReviewNo
+	 * @return
+	 */
+	public int deleteMyComment(SqlSessionTemplate sqlSession, int myReviewNo) {
+		return sqlSession.update("reviewMapper.deleteMyComment", myReviewNo);
+	}
+	
+	/**
+	 * 컨텐츠 화면에서 나의 코멘트를 작성하는 메소드 - 작성자: 수빈
+	 * @param sqlSession
+	 * @param map
+	 * @return
+	 */
+	public int insertMyComment(SqlSessionTemplate sqlSession, HashMap map) {
+		return sqlSession.update("reviewMapper.insertMyComment", map);
+	}
+	
+	/**
+	 * 컨텐츠 화면에서 나의 코멘트를 수정하는 메소드 - 작성자: 수빈
+	 * @param sqlSession
+	 * @param map
+	 * @return
+	 */
+	public int updateMyComment(SqlSessionTemplate sqlSession, HashMap map) {
+		return sqlSession.update("reviewMapper.updateMyComment", map);
+	}
+	
+	/**
+	 * 콘텐츠에서 별점을 줄 때 사용할(insert or update) 메소드 - 작성자: 수빈
+	 * @param sqlSession
+	 * @param map
+	 * @return
+	 */
+	public int selectCondition(SqlSessionTemplate sqlSession, HashMap map) {
+		return sqlSession.selectOne("reviewMapper.selectCondition", map);
+	}
+	
+	/**
+	 * 콘텐츠에서 있는 별점을 수정할 때 사용할 메소드 - 작성자: 수빈
+	 * @param sqlSession
+	 * @param map
+	 * @return
+	 */
+	public int updateMyStar(SqlSessionTemplate sqlSession, HashMap map) {
+		return sqlSession.update("reviewMapper.updateMyStar", map);
+	}
+	
+	/**
+	 * 콘텐츠에서 없는 별점을 처음 등록할 때 사용할 메소드 - 작성자: 수빈
+	 * @param sqlSession
+	 * @param map
+	 * @return
+	 */
+	public int insertMyStar(SqlSessionTemplate sqlSession, HashMap map) {
+		return sqlSession.insert("reviewMapper.insertMyStar", map);
+	}
 }
